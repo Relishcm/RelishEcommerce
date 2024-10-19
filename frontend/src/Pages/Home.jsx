@@ -7,8 +7,8 @@ export const Home = () => {
     <>
    <div ><HomeSlider /></div>
 
-    <div className='p-10 '> 
-    <p className='text-5xl font-semibold  mb-9 flex text-green-800 justify-center'>Products </p>
+    <div className='p-8 '> 
+    <p className='md:text-4xl text-3xl font-semibold  mb-2 flex text-green-800 justify-center'>Products </p>
    <div><HomeCard /></div> 
    
     </div>

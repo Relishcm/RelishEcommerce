@@ -14,7 +14,7 @@ const Card = ({ Icon, text,link }) => {
         <img src={Icon} className='h-full w-full rounded-lg border' />
         {/* <Icon /> */}
       </div>
-      <div className="text text-xs sm:text-xs md:text-xs lg:text-xl font-semibold text-wrap flex items-center justify-center">
+      <div className="text text-md mb-2 sm:text-xs md:text-lg lg:text-xl font-semibold text-wrap flex items-center justify-center">
         {text}
       </div>
     </div></Link>

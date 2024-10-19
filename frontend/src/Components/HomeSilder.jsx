@@ -12,13 +12,13 @@ export const HomeSlider = () => {
       description: "This podcast features conversations with nonprofit leaders to brainstorm ways they can grow their organizations and do more good. Read how"
     },
     {
-      src: "https://img.freepik.com/premium-photo/mobile_687709-1728.jpg?size=626&ext=jpg&ga=GA1.1.830621292.1707550020&semt=ais_hybrid",
+      src: "garments.png",
       alt: "Slide 2",
       title: "Accessories",
       description: "This podcast features conversations with nonprofit leaders to brainstorm ways they can grow their organizations and do more good. Read how"
     },
     {
-      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjkRu8Oo_H0r36nx_dejPDmnA7HcflSUsqeA&s",
+      src: "silderhome2.png",
       alt: "Slide 3",
       title: "Headphones",
       description: "This podcast features conversations with nonprofit leaders to brainstorm ways they can grow their organizations and do more good. Read how"
@@ -38,7 +38,7 @@ export const HomeSlider = () => {
 
   return (
     <div className='flex justify-center items-center text-center'>
-    <div className="relative w-full overflow-hidden z-10  h-[100px] sm:h-[300px] md:h-[490px] text-center ">
+    <div className="relative w-full overflow-hidden z-10  h-full text-center ">
       <Slider {...settings}>
         {slides.map((slide, index) => (
           <div key={index} className="relative">
@@ -68,20 +68,20 @@ export const HomeSlider = () => {
 
 const CustomNextArrow = (props) => (
   <div
-    className="absolute top-48 right-0 z-10 transform -translate-y-1/2 sm:p-3 text-center  bg-white text-green-500  shadow-lg cursor-pointer"
+    className="absolute md:top-44 lg:top-60 top-20 sm:top-40 rounded-tl-xl rounded-bl-xl right-0 z-10 transform -translate-y-1/2 sm:p-3 text-center  bg-white text-green-500  shadow-lg cursor-pointer"
     onClick={props.onClick}
     aria-label="Next slide"
   >
-    <span className="text-3xl font-bold">&rarr;</span>
+    <span className="md:text-3xl text-xl font-extrabold ">&rarr;</span>
   </div>
 );
 
 const CustomPrevArrow = (props) => (
   <div
-    className="absolute top-48 left-0 z-10 transform -translate-y-1/2 sm:p-3 bg-white text-green-500 shadow-lg cursor-pointer"
+    className="absolute md:top-44 lg:top-60 top-20 sm:top-40 rounded-tr-xl rounded-br-xl left-0 z-10 transform -translate-y-1/2 sm:p-3 bg-white text-green-500 shadow-lg cursor-pointer"
     onClick={props.onClick}
     aria-label="Previous slide"
   >
-    <span className="text-3xl font-bold">&larr;</span>
+    <span className="md:text-3xl text-xl font-extrabold ">&larr;</span>
   </div>
 );
