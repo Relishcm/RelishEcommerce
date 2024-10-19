@@ -5,18 +5,18 @@ import { SiFlipkart } from 'react-icons/si';
 export const Footer = () => {
   return (
     <div className="bg-gray-100  py-6 px-4 sm:px-8 md:px-12 lg:px-20 mt-10">
-<div className="text-xl font-semibold border-b-2 border-green-800 md:border-b-4 inline-block mb-4 ">
+{/* <div className="text-xl font-semibold border-b-2 border-green-800 md:border-b-4 inline-block mb-4 ">
 Relish Consultancy & Marketing
-</div>
+</div> */}
 
 
 
 
 
       <div className="container mx-auto flex flex-col md:flex-row justify-between gap-6 md:gap-10 mt-10">
-      <ul className="flex flex-col space-y-3">
+      {/* <ul className="flex flex-col space-y-3">
           <li className="text-2xl font-semibold text-green-800">  <div className="text-2xl sm:text-3xl md:text- font-bold text-lime-500">
-                        <img src='logo8.png' className='h-10 w-auto ' />
+                        <img src='logorelish.png' className='h-28 w-auto ' />
                     </div>
           </li>
           <li className="text-lg">1800 207 2777</li>
@@ -34,33 +34,56 @@ Relish Consultancy & Marketing
               <SiFlipkart />
             </div>
           </li>
-        </ul>
-
-     
+        </ul> */}
         <ul className="flex flex-col space-y-3">
-          <li className="text-xl font-semibold border-b-2 border-green-800 md:border-b-4 inline-block ">Services</li>
-          <li className="hover:text-green-800 transition-colors">Mobile</li>
-          <li className="hover:text-green-800 transition-colors">Opticals</li>
-          <li className="hover:text-green-800 transition-colors">cars</li>
-     
+          <li className="text-xl font-semibold text-green-800 inline-block ">Quick Links</li>
+          <li className="hover:text-green-800 transition-colors cursor-pointer">Home</li>
+          <li className="hover:text-green-800 transition-colors cursor-pointer">About Us</li>
+          <li className="hover:text-green-800 transition-colors cursor-pointer">Contact Us</li>
+         
         </ul>
+     
+        {/* <ul className="flex flex-col space-y-3">
+          <li className="text-xl font-semibold  text-green-800 inline-block ">Products</li>
+          <li className="hover:text-green-800 transition-colors cursor-pointer">Mobile</li>
+          <li className="hover:text-green-800 transition-colors cursor-pointer">EyeGlasses</li>
+          <li className="hover:text-green-800 transition-colors cursor-pointer">Cosmetices</li>
+          <li className="hover:text-green-800 transition-colors cursor-pointer">Tea</li>
+     
+        </ul> */}
        
-       
+       <ul className="flex flex-col space-y-3">
+       <h1 className='text-2xl font-semibold mb-2 relative z-10 flex justify-center items-center'>Get In Touch</h1>
+      <li className="flex relative justify-center  mb-10   space-x-4 z-10">
+            <div className="bg-white text-green-800 p-2 rounded-full transition-colors text-2xl cursor-pointer">
+              <FaFacebookF />
+            </div>
+            <div className="bg-white text-green-800 p-2 rounded-full transition-colors text-2xl cursor-pointer">
+              <FaInstagram />
+            </div>
+            <div className="bg-white text-green-800 p-2 rounded-full transition-colors text-2xl cursor-pointer">
+              <FaAmazon />
+            </div>
+            <div className="bg-white text-green-800 p-2 rounded-full transition-colors text-2xl cursor-pointer">
+              <SiFlipkart />
+            </div>
+          </li> 
+         
+        </ul>
 
         
         <ul className="flex flex-col space-y-3">
-          <li className="text-xl font-semibold border-b-2 border-green-800 md:border-b-4 inline-block ">About</li>
-          <li className="hover:text-green-800 transition-colors">We Are Hiring</li>
-          <li className="hover:text-green-800 transition-colors">Refer And Earn</li>
-          <li className="hover:text-green-800 transition-colors">About us</li>
-          <li className="hover:text-green-800 transition-colors">Lenskart Coupons</li>
+          <li className="text-xl font-semibold  text-green-800 inline-block ">Information</li>
+          <li className="hover:text-green-800 transition-colors cursor-pointer">Privacy Policy</li>
+          <li className="hover:text-green-800 transition-colors cursor-pointer">Terms & Conditions</li>
+          <li className="hover:text-green-800 transition-colors cursor-pointer">Returns and Cancellation</li>
         </ul>
-
+{/* 
         <ul className="flex flex-col space-y-3">
           <li className="text-xl font-semibold border-b-2 border-green-800 md:border-b-4 inline-block ">Help</li>
           <li className="hover:text-green-800 transition-colors">FAQ's</li>
       
-        </ul>
+        </ul> */}
       </div>
 
       

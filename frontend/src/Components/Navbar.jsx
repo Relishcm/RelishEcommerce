@@ -19,7 +19,7 @@ export const Navbar = () => {
 
     const navdata = [
         { path: '/', name: 'Home' },
-        { path: '/about', name: 'About' },
+        { path: '/about', name: 'About Us' },
         // { path: '/brand', name: 'Brand' },
         { path: '/contact', name: 'Contact' },
         { path: '/wishlist', name: <div className='flex items-center gap-1'> SignIn<FaUser className='text-green-800 text-xl' /></div> },

@@ -6,7 +6,8 @@ export const MobileNavbar = () => {
    <div>
     <div className="bg-gray-200">
        <ul>
-        
+        <li>Mobile </li>
+        <li>C USB</li>
        </ul>
     </div>
    </div>

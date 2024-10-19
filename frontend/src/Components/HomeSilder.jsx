@@ -92,34 +92,51 @@ import "slick-carousel/slick/slick-theme.css";
 
 export const HomeSlider = () => {
   const slides = [
+    // {
+    //   mobileSrc: "silderhome2.png",
+    //   desktopSrc: "silderhome2.png",
+    //   alt: "Slide 1",
+    //   title: "Mobile Phone",
+    //   description: "This podcast features conversations with nonprofit leaders to brainstorm ways they can grow their organizations and do more good. Read how"
+    // },
+    // {
+    //   mobileSrc: "mobilegarments1.png",
+    //   desktopSrc: "garments1.png",
+    //   alt: "Slide 2",
+    //   title: "Accessories",
+    //   description: "This podcast features conversations with nonprofit leaders to brainstorm ways they can grow their organizations and do more good. Read how"
+    // },
     {
-      mobileSrc: "silderhome2.png",
-      desktopSrc: "silderhome2.png",
-      alt: "Slide 1",
-      title: "Mobile Phone",
-      description: "This podcast features conversations with nonprofit leaders to brainstorm ways they can grow their organizations and do more good. Read how"
-    },
-    {
-      mobileSrc: "mobilegarments1.png",
-      desktopSrc: "garments1.png",
-      alt: "Slide 2",
-      title: "Accessories",
-      description: "This podcast features conversations with nonprofit leaders to brainstorm ways they can grow their organizations and do more good. Read how"
-    },
-    {
-      mobileSrc: "silderhome1.png",
-      desktopSrc: "silderhome1.png",
+      mobileSrc: "cosmetices.png",
+      desktopSrc: "cosmetices.png",
       alt: "Slide 3",
       title: "Headphones",
       description: "This podcast features conversations with nonprofit leaders to brainstorm ways they can grow their organizations and do more good. Read how"
     },
     {
       mobileSrc: "mobilegarments1.png",
-      desktopSrc: "garments2.png",
+      desktopSrc: "garments4.png",
       alt: "Slide 2",
       title: "Accessories",
       description: "This podcast features conversations with nonprofit leaders to brainstorm ways they can grow their organizations and do more good. Read how"
     },
+    {
+      mobileSrc: "mobile.png",
+      desktopSrc: "mobile.png",
+      alt: "Slide 2",
+      title: "Accessories",
+      description: "This podcast features conversations with nonprofit leaders to brainstorm ways they can grow their organizations and do more good. Read how"
+    },
+   
+ {
+      mobileSrc: "garments3.png",
+      desktopSrc: "garments3.png",
+      alt: "Slide 1",
+      title: "Mobile Phone",
+      description: "This podcast features conversations with nonprofit leaders to brainstorm ways they can grow their organizations and do more good. Read how"
+    },
+   
+
   ];
 
   const settings = {
@@ -135,7 +152,7 @@ export const HomeSlider = () => {
 
   return (
     <div className='flex justify-center items-center text-center'>
-      <div className="relative w-full overflow-hidden z-10 h-full text-center">
+      <div className="relative w-full overflow-hidden z-10 h-full  text-center">
         <Slider {...settings}>
           {slides.map((slide, index) => (
             <div key={index} className="relative">
