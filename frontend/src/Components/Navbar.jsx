@@ -48,12 +48,12 @@ export const Navbar = () => {
                             className="p-2 w-full md:w-[400px] lg:w-[600px] bg-gray-800 border border-gray-600 rounded"
                         />
 
-<div className='p-1 md:flex hidden gap-3 text-black'>
-                    <div className='flex items-center justify-end  mr-3 gap-1 p-1'>Wishlist<FaHeart className='text-green-800 text-2xl' /></div>
-                    <div className='flex items-center gap-1'>Cart <GiShoppingBag className='text-green-800 text-2xl' /></div>
+                        <div className='p-1 md:flex hidden gap-3 text-black'>
+                            <div className='flex items-center justify-end  mr-3 gap-1 p-1'>Wishlist<FaHeart className='text-green-800 text-2xl' /></div>
+                            <div className='flex items-center gap-1'>Cart <GiShoppingBag className='text-green-800 text-2xl' /></div>
+                        </div>
                     </div>
-                    </div>
-                   
+
                 </div>
 
                 <div className="md:hidden flex items-center mr-3">
