@@ -91,7 +91,7 @@ export const Navbar = () => {
             </div>
 
 
-            <div className='md:hidden flex'>
+            <div className='md:hidden flex justify-around'>
                 <div className="p-4 flex  items-center text-gray-200 space-x-1">
 
                     <input
@@ -100,8 +100,8 @@ export const Navbar = () => {
                         className="p-2 w-full md:w-[400px] lg:w-[600px] bg-gray-800 border border-gray-600 rounded"
                     />
                 </div>
-                <div className='flex items-center justify-end text-4xl mr-3 gap-1 p-1'><FaHeart className='text-green-800' />
-                    <div className='flex items-center gap-1'><GiShoppingBag className='text-green-800' /> </div> <div className='p-1 mr-3'>
+                <div className='flex items-center justify- text-4xl  gap-1 p-1'><FaHeart className='text-green-800' />
+                    <div className='flex items-center gap-1'><GiShoppingBag className='text-green-800' /> </div> <div className='p-1 '>
                         <button className="md:text-lg hover:bg-green-900   bg- p-2 text-green-800 rounded-lg">
                             <Link to="auth" className='flex items-center gap-4'>   <FaUser className='text-4xl' /></Link>
                         </button>

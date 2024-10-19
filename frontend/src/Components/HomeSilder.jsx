@@ -114,7 +114,7 @@ export const HomeSlider = () => {
       description: "This podcast features conversations with nonprofit leaders to brainstorm ways they can grow their organizations and do more good. Read how"
     },
     {
-      mobileSrc: "mobilegarments1.png",
+      mobileSrc: "garments4.png",
       desktopSrc: "garments4.png",
       alt: "Slide 2",
       title: "Accessories",
