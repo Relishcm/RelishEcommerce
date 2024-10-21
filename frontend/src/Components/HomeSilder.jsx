@@ -127,15 +127,15 @@ export const HomeSlider = () => {
       title: "Accessories",
       description: "This podcast features conversations with nonprofit leaders to brainstorm ways they can grow their organizations and do more good. Read how"
     },
-   
- {
+
+    {
       mobileSrc: "garments3.png",
       desktopSrc: "garments3.png",
       alt: "Slide 1",
       title: "Mobile Phone",
       description: "This podcast features conversations with nonprofit leaders to brainstorm ways they can grow their organizations and do more good. Read how"
     },
-   
+
 
   ];
 
@@ -144,8 +144,8 @@ export const HomeSlider = () => {
     infinite: true,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: true,            
-    autoplaySpeed: 3000,       
+    autoplay: true,
+    autoplaySpeed: 3000,
     nextArrow: <CustomNextArrow />,
     prevArrow: <CustomPrevArrow />,
   };
@@ -185,7 +185,7 @@ export const HomeSlider = () => {
 
 const CustomNextArrow = (props) => (
   <div
-    className="absolute md:top-44 lg:top-60 top-20 sm:top-40 rounded-tl-xl rounded-bl-xl right-0 z-10 transform -translate-y-1/2 sm:p-3 text-center bg-white text-green-500 shadow-lg cursor-pointer"
+    className="absolute md:top-44 lg:top-60 top-20 sm:top-40 rounded-tl-xl rounded-bl-xl right-0 z-10 transform -translate-y-1/2 sm:p-3 text-center bg-white text-red-800 shadow-lg cursor-pointer"
     onClick={props.onClick}
     aria-label="Next slide"
   >
@@ -195,7 +195,7 @@ const CustomNextArrow = (props) => (
 
 const CustomPrevArrow = (props) => (
   <div
-    className="absolute md:top-44 lg:top-60 top-20 sm:top-40 rounded-tr-xl rounded-br-xl left-0 z-10 transform -translate-y-1/2 sm:p-3 bg-white text-green-500 shadow-lg cursor-pointer"
+    className="absolute md:top-44 lg:top-60 top-20 sm:top-40 rounded-tr-xl rounded-br-xl left-0 z-10 transform -translate-y-1/2 sm:p-3 bg-white text-red-800 shadow-lg cursor-pointer"
     onClick={props.onClick}
     aria-label="Previous slide"
   >

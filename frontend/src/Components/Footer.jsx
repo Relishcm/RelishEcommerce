@@ -4,7 +4,7 @@ import { SiFlipkart } from 'react-icons/si';
 
 export const Footer = () => {
   return (
-    <div className="bg-gray-100  py-6 px-4 sm:px-8 md:px-12 lg:px-20 mt-10">
+    <div className="bg-gray-50  py-6 px-4 sm:px-8 md:px-12 lg:px-20 mt-10">
 {/* <div className="text-xl font-semibold border-b-2 border-green-800 md:border-b-4 inline-block mb-4 ">
 Relish Consultancy & Marketing
 </div> */}
@@ -36,10 +36,10 @@ Relish Consultancy & Marketing
           </li>
         </ul> */}
         <ul className="flex flex-col space-y-3">
-          <li className="text-xl font-semibold text-green-800 inline-block ">Quick Links</li>
-          <li className="hover:text-green-800 transition-colors cursor-pointer">Home</li>
-          <li className="hover:text-green-800 transition-colors cursor-pointer">About Us</li>
-          <li className="hover:text-green-800 transition-colors cursor-pointer">Contact Us</li>
+          <li className="text-xl font-semibold text-red-800 inline-block ">Quick Links</li>
+          <li className="hover:text-red-800 transition-colors cursor-pointer">Home</li>
+          <li className="hover:text-red-800 transition-colors cursor-pointer">About Us</li>
+          <li className="hover:text-red-800 transition-colors cursor-pointer">Contact Us</li>
          
         </ul>
      
@@ -55,16 +55,16 @@ Relish Consultancy & Marketing
        <ul className="flex flex-col space-y-3">
        <h1 className='text-2xl font-semibold mb-2 relative z-10 flex justify-center items-center'>Get In Touch</h1>
       <li className="flex relative justify-center  mb-10   space-x-4 z-10">
-            <div className="bg-white text-green-800 p-2 rounded-full transition-colors text-2xl cursor-pointer">
+            <div className="bg-white text-red-800 p-2 rounded-full transition-colors text-2xl cursor-pointer">
               <FaFacebookF />
             </div>
-            <div className="bg-white text-green-800 p-2 rounded-full transition-colors text-2xl cursor-pointer">
+            <div className="bg-white text-red-800 p-2 rounded-full transition-colors text-2xl cursor-pointer">
               <FaInstagram />
             </div>
-            <div className="bg-white text-green-800 p-2 rounded-full transition-colors text-2xl cursor-pointer">
+            <div className="bg-white text-red-800 p-2 rounded-full transition-colors text-2xl cursor-pointer">
               <FaAmazon />
             </div>
-            <div className="bg-white text-green-800 p-2 rounded-full transition-colors text-2xl cursor-pointer">
+            <div className="bg-white text-red-800 p-2 rounded-full transition-colors text-2xl cursor-pointer">
               <SiFlipkart />
             </div>
           </li> 
@@ -73,10 +73,10 @@ Relish Consultancy & Marketing
 
         
         <ul className="flex flex-col space-y-3">
-          <li className="text-xl font-semibold  text-green-800 inline-block ">Information</li>
-          <li className="hover:text-green-800 transition-colors cursor-pointer">Privacy Policy</li>
-          <li className="hover:text-green-800 transition-colors cursor-pointer">Terms & Conditions</li>
-          <li className="hover:text-green-800 transition-colors cursor-pointer">Returns and Cancellation</li>
+          <li className="text-xl font-semibold  text-red-800 inline-block ">Information</li>
+          <li className="hover:text-red-800 transition-colors cursor-pointer">Privacy Policy</li>
+          <li className="hover:text-red-800 transition-colors cursor-pointer">Terms & Conditions</li>
+          <li className="hover:text-red-800 transition-colors cursor-pointer">Returns and Cancellation</li>
         </ul>
 {/* 
         <ul className="flex flex-col space-y-3">
@@ -87,7 +87,7 @@ Relish Consultancy & Marketing
       </div>
 
       
-      <div className="text-center mt-8 border-t border-green-800 pt-4">
+      <div className="text-center mt-8 border-t border-red-800 pt-4">
         <p>Relish Consultancy & Marketing. All rights reserved.</p>
       </div>
     </div>

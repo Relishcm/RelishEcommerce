@@ -70,8 +70,7 @@
 //         </div>
 //     );
 // };
-// DropDownMobile.js
-// DropDownMobile.js
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
@@ -81,21 +80,21 @@ export const DropDownMobile = () => {
     const { openDropdown, handleMouseLeave } = useDropdown();
 
     return (
-        <div className="relative" onMouseLeave={handleMouseLeave}>
-            <div className="flex items-center cursor-pointer">
-                <h1 className="font-medium mr-2 text-center">Mobile & Mobile Accessories</h1>
+        <div className="relative z-50" onMouseLeave={handleMouseLeave}>
+            <div className="flex items-center cursor-pointer z-50">
+                <h1 className="font-medium mr- text-center">Mobile & Mobile Accessories</h1>
                 {openDropdown === 'mobile' ? <IoMdArrowDropup className="text-md" /> : <IoMdArrowDropdown className="text-md" />}
             </div>
             {openDropdown === 'mobile' && (
-                <ul className="list-none font-medium absolute bg-white z-50 border border-gray-300 rounded-md shadow-lg">
+                <ul className="list-none md:ml-2 font-medium absolute bg-white z-50 border border-gray-300 rounded-md shadow-lg">
                     <Link to="/Moblie">
-                        <li className="py-1 px-4 hover:bg-green-100 cursor-pointer transition-colors duration-300">Mobile</li>
+                        <li className="py-1 z-50 px-4 hover:bg-green-100 cursor-pointer transition-colors duration-300">Mobile</li>
                     </Link>
                     <Link to="/cable">
                         <li className="py-1 px-4 hover:bg-green-100 cursor-pointer transition-colors duration-300">C type USB</li>
                     </Link>
                     <Link to="/charge">
-                        <li className="py-1 px-4 hover:bg-green-100 cursor-pointer transition-colors duration-300">Charge</li>
+                        <li className="py-1 px-4 z-50 hover:bg-green-100 cursor-pointer transition-colors duration-300">Charge</li>
                     </Link>
                     <Link to="/headphone">
                         <li className="py-1 px-4 hover:bg-green-100 cursor-pointer transition-colors duration-300">Headphone</li>

@@ -29,10 +29,10 @@ const Signup = () => {
     }
     setErrors(errors);
     const requestData = { username, email, password };
-  
+
     if (Object.keys(errors).length === 0) {
       try {
-        console.log("Sending requestData:", requestData); // Log request data
+        console.log("Sending requestData:", requestData);
         let response;
         if (type === "signup") {
           response = await axios.post("/user/signup", requestData);
@@ -41,18 +41,18 @@ const Signup = () => {
           response = await axios.post("/user/login", requestData);
           alert("Login successful");
         }
-  
+
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("name", response.data.name);
-  
+
         setAuth({
           username: "",
           email: "",
           password: ""
         });
-  
+
         navigate("/");
-  
+
       } catch (error) {
         console.error("Error", error.response?.data || error.message);
         if (type === "signup") {
@@ -68,7 +68,7 @@ const Signup = () => {
       }
     }
   };
-  
+
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-green-50">

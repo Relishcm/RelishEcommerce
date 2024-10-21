@@ -37,71 +37,100 @@
 // };
 
 // export default HomeCard;
-// HomeCard.js
-// HomeCard.js
-// HomeCard.js
+
 import React from 'react';
 import Card from './Card';
-import { useDropdown } from '../Contextapi/DropdownContext';
 import { DropDownMobile } from './DropDownMobile';
 import { DropDownEyeglasses } from './DropDownEyeglasses';
 import { DropDownCosmetices } from './DropDownCosmetices';
 import { DropDowntea } from './DropDowntea';
 import { DropDownGarments } from './DropDownGarments';
-// Import other dropdown components as needed...
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { NextArrow, PrevArrow } from './Arrows'; 
 
 const HomeCard = () => {
-    const { handleMouseEnter, handleMouseLeave } = useDropdown();
-
     const cardData = [
         {
             Icon: "https://img.freepik.com/free-vector/smartphone-with-gradient-wallpaper_23-2147846501.jpg?w=740",
             text: <DropDownMobile />,
             dropdownName: 'mobile',
-
         },
         {
             Icon: "https://img.freepik.com/premium-vector/black-realitic-glasses-white_9573-356.jpg?w=740",
             text: <DropDownEyeglasses />,
             dropdownName: 'eyeglasses',
-        
         },
         { 
-          Icon: "https://img.freepik.com/free-photo/close-up-flannel-shirt-detail_23-2149575327.jpg?uid=R169119148&ga=GA1.1.715047314.1729245762&semt=ais_hybrid", 
-          text: <DropDownGarments />,
-          dropdownName: 'garments',
-
+            Icon: "https://img.freepik.com/free-photo/close-up-flannel-shirt-detail_23-2149575327.jpg?uid=R169119148&ga=GA1.1.715047314.1729245762&semt=ais_hybrid", 
+            text: <DropDownGarments />,
+            dropdownName: 'garments',
         },
         { 
-          Icon: "https://img.freepik.com/premium-photo/variety-makeup-products-including-brand-makeup_1028566-49389.jpg?uid=R166271515&ga=GA1.1.830621292.1707550020&semt=ais_hybrid", 
-          text: <DropDownCosmetices />,
-          dropdownName: 'cosmetices',
-
+            Icon: "https://img.freepik.com/premium-photo/variety-makeup-products-including-brand-makeup_1028566-49389.jpg?uid=R166271515&ga=GA1.1.830621292.1707550020&semt=ais_hybrid", 
+            text: <DropDownCosmetices />,
+            dropdownName: 'cosmetices',
         },
         { 
-          Icon: "teaa.png", 
-          text: <DropDowntea />,
-          dropdownName: 'tea',
-
+            Icon: "teaa.png", 
+            text: <DropDowntea />,
+            dropdownName: 'tea',
         },
     ];
 
+    var settings = {
+        dots: false,
+        infinite: true,
+        speed: 1000,
+        slidesToShow: 5,
+        slidesToScroll: 1,
+        initialSlide: 2,
+        nextArrow: <NextArrow />,
+        prevArrow: <PrevArrow />,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 3,
+                    infinite: true,
+                    dots: true
+                }
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2,
+                    initialSlide: 2
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1
+                }
+            }
+        ]
+    };
+
     return (
-        <div className="home-card-container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
-            {cardData.map((item, index) => (
-                <div key={index} className="relative">
-                    <Card 
-                        Icon={item.Icon} 
-                        text={item.text} 
-                    
-                        dropdownName={item.dropdownName} 
-                    />
-                </div>
-            ))}
+        <div className="home-card-container max-w-7xl mx-auto relative">
+            <Slider {...settings}>
+                {cardData.map((item, index) => (
+                    <div key={index} className="px-2">
+                        <Card 
+                            Icon={item.Icon} 
+                            text={item.text} 
+                            dropdownName={item.dropdownName} 
+                        />
+                    </div>
+                ))}
+            </Slider>
         </div>
     );
 };
 
 export default HomeCard;
-
-

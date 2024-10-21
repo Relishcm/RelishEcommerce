@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 import { useDropdown } from '../Contextapi/DropdownContext';
 
-
 export const DropDowntea = () => {
     const { openDropdown, handleMouseLeave } = useDropdown();
 
@@ -15,7 +14,7 @@ export const DropDowntea = () => {
                 {openDropdown === 'tea' ? <IoMdArrowDropup className="text-md" /> : <IoMdArrowDropdown className="text-md" />}
             </div>
             {openDropdown === 'tea' && (
-                <ul className="list-none font-medium ml-14 absolute bg-white z-50 border border-gray-300 rounded-md shadow-lg">
+                <ul className="list-none font-medium md:ml-14 absolute bg-white z-50 border border-gray-300 rounded-md shadow-lg">
                     <Link to="/man">
                         <li className="py-1 px-4 hover:bg-green-100 cursor-pointer transition-colors duration-300">Tea</li>
                     </Link>

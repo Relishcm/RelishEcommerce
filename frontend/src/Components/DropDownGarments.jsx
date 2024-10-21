@@ -1,6 +1,3 @@
-
-
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
@@ -11,8 +8,8 @@ export const DropDownGarments = () => {
     const { openDropdown, handleMouseLeave } = useDropdown();
 
     return (
-        <div className="relative" onMouseLeave={handleMouseLeave}>
-            <div className="flex items-center cursor-pointer">
+        <div className="relative z-50" onMouseLeave={handleMouseLeave}>
+            <div className="flex items-center cursor-pointer z-50">
                 <h1 className="font-medium mr-2 text-center">Ready Made Garments</h1>
                 {openDropdown === 'garments' ? <IoMdArrowDropup className="text-md" /> : <IoMdArrowDropdown className="text-md" />}
             </div>
