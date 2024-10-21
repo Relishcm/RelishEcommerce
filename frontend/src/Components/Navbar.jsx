@@ -37,7 +37,7 @@ export const Navbar = () => {
 
                 <div className='flex items-center justify-center gap-10'>
                     <div className="text-2xl sm:text-3xl md:text- font-bold  ml-3">
-                        <img src='logo2.png' className='h-24 w-auto ' />
+                        <img src='logorenban.png' className='h-24 w-auto ' />
                     </div>
                 </div>
                 <div className="hidden md:flex flex-1 justify-center ml-">
