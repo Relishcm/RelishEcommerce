@@ -38,7 +38,7 @@ const Headphone = () => {
   return (
     <>
     <div className='p-5'>
-   <h1 className='md:text-4xl text-3xl font-semibold  mb-2 flex text-red-800 justify-center'>C type USB </h1>
+   <h1 className='md:text-4xl text-3xl font-semibold  mb-2 flex text-red-800 justify-center'>HeadPhone </h1>
  
       <div className="home-card-container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 p-5">
         {cardData.map((item, index) => (

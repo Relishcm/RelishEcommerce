@@ -5,7 +5,7 @@ import { useDropdown } from '../Contextapi/DropdownContext';
 
 
 export const DropDownGarments = () => {
-    const { openDropdown, handleMouseLeave } = useDropdown();
+    const { openDropdown, handleMouseLeave,dropdownRef } = useDropdown();
 
     return (
         <div className="relative z-50" onMouseLeave={handleMouseLeave}>
@@ -14,7 +14,7 @@ export const DropDownGarments = () => {
                 {openDropdown === 'garments' ? <IoMdArrowDropup className="text-md" /> : <IoMdArrowDropdown className="text-md" />}
             </div>
             {openDropdown === 'garments' && (
-                <ul className="list-none font-medium absolute bg-white z-50 border border-gray-300 rounded-md shadow-lg">
+                <ul ref={dropdownRef} className="list-none font-medium absolute bg-white z-50 border border-gray-300 rounded-md shadow-lg">
                     <Link to="/man">
                         <li className="py-1 px-4 hover:bg-red-100 cursor-pointer transition-colors duration-300">Man</li>
                     </Link>

@@ -23,13 +23,20 @@ export const DropdownProvider = ({ children }) => {
             setOpenDropdown(null);
         }
     };
-
+    const handleScroll = () => {
+        setOpenDropdown(false);
+            };
     useEffect(() => {
-        document.addEventListener('mousedown', handleOutsideClick);
-        return () => {
-            document.removeEventListener('mousedown', handleOutsideClick);
-        };
-    }, []);
+      
+                document.addEventListener('mousedown', handleOutsideClick);
+                window.addEventListener('scroll', handleScroll);
+        
+        
+                return () => {
+                    document.removeEventListener('mousedown', handleOutsideClick);
+                    window.removeEventListener('scroll', handleScroll);
+                };
+            }, []);
     return (
         <DropdownContext.Provider value={{ openDropdown, handleMouseEnter, handleMouseLeave, dropdownRef }}>
             {children}

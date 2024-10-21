@@ -5,7 +5,7 @@ import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 import { useDropdown } from '../Contextapi/DropdownContext';
 
 export const DropDownJewelry = () => {
-    const { openDropdown, handleMouseLeave } = useDropdown();
+    const { openDropdown, handleMouseLeave,dropdownRef } = useDropdown();
 
     return (
         <div className="relative" onMouseLeave={handleMouseLeave}>
@@ -14,7 +14,7 @@ export const DropDownJewelry = () => {
                 {openDropdown === 'jewelry' ? <IoMdArrowDropup className="text-md" /> : <IoMdArrowDropdown className="text-md" />}
             </div>
             {openDropdown === 'jewelry' && (
-                <ul className="list-none font-medium  absolute bg-white z-50 border border-gray-300 rounded-md shadow-lg">
+                <ul ref={dropdownRef} className="list-none font-medium  absolute bg-white z-50 border border-gray-300 rounded-md shadow-lg">
                     <Link to="/man">
                         <li className="py-1 px-4 hover:bg-red-100 cursor-pointer transition-colors duration-300">Jewelry</li>
                     </Link>
