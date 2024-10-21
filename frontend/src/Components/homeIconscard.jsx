@@ -77,11 +77,16 @@ const HomeCard = () => {
             text: <DropDowntea />,
             dropdownName: 'tea',
         },
+        { 
+            Icon: "https://thefably.com/wp-content/uploads/2022/12/WhatsApp-Image-2022-12-30-at-9.31.52-AM-300x300.jpeg", 
+            text: 'Jewelry Set' ,
+            dropdownName: 'Jewelry Set',
+        },
     ];
 
     var settings = {
-        dots: false,
-        infinite: true,
+        dots: true,
+        infinite: false,
         speed: 1000,
         slidesToShow: 5,
         slidesToScroll: 1,
