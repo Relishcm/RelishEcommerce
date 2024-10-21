@@ -3,7 +3,7 @@ import React, { createContext, useContext, useState, useRef, useEffect } from 'r
 const DropdownContext = createContext();
 
 export const DropHoverProvider = ({ children }) => {
-    const [openDropdown, setOpenDropdown] = useState(null); // Track open dropdown by name
+    const [openDropdown, setOpenDropdown] = useState(null); 
     const dropdownRef = useRef(null);
 
     const handleOutsideClick = (event) => {

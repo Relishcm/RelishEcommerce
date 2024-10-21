@@ -4,19 +4,19 @@ import { Link } from 'react-router-dom';
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 import { useDropdown } from '../Contextapi/DropdownContext';
 
-export const DropDowntea = () => {
+export const DropDownJewelry = () => {
     const { openDropdown, handleMouseLeave } = useDropdown();
 
     return (
         <div className="relative" onMouseLeave={handleMouseLeave}>
             <div className="flex items-center cursor-pointer">
-                <h1 className="font-medium mr-2 text-center">Tea</h1>
-                {openDropdown === 'tea' ? <IoMdArrowDropup className="text-md" /> : <IoMdArrowDropdown className="text-md" />}
+                <h1 className="font-medium mr-2 text-center">Jewelry</h1>
+                {openDropdown === 'jewelry' ? <IoMdArrowDropup className="text-md" /> : <IoMdArrowDropdown className="text-md" />}
             </div>
-            {openDropdown === 'tea' && (
+            {openDropdown === 'jewelry' && (
                 <ul className="list-none font-medium  absolute bg-white z-50 border border-gray-300 rounded-md shadow-lg">
                     <Link to="/man">
-                        <li className="py-1 px-4 hover:bg-green-100 cursor-pointer transition-colors duration-300">Tea</li>
+                        <li className="py-1 px-4 hover:bg-red-100 cursor-pointer transition-colors duration-300">Jewelry</li>
                     </Link>
                     {/* <Link to="/woman">
                         <li className="py-1 px-4 hover:bg-green-100 cursor-pointer transition-colors duration-300">Hand care products</li>

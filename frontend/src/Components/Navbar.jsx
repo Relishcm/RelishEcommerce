@@ -37,7 +37,7 @@ export const Navbar = () => {
 
                 <div className='flex items-center justify-center gap-10'>
                     <div className="text-2xl sm:text-3xl md:text- font-bold  ml-3">
-                        <img src='logorenban.png' className='h-24 w-auto ' />
+                        <img src='logorenban1.png' className='h-24 w-auto ' />
                     </div>
                 </div>
                 <div className="hidden md:flex flex-1 justify-center ml-">
@@ -72,7 +72,7 @@ export const Navbar = () => {
                         className="p-2 w-full  bg-gray-800 border border-gray-600 rounded"
                     />
                </div>
-               <div className='p-1 md:flex hidden gap-3 text-black text-lg'>
+               <div className='p-1 md:flex hidden gap-3 text-black text-lg cursor-pointer'>
                     <div className='flex items-center justify-end  mr-3 gap-1 p-1'>SignIn<FaUser className='text-red-800 text-2xl' /></div>
                     <div className='flex items-center gap-1'>Register <GiArchiveRegister className='text-red-800 text-2xl' /></div>
                 </div>

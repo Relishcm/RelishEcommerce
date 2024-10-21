@@ -49,9 +49,25 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { NextArrow, PrevArrow } from './Arrows'; 
+import { DropDownJewelry } from './DropDownJewelry';
 
 const HomeCard = () => {
     const cardData = [
+        { 
+            Icon: "https://img.freepik.com/premium-photo/variety-makeup-products-including-brand-makeup_1028566-49389.jpg?uid=R166271515&ga=GA1.1.830621292.1707550020&semt=ais_hybrid", 
+            text: <DropDownCosmetices />,
+            dropdownName: 'cosmetices',
+        },
+        { 
+            Icon: "https://img.freepik.com/free-photo/close-up-flannel-shirt-detail_23-2149575327.jpg?uid=R169119148&ga=GA1.1.715047314.1729245762&semt=ais_hybrid", 
+            text: <DropDownGarments />,
+            dropdownName: 'garments',
+        },
+        { 
+            Icon: "https://thefably.com/wp-content/uploads/2022/12/WhatsApp-Image-2022-12-30-at-9.31.52-AM-300x300.jpeg", 
+            text: <DropDownJewelry /> ,
+            dropdownName: 'jewelry',
+        },
         {
             Icon: "https://img.freepik.com/free-vector/smartphone-with-gradient-wallpaper_23-2147846501.jpg?w=740",
             text: <DropDownMobile />,
@@ -63,25 +79,11 @@ const HomeCard = () => {
             dropdownName: 'eyeglasses',
         },
         { 
-            Icon: "https://img.freepik.com/free-photo/close-up-flannel-shirt-detail_23-2149575327.jpg?uid=R169119148&ga=GA1.1.715047314.1729245762&semt=ais_hybrid", 
-            text: <DropDownGarments />,
-            dropdownName: 'garments',
-        },
-        { 
-            Icon: "https://img.freepik.com/premium-photo/variety-makeup-products-including-brand-makeup_1028566-49389.jpg?uid=R166271515&ga=GA1.1.830621292.1707550020&semt=ais_hybrid", 
-            text: <DropDownCosmetices />,
-            dropdownName: 'cosmetices',
-        },
-        { 
             Icon: "teaa.png", 
             text: <DropDowntea />,
             dropdownName: 'tea',
         },
-        { 
-            Icon: "https://thefably.com/wp-content/uploads/2022/12/WhatsApp-Image-2022-12-30-at-9.31.52-AM-300x300.jpeg", 
-            text: 'Jewelry' ,
-            dropdownName: 'Jewelry',
-        },
+    
     ];
 
     var settings = {

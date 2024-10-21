@@ -77,7 +77,7 @@ import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 import { useDropdown } from '../Contextapi/DropdownContext';
 
 export const DropDownMobile = () => {
-    const { openDropdown, handleMouseLeave } = useDropdown();
+    const { openDropdown, handleMouseLeave,dropdownRef } = useDropdown();
 
     return (
         <div className="relative z-50" onMouseLeave={handleMouseLeave}>
@@ -86,7 +86,7 @@ export const DropDownMobile = () => {
                 {openDropdown === 'mobile' ? <IoMdArrowDropup className="text-md" /> : <IoMdArrowDropdown className="text-md" />}
             </div>
             {openDropdown === 'mobile' && (
-                <ul className="list-none md:ml-2 font-medium absolute bg-white z-50 border border-gray-300 rounded-md shadow-lg">
+                <ul ref={dropdownRef} className="list-none md:ml-2 font-medium absolute bg-white z-50 border border-gray-300 rounded-md shadow-lg">
                   <Link to="/cable">
                         <li className="py-1 px-4 hover:bg-red-100 cursor-pointer transition-colors duration-300">C type USB</li>
                     </Link>
