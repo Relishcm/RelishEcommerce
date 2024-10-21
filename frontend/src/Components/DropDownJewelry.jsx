@@ -10,7 +10,7 @@ export const DropDownJewelry = () => {
     return (
         <div className="relative" onMouseLeave={handleMouseLeave}>
             <div className="flex items-center cursor-pointer">
-                <h1 className="font-medium mr-2 text-center">Jewelry</h1>
+                <h1 className="font-medium mr-2 text-center">Jewellry</h1>
                 {openDropdown === 'jewelry' ? <IoMdArrowDropup className="text-md" /> : <IoMdArrowDropdown className="text-md" />}
             </div>
             {openDropdown === 'jewelry' && (

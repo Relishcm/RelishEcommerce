@@ -33,11 +33,11 @@ export const Navbar = () => {
     return (
         <div className="bg-gray-50    sm:p-2 md:p-2 shadow-md font-medium ">
 
-            <div className="flex items-center  justify-around max-w-screen-2xl mx-auto ">
+            <div className="flex items-center  justify-between max-w-screen-2xl mx-auto ">
 
                 <div className='flex items-center justify-center gap-10'>
-                    <div className="text-2xl sm:text-3xl md:text- font-bold  ml-10">
-                        <img src='logorenban3.png' className='h-24 w-auto ' />
+                    <div className="  font-bold  lg:ml-10">
+                        <img src='logorenban3.png' className='h-24  w-auto ' />
                     </div>
                 </div>
                 <div className="hidden md:flex flex-1 justify-center ">
