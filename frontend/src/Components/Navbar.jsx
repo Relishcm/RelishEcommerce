@@ -33,15 +33,15 @@ export const Navbar = () => {
     return (
         <div className="bg-gray-50    sm:p-2 md:p-2 shadow-md font-medium ">
 
-            <div className="flex items-center  justify-between max-w-screen-2xl mx-auto ">
+            <div className="flex items-center  justify-between max-w-screen-2xl mx-auto p-2">
 
                 <div className='flex items-center justify-center gap-10'>
                     <div className="  font-bold  lg:ml-10">
-                        <img src='logorenban3.png' className='h-24  w-auto ' />
+                        <img src='logorenban3.png' className='h-20 md:h-24 w-auto ' />
                     </div>
                 </div>
-                <div className="hidden md:flex flex-1 justify-center ">
-                <ul className="flex flex-row md:space-x-11 space-x-5 p-1">
+                <div className="hidden md:flex sm:flex flex-1 justify-center ">
+                <ul className="flex flex-row md:space-x-10 sm:space-x-5 p-1">
 
                     {navdata.map((item) => (
 
@@ -64,7 +64,7 @@ export const Navbar = () => {
                 </ul>
             </div>
 
-                <div className="p- md:ml-20  items-center  space-x-2 md:flex hidden">
+                <div className="  items-center  sm:flex md:flex hidden">
 
                     <input
                         type="text"
@@ -73,7 +73,7 @@ export const Navbar = () => {
                     />
                </div>
                <div className='p-1 md:flex hidden gap-3 text-black text-lg cursor-pointer'>
-                    <div className='flex items-center justify-end  mr-3 gap-1 p-1'>SignIn<FaUser className='text-red-800 text-2xl' /></div>
+                    <div className='flex items-center   mr-3 gap-1 p-1'>SignIn<FaUser className='text-red-800 text-2xl' /></div>
                     <div className='flex items-center gap-1'>Register <GiArchiveRegister className='text-red-800 text-2xl' /></div>
                 </div>
                 {/* <div className='p-1 md:flex hidden gap-3 text-black text-lg'>
@@ -125,10 +125,10 @@ export const Navbar = () => {
                         className="p-2 w-full md:w-[400px] lg:w-[600px] bg-gray-800 border border-gray-600 rounded"
                     />
                 </div>
-                <div className='flex items-center justify- text-4xl  gap-1 p-1'><FaHeart className='text-red-800' />
+                <div className='flex items-center justify-around text-4xl  gap-1 p-1'><FaHeart className='text-red-800' />
                     <div className='flex items-center gap-1'><GiShoppingBag className='text-red-800' /> </div> <div className='p-1 '>
                         <button className="md:text-lg hover:bg-red-900   bg- p-2 text-red-800 rounded-lg">
-                            <Link to="auth" className='flex items-center gap-4'>   <FaUser className='text-4xl' /></Link>
+                            <Link to="auth" className='flex items-center gap-4 '>   <FaUser className='text-4xl' /></Link>
                         </button>
                     </div>
                 </div></div>
