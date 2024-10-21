@@ -33,7 +33,7 @@ export const Navbar = () => {
     return (
         <div className="bg-gray-50    sm:p-2 md:p-2 shadow-md font-medium ">
 
-            <div className="flex items-center  justify-between max-w-screen-2xl mx-auto ">
+            <div className="flex items-center  justify-between max-w-screen-xl mx-auto ">
 
                 <div className='flex items-center justify-center gap-10'>
                     <div className="text-2xl sm:text-3xl md:text- font-bold  ml-3">
@@ -64,12 +64,12 @@ export const Navbar = () => {
                 </ul>
             </div>
 
-                <div className="p- md:ml-20  items-center text-gray-200 space-x-2 md:flex hidden">
+                <div className="p- md:ml-20  items-center  space-x-2 md:flex hidden">
 
                     <input
                         type="text"
                         placeholder="Search..."
-                        className="p-2 w-full  bg-gray-800 border border-gray-600 rounded"
+                        className="p-2 w-full   border border-gray-950 rounded"
                     />
                </div>
                <div className='p-1 md:flex hidden gap-3 text-black text-lg cursor-pointer'>
