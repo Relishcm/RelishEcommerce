@@ -36,7 +36,7 @@ export const Navbar = () => {
             <div className="flex items-center  justify-around max-w-screen-2xl mx-auto ">
 
                 <div className='flex items-center justify-center gap-10'>
-                    <div className="text-2xl sm:text-3xl md:text- font-bold  ml-3">
+                    <div className="text-2xl sm:text-3xl md:text- font-bold  ml-10">
                         <img src='logorenban3.png' className='h-24 w-auto ' />
                     </div>
                 </div>
