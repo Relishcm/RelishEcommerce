@@ -87,17 +87,17 @@ export const DropDownMobile = () => {
             </div>
             {openDropdown === 'mobile' && (
                 <ul className="list-none md:ml-2 font-medium absolute bg-white z-50 border border-gray-300 rounded-md shadow-lg">
-                    <Link to="/Moblie">
-                        <li className="py-1 z-50 px-4 hover:bg-green-100 cursor-pointer transition-colors duration-300">Mobile</li>
+                  <Link to="/cable">
+                        <li className="py-1 px-4 hover:bg-red-100 cursor-pointer transition-colors duration-300">C type USB</li>
                     </Link>
-                    <Link to="/cable">
-                        <li className="py-1 px-4 hover:bg-green-100 cursor-pointer transition-colors duration-300">C type USB</li>
+                    <Link to="/Headphone">
+                        <li className="py-1 px-4 hover:bg-red-100 cursor-pointer transition-colors duration-300">Headphone</li>
                     </Link>
                     <Link to="/charge">
-                        <li className="py-1 px-4 z-50 hover:bg-green-100 cursor-pointer transition-colors duration-300">Charge</li>
+                        <li className="py-1 px-4 z-50 hover:bg-red-100 cursor-pointer transition-colors duration-300">Charge</li>
                     </Link>
-                    <Link to="/headphone">
-                        <li className="py-1 px-4 hover:bg-green-100 cursor-pointer transition-colors duration-300">Headphone</li>
+                    <Link to="/Moblie">
+                        <li className="py-1 z-50 px-4 hover:bg-red-100 cursor-pointer transition-colors duration-300">Mobile</li>
                     </Link>
                 </ul>
             )}

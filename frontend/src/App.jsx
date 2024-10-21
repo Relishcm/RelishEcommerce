@@ -3,6 +3,9 @@ import { OutLet } from "./Outlet/OutLet";
 import { Home } from "./Pages/Home";
 import Signup from "./Pages/Auth";
 import MobileHome from "./Pages/Mobile/MobileHome";
+import CtypeUSB from "./Pages/Mobile/CtypeUSB";
+import Headphone from "./Pages/Mobile/Headphone";
+import Charge from "./Pages/Mobile/Charge";
 // import { MobileHome } from "./Pages/Mobile/MobileHome";
 
 
@@ -16,6 +19,9 @@ function App() {
             <Route index element={<Home />} />
  
             <Route path="Moblie" element={<MobileHome />} />
+            <Route path="cable" element={<CtypeUSB />} />
+            <Route path="Headphone" element={<Headphone />} />
+            <Route path="charge" element={<Charge />} />
       
 
           </Route>

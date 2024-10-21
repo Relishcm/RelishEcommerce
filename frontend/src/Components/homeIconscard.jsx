@@ -79,8 +79,8 @@ const HomeCard = () => {
         },
         { 
             Icon: "https://thefably.com/wp-content/uploads/2022/12/WhatsApp-Image-2022-12-30-at-9.31.52-AM-300x300.jpeg", 
-            text: 'Jewelry Set' ,
-            dropdownName: 'Jewelry Set',
+            text: 'Jewelry' ,
+            dropdownName: 'Jewelry',
         },
     ];
 
