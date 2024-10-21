@@ -90,7 +90,7 @@ const HomeCard = () => {
         speed: 1000,
         slidesToShow: 5,
         slidesToScroll: 1,
-        initialSlide: 2,
+        initialSlide: 0,
         nextArrow: <NextArrow />,
         prevArrow: <PrevArrow />,
         responsive: [
