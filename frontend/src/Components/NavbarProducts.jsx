@@ -1,11 +1,11 @@
 import React from 'react'
 import { DropDownMobile } from './DropDownMobile'
-import { DropDownEyeglasses } from './DropDownEyeglasses'
 import { DropDownGarments } from './DropDownGarments'
 import { DropDownCosmetices } from './DropDownCosmetices'
-import { DropDowntea } from './DropDowntea'
+import { DropDownBags } from './DropDownBags'
 import { useDropdown } from '../Contextapi/DropdownContext'
 import { DropDownJewelry } from './DropDownJewelry'
+import { DropDownSunglasses } from './DropDownSunglasses'
 
 export const NavbarProducts = () => {
     const { handleMouseEnter, handleMouseLeave } = useDropdown();
@@ -38,16 +38,16 @@ export const NavbarProducts = () => {
                         <DropDownMobile />
                     </li>
                     <li
-                        onMouseEnter={() => handleMouseEnter('eyeglasses')}
+                        onMouseEnter={() => handleMouseEnter('sunglasses')}
                         onMouseLeave={handleMouseLeave} 
                         className=' transition duration-300 ease-in-out'>
-                        <DropDownEyeglasses />
+                        <DropDownSunglasses />
                     </li>
                     <li
-                        onMouseEnter={() => handleMouseEnter('tea')}
+                        onMouseEnter={() => handleMouseEnter('Bags')}
                         onMouseLeave={handleMouseLeave} 
                         className=' transition duration-300 ease-in-out'>
-                        <DropDowntea />
+                        <DropDownBags />
                     </li>
                 </ul>
             </div>

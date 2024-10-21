@@ -41,9 +41,9 @@
 import React from 'react';
 import Card from './Card';
 import { DropDownMobile } from './DropDownMobile';
-import { DropDownEyeglasses } from './DropDownEyeglasses';
+import {  DropDownSunglasses } from './DropDownSunglasses';
 import { DropDownCosmetices } from './DropDownCosmetices';
-import { DropDowntea } from './DropDowntea';
+import { DropDownBags } from './DropDownBags';
 import { DropDownGarments } from './DropDownGarments';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -75,13 +75,13 @@ const HomeCard = () => {
         },
         {
             Icon: "https://img.freepik.com/premium-vector/black-realitic-glasses-white_9573-356.jpg?w=740",
-            text: <DropDownEyeglasses />,
-            dropdownName: 'eyeglasses',
+            text: <DropDownSunglasses />,
+            dropdownName: 'sunglasses',
         },
         { 
             Icon: "teaa.png", 
-            text: <DropDowntea />,
-            dropdownName: 'tea',
+            text: <DropDownBags />,
+            dropdownName: 'Bags',
         },
     
     ];

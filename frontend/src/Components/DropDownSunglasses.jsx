@@ -4,21 +4,21 @@ import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 
 import { useDropdown } from '../Contextapi/DropdownContext';
 
-export const DropDownEyeglasses = () => {
+export const DropDownSunglasses = () => {
     const { openDropdown, handleMouseLeave,dropdownRef } = useDropdown();
 
     return (
         <div className="relative" onMouseLeave={handleMouseLeave}>
             <div className="flex items-center cursor-pointer">
-                <h1 className="font-medium mr-2 text-center">Eyeglasses</h1>
-                {openDropdown === 'eyeglasses' ? <IoMdArrowDropup className="text-md" /> : <IoMdArrowDropdown className="text-md" />}
+                <h1 className="font-medium mr-2 text-center">Sunglasses</h1>
+                {openDropdown === 'sunglasses' ? <IoMdArrowDropup className="text-md" /> : <IoMdArrowDropdown className="text-md" />}
             </div>
-            {openDropdown === 'eyeglasses' && (
+            {openDropdown === 'sunglasses' && (
                 <ul ref={dropdownRef} className="list-none  font-medium absolute bg-white z-50 border border-gray-300 rounded-md shadow-lg md:w-40">
-                    <Link to="/eyeglasses1">
+                    <Link to="/Sunglasses1">
                         <li className="py-1 px-4 hover:bg-red-100 cursor-pointer transition-colors duration-300">Eyeglasses Type 1</li>
                     </Link>
-                    <Link to="/eyeglasses2">
+                        <Link to="/Sunglasses2">
                         <li className="py-1 px-4 hover:bg-red-100 cursor-pointer transition-colors duration-300">Eyeglasses Type 2</li>
                     </Link>
                 </ul>
