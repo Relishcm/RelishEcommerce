@@ -9,7 +9,7 @@ export const NavbarProducts = () => {
   return (
 <>
 <div className='bg-gray-50   border-t sm:p-2 md:p-2 shadow-md font-medium'>
-    <ul className='flex  '>
+    <ul className='flex gap-5 '>
         <li className=''><DropDownMobile /></li>
         <li className=''><DropDownEyeglasses /></li>
         <li className=''><DropDownGarments/></li>
