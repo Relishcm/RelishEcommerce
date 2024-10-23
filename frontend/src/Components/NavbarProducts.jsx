@@ -6,7 +6,7 @@ import { DropDownBags } from './DropDownBags'
 import { useDropdown } from '../Contextapi/DropdownContext'
 import { DropDownJewelry } from './DropDownJewelry'
 import { DropDownSunglasses } from './DropDownSunglasses'
-import { FaBars, FaTimes } from 'react-icons/fa';
+
 
 export const NavbarProducts = () => {
     const { handleMouseEnter, handleMouseLeave } = useDropdown();
