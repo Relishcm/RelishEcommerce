@@ -83,21 +83,21 @@ export const DropDownMobile = () => {
         <div className="relative z-50" onMouseLeave={handleMouseLeave}>
             <div className="flex items-center cursor-pointer z-50">
                 <h1 className="font-medium mr- text-center">Mobile & Accessories</h1>
-                {openDropdown === 'mobile' ? <IoMdArrowDropup className="text-md" /> : <IoMdArrowDropdown className="text-md" />}
+                {/* {openDropdown === 'mobile' ? <IoMdArrowDropup className="text-md" /> : <IoMdArrowDropdown className="text-md" />} */}
             </div>
             {openDropdown === 'mobile' && (
-                <ul ref={dropdownRef} className="list-none md:ml-2 font-medium absolute bg-white z-50 border border-gray-300 rounded-md shadow-lg">
+                <ul ref={dropdownRef} className="list-none md:ml-2 font-medium absolute bg-white z-50 border border-gray-300 rounded-md shadow-lg text-sm">
                   <Link to="/cable">
-                        <li className="py-1 px-4 hover:bg-red-100 cursor-pointer transition-colors duration-300">C type USB</li>
+                        <li className="py-1 px-2 hover:bg-red-100 cursor-pointer transition-colors duration-300">C type USB</li>
                     </Link>
                     <Link to="/Headphone">
-                        <li className="py-1 px-4 hover:bg-red-100 cursor-pointer transition-colors duration-300">Headphone</li>
+                        <li className="py-1 px-2 hover:bg-red-100 cursor-pointer transition-colors duration-300">Headphone</li>
                     </Link>
                     <Link to="/charge">
-                        <li className="py-1 px-4 z-50 hover:bg-red-100 cursor-pointer transition-colors duration-300">Charge</li>
+                        <li className="py-1 px-2 z-50 hover:bg-red-100 cursor-pointer transition-colors duration-300">Charge</li>
                     </Link>
                     <Link to="/Moblie">
-                        <li className="py-1 z-50 px-4 hover:bg-red-100 cursor-pointer transition-colors duration-300">Mobile</li>
+                        <li className="py-1 z-50 px-2 hover:bg-red-100 cursor-pointer transition-colors duration-300">Mobile</li>
                     </Link>
                 </ul>
             )}

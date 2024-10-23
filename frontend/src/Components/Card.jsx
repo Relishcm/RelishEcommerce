@@ -7,7 +7,7 @@ const Card = ({ Icon, text, dropdownName }) => {
     return (
        
             <div 
-                className="card p-2 border rounded-lg hover:shadow-inner cursor-pointer z-0"
+                className="card p-2 border rounded-lg hover:shadow-inner cursor-pointer z-0 "
                 onMouseEnter={() => handleMouseEnter(dropdownName)} 
                 onMouseLeave={handleMouseLeave}
             >

@@ -11,15 +11,15 @@ export const DropDownSunglasses = () => {
         <div className="relative" onMouseLeave={handleMouseLeave}>
             <div className="flex items-center cursor-pointer">
                 <h1 className="font-medium mr-2 text-center">Sunglasses</h1>
-                {openDropdown === 'sunglasses' ? <IoMdArrowDropup className="text-md" /> : <IoMdArrowDropdown className="text-md" />}
+                {/* {openDropdown === 'sunglasses' ? <IoMdArrowDropup className="text-md" /> : <IoMdArrowDropdown className="text-md" />} */}
             </div>
             {openDropdown === 'sunglasses' && (
-                <ul ref={dropdownRef} className="list-none  font-medium absolute bg-white z-50 border border-gray-300 rounded-md shadow-lg md:w-40">
+                <ul ref={dropdownRef} className="list-none  font-medium absolute bg-white z-50 border border-gray-300 rounded-md shadow-lg w-36 text-sm">
                     <Link to="/Sunglasses1">
-                        <li className="py-1 px-4 hover:bg-red-100 cursor-pointer transition-colors duration-300">Eyeglasses Type 1</li>
+                        <li className="py-1 px-2 hover:bg-red-100 cursor-pointer transition-colors duration-300">Eyeglasses Type 1</li>
                     </Link>
                         <Link to="/Sunglasses2">
-                        <li className="py-1 px-4 hover:bg-red-100 cursor-pointer transition-colors duration-300">Eyeglasses Type 2</li>
+                        <li className="py-1 px-2 hover:bg-red-100 cursor-pointer transition-colors duration-300">Eyeglasses Type 2</li>
                     </Link>
                 </ul>
             )}

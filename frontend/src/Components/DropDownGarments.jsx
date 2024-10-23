@@ -11,10 +11,10 @@ export const DropDownGarments = () => {
         <div className="relative z-50" onMouseLeave={handleMouseLeave}>
             <div className="flex items-center cursor-pointer z-50">
                 <h1 className="font-medium mr-2 text-center">Ready Made Garments</h1>
-                {openDropdown === 'garments' ? <IoMdArrowDropup className="text-md" /> : <IoMdArrowDropdown className="text-md" />}
+                {/* {openDropdown === 'garments' ? <IoMdArrowDropup className="text-md" /> : <IoMdArrowDropdown className="text-md" />} */}
             </div>
             {openDropdown === 'garments' && (
-                <ul ref={dropdownRef} className="list-none font-medium absolute bg-white z-50 border border-gray-300 rounded-md shadow-lg">
+                <ul ref={dropdownRef} className="list-none font-medium absolute bg-white z-50 border border-gray-300 rounded-md shadow-lg text-sm">
                     <Link to="/man">
                         <li className="py-1 px-4 hover:bg-red-100 cursor-pointer transition-colors duration-300">Man</li>
                     </Link>
