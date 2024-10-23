@@ -14,16 +14,16 @@ export const DropDownBags = () => {
                 {openDropdown === 'Bags' ? <IoMdArrowDropup className="text-md" /> : <IoMdArrowDropdown className="text-md" />}
             </div>
             {openDropdown === 'Bags' && (
-                <ul className="list-none font-medium  absolute bg-white z-50 border border-gray-300 rounded-md shadow-lg">
+                <ul className="list-none font-medium absolute bg-white z-50 border border-gray-300 rounded-md shadow-lg ">
                     <Link to="/man">
-                        <li className="py-1 px-4 hover:bg-green-100 cursor-pointer transition-colors duration-300">Tea</li>
+                        <li className="py-1 px-4 hover:bg-red-100 cursor-pointer transition-colors duration-300 w-full ">Backpack Bags</li>
                     </Link>
-                    {/* <Link to="/woman">
-                        <li className="py-1 px-4 hover:bg-green-100 cursor-pointer transition-colors duration-300">Hand care products</li>
+                    <Link to="/woman">
+                        <li className="py-1 px-4 hover:bg-red-100 cursor-pointer transition-colors duration-300 w-full ">Basket Bags</li>
                     </Link>
                     <Link to="/child">
-                        <li className="py-1 px-4 hover:bg-green-100 cursor-pointer transition-colors duration-300">Body care product</li>
-                    </Link> */}
+                        <li className="py-1 px-4 hover:bg-red-100 cursor-pointer transition-colors duration-300 w-full ">Crossbody Bags</li>
+                    </Link>
               
                 </ul>
             )}

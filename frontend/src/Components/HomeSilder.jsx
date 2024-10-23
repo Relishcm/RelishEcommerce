@@ -107,8 +107,8 @@ export const HomeSlider = () => {
     //   description: "This podcast features conversations with nonprofit leaders to brainstorm ways they can grow their organizations and do more good. Read how"
     // },
     {
-      mobileSrc: "cosmetices.png",
-      desktopSrc: "cosmetices.png",
+      mobileSrc: "cosmetices1.png",
+      desktopSrc: "cosmetices1.png",
       alt: "Slide 3",
       title: "Headphones",
       description: "This podcast features conversations with nonprofit leaders to brainstorm ways they can grow their organizations and do more good. Read how"
@@ -121,8 +121,8 @@ export const HomeSlider = () => {
       description: "This podcast features conversations with nonprofit leaders to brainstorm ways they can grow their organizations and do more good. Read how"
     },
     {
-      mobileSrc: "mobile.png",
-      desktopSrc: "mobile.png",
+      mobileSrc: "mobile1.png",
+      desktopSrc: "mobile1.png",
       alt: "Slide 2",
       title: "Accessories",
       description: "This podcast features conversations with nonprofit leaders to brainstorm ways they can grow their organizations and do more good. Read how"
@@ -145,6 +145,20 @@ export const HomeSlider = () => {
     {
       mobileSrc: "garments5.png",
       desktopSrc: "garments5.png",
+      alt: "Slide 1",
+      title: "Mobile Phone",
+      description: "This podcast features conversations with nonprofit leaders to brainstorm ways they can grow their organizations and do more good. Read how"
+    },
+    {
+      mobileSrc: "cosmetices.png",
+      desktopSrc: "cosmetices.png",
+      alt: "Slide 1",
+      title: "Mobile Phone",
+      description: "This podcast features conversations with nonprofit leaders to brainstorm ways they can grow their organizations and do more good. Read how"
+    },
+    {
+      mobileSrc: "garments6.png",
+      desktopSrc: "garments6.png",
       alt: "Slide 1",
       title: "Mobile Phone",
       description: "This podcast features conversations with nonprofit leaders to brainstorm ways they can grow their organizations and do more good. Read how"

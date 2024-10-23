@@ -88,7 +88,7 @@ Relish Consultancy & Marketing
 
       
       <div className="text-center mt-8 border-t border-red-800 pt-4">
-        <p>Relish Consultancy & Marketing. All rights reserved.</p>
+        <p>Renban. All rights reserved.</p>
       </div>
     </div>
   );

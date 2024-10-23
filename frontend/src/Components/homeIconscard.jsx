@@ -79,7 +79,7 @@ const HomeCard = () => {
             dropdownName: 'sunglasses',
         },
         { 
-            Icon: "teaa.png", 
+            Icon: "https://img.freepik.com/premium-photo/black-leather-men-casual-business-bag_555047-3057.jpg?uid=R166271515&ga=GA1.2.830621292.1707550020&semt=ais_hybrid", 
             text: <DropDownBags />,
             dropdownName: 'Bags',
         },
