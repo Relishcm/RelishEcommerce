@@ -28,7 +28,7 @@ export const FavoritePick = () => {
       <h1 className='md:text-4xl text-3xl font-semibold mb- flex text-red-800 justify-center'>
       FAVORITE PICKS
       </h1>
-      <div className="home-card-container grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-5 md:p-5 z-0">
+      <div className="home-card-container grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-5 md:p-5 z-0 p-1">
         {cardData.map((item, index) => (
           <Card key={index} Icon={item.Icon} text={item.text} />
         ))}

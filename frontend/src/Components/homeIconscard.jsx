@@ -131,7 +131,7 @@ const HomeCard = () => {
         <div className='p-5'>
     <h1 className='md:text-4xl text-3xl font-semibold  mb-2 flex text-red-800 justify-center'>PRODUCTS </h1>
 
-        <div className="home-card-container max-w-7xl mx-auto relative">
+        <div className="home-card-container max-w-7xl mx-auto relative p-1">
             <Slider {...settings}>
                 {cardData.map((item, index) => (
                     <div key={index} className="px-2">

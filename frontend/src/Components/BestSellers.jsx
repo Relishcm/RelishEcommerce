@@ -23,7 +23,7 @@ export const BestSellers = () => {
       <h1 className='md:text-4xl text-3xl font-semibold mb- flex text-red-800 justify-center'>
         TOP CATEGORY PICKS
       </h1>
-      <div className=" grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-5 md:p-5 z-0">
+      <div className=" grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-5 md:p-5 z-0 p-1">
         {cardData.map((item, index) => (
           <Card key={index} Icon={item.Icon} text={item.text} />
         ))}
