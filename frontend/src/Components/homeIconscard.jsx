@@ -101,7 +101,7 @@ const HomeCard = () => {
                 settings: {
                     slidesToShow: 3,
                     slidesToScroll: 3,
-                    infinite: true,
+                    infinite: false,
                     dots: true
                 }
             },
@@ -110,14 +110,18 @@ const HomeCard = () => {
                 settings: {
                     slidesToShow: 2,
                     slidesToScroll: 2,
-                    initialSlide: 2
+                    initialSlide: 2,
+                    infinite: false,
+                    dots: true
                 }
             },
             {
                 breakpoint: 480,
                 settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 1
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    infinite: false,
+                    dots: true
                 }
             }
         ]
