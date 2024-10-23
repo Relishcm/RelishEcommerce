@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { DropDownMobile } from './DropDownMobile'
 import { DropDownGarments } from './DropDownGarments'
 import { DropDownCosmetices } from './DropDownCosmetices'
@@ -6,13 +6,16 @@ import { DropDownBags } from './DropDownBags'
 import { useDropdown } from '../Contextapi/DropdownContext'
 import { DropDownJewelry } from './DropDownJewelry'
 import { DropDownSunglasses } from './DropDownSunglasses'
+import { FaBars, FaTimes } from 'react-icons/fa';
 
 export const NavbarProducts = () => {
     const { handleMouseEnter, handleMouseLeave } = useDropdown();
+ 
     return (
         <>
-            <div className='bg-gray-50 border-t sm:p-2 md:p-2 shadow-md font-medium'>
-                <ul className='md:flex hidden gap-5 justify-around items-center max-w-screen-2xl  mx-auto'>
+            <div className='bg-gray-50 border-t p-2  shadow-md font-medium'>
+                <ul className={`flex md:text-sm md:gap-5 gap-1 text-xs justify-around items-center max-w-screen-2xl mx-auto `}>
+                 
                     <li
                         onMouseEnter={() => handleMouseEnter('cosmetices')}
                         onMouseLeave={handleMouseLeave} 

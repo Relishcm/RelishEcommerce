@@ -24,8 +24,8 @@ export const Navbar = () => {
         { path: '/contact', name: 'Contact' },
         // { path: '/wishlist', name: <div className='flex items-center gap-1'> SignIn<FaUser className='text-red-800 text-xl' /></div> },
         // { path: '/cart', name: <div className='flex items-center gap-1'> Register <GiArchiveRegister className='text-red-800 text-2xl' /></div> },
-        { path: '/wishlist', name: <div className='flex items-center gap-1'> Wishlist<FaHeart className='text-red-800 text-xl' /></div> },
-        { path: '/cart', name: <div className='flex items-center gap-1'> Cart <GiShoppingBag className='text-red-800 text-2xl' /></div> },
+        { path: '/wishlist', name: <div className='md:flex hidden items-center gap-1 '> Wishlist<FaHeart className='text-red-800 text-xl' /></div> },
+        { path: '/cart', name: <div className='md:flex hidden items-center gap-1 '> Cart <GiShoppingBag className='text-red-800 text-2xl' /></div> },
     ];
 
     const location = useLocation();
@@ -89,7 +89,7 @@ export const Navbar = () => {
 
 
                 <div
-                    className={`fixed z-50 left-0  bg-gray-100  md:hidden transition-transform duration-300 ${isOpen ? 'translate-y-12' : '-translate-y-full'
+                    className={`fixed z-50 left-0  bg-gray-100  md:hidden transition-transform duration-300 ${isOpen ? 'translate-y-52' : '-translate-x-full'
                         }`}
 
                 >
