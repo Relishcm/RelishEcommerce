@@ -8,7 +8,7 @@ export const DropDownSunglasses = () => {
     const { openDropdown, handleMouseLeave,dropdownRef } = useDropdown();
 
     return (
-        <div className="relative" onMouseLeave={handleMouseLeave}>
+        <div className="relative">
             <div className="flex items-center cursor-pointer">
                 <h1 className="font-medium mr-2 text-center">Sunglasses</h1>
                 {/* {openDropdown === 'sunglasses' ? <IoMdArrowDropup className="text-md" /> : <IoMdArrowDropdown className="text-md" />} */}

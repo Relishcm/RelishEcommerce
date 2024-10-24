@@ -80,7 +80,7 @@ export const DropDownMobile = () => {
     const { openDropdown, handleMouseLeave,dropdownRef } = useDropdown();
 
     return (
-        <div className="relative z-50" onMouseLeave={handleMouseLeave}>
+        <div className="relative z-50">
             <div className="flex items-center cursor-pointer z-50">
                 <h1 className="font-medium mr- text-center">Mobile & Accessories</h1>
                 {/* {openDropdown === 'mobile' ? <IoMdArrowDropup className="text-md" /> : <IoMdArrowDropdown className="text-md" />} */}

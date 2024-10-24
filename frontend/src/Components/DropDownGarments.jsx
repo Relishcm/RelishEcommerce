@@ -8,9 +8,9 @@ export const DropDownGarments = () => {
     const { openDropdown, handleMouseLeave,dropdownRef } = useDropdown();
 
     return (
-        <div className="relative z-50" onMouseLeave={handleMouseLeave}>
-            <div className="flex items-center cursor-pointer z-50">
-                <h1 className="font-medium mr-2 text-center">Ready Made Garments</h1>
+        <div className="relative z-50">
+            <div className="flex items-center cursor-pointer ">
+                <h1 className="font-medium mr-2 text-center z-0">Ready Made Garments</h1>
                 {/* {openDropdown === 'garments' ? <IoMdArrowDropup className="text-md" /> : <IoMdArrowDropdown className="text-md" />} */}
             </div>
             {openDropdown === 'garments' && (

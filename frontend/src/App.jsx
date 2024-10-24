@@ -6,6 +6,8 @@ import MobileHome from "./Pages/Mobile/MobileHome";
 import CtypeUSB from "./Pages/Mobile/CtypeUSB";
 import Headphone from "./Pages/Mobile/Headphone";
 import Charge from "./Pages/Mobile/Charge";
+import CardView from "./Pages/CardView";
+import Cart from "./Pages/Cart";
 // import { MobileHome } from "./Pages/Mobile/MobileHome";
 
 
@@ -23,6 +25,9 @@ function App() {
             <Route path="Headphone" element={<Headphone />} />
             <Route path="charge" element={<Charge />} />
       
+            <Route path="view" element={<CardView />} />
+            <Route path="cart" element={<Cart />} />
+
 
           </Route>
      

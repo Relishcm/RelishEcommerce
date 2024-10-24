@@ -5,6 +5,8 @@ import { DropHoverCart } from './DropHoverCart';
 const InnerCard = ({ Icon, text,price,discountprice, dropdownName }) => {
     const { setOpenDropdown } = useHoverDropdown();
 
+    
+
     return (
         <div 
             className="card p-2 border rounded-lg hover:shadow-inner cursor-pointer z-0"

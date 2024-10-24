@@ -1,0 +1,53 @@
+import React, { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useCart } from '../Contextapi/CartContextapi';
+
+
+const CardView = () => {
+  const { addToCart } = useCart();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const product = location.state?.product;
+  const [quantity, setQuantity] = useState(1);
+
+  if (!product || !product.price || !product.category || !product.image || !product.discountprice) {
+    return <div>No product details available.</div>;
+  }
+
+  const handleAddtoCart = () => {
+    if (localStorage.getItem('token')) {
+      addToCart(product, quantity);
+    } else {
+      navigate("/signup");
+    }
+  };
+
+  return (
+    <>
+      <div className='min-h-screen xl:grid pt-[5vh] grid-cols-2'>
+        <div className='md:w-[500px] ml-40 p-6'>
+          <img src={product.image} alt={product.category} className='w-full h-auto border' />
+        </div>
+        <div className='gap-8 justify-center p-8'>
+          <h1>{product.category}</h1>
+          <p className='text-3xl font-bold mt-20'>₹{product.discountprice} <span className='line-through'>₹{product.price}</span></p>
+          <input
+            type="number"
+            min="1"
+            value={quantity}
+            onChange={(e) => setQuantity(parseInt(e.target.value, 10))}
+            className='w-16 px-2 py-1 border border-gray-300 rounded-md'
+          />
+          <button
+            onClick={handleAddtoCart}
+            className='mt-20 bg-red-500 text-white text-2xl px-4 py-2 rounded-md hover:bg-red-600 border hover:text-black transition-all ease-linear duration-300'
+          >
+            Add to Cart
+          </button>
+        </div>
+      </div>
+          </>
+  );
+}
+
+export default CardView;

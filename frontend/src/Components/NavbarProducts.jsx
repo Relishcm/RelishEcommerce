@@ -13,8 +13,8 @@ export const NavbarProducts = () => {
  
     return (
         <>
-            <div className='bg-gray-50 border-t p-2  shadow-md font-medium'>
-                <ul className={`flex md:text-sm md:gap-5 gap-1 text-xs justify-around items-center max-w-screen-2xl mx-auto `}>
+            <div className='bg-gray-50 border-t p-2 shadow-md font-medium'>
+                <ul className={`flex md:text-base gap-1 text-xs antialiased md:gap-5  justify-around items-center max-w-screen-2xl mx-auto `}>
                  
                     <li
                         onMouseEnter={() => handleMouseEnter('cosmetices')}

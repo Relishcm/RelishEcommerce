@@ -71,7 +71,7 @@ const Signup = () => {
 
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-green-50">
+    <div className="flex items-center justify-center min-h-screen bg-red-50">
       <form className="bg-white p-8 rounded-lg shadow-md w-full max-w-md" onSubmit={handleSubmit}>
         <p className="text-2xl font-semibold mb-4 text-center">
           {type === 'login' ? 'Login' : 'Signup'}
@@ -103,7 +103,7 @@ const Signup = () => {
         />
 
         {type === "login" && (
-          <Link className="text-green-600 hover:underline block text-center mb-4" to="/email">
+          <Link className="text-red-600 hover:underline block text-center mb-4" to="/email">
             Forgot Password?
           </Link>
         )}
@@ -114,14 +114,14 @@ const Signup = () => {
           {type === 'login' ? (
             <>
               Don't have an account?{' '}
-              <span className="text-green-600 cursor-pointer" onClick={() => setType("signup")}>
+              <span className="text-red-600 cursor-pointer" onClick={() => setType("signup")}>
                 <b>Sign up</b>
               </span>
             </>
           ) : (
             <>
               Already have an account?{' '}
-              <span className="text-green-600 cursor-pointer" onClick={() => setType("login")}>
+              <span className="text-red-600 cursor-pointer" onClick={() => setType("login")}>
                 <b>Login</b>
               </span>
             </>
@@ -154,7 +154,7 @@ function LabeledInput({ type, placeholder, id, onChange, error }) {
 function Button({ type, name }) {
   return (
     <button
-      className="w-full py-2 px-4 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-600"
+      className="w-full py-2 px-4 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-green-600"
       type={type}
     >
       {name}

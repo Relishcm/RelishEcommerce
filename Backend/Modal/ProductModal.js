@@ -1,8 +1,7 @@
 const { initializeApp } = require("firebase/app") ;
 const { getStorage } = require("firebase/storage");
 
-const mongoose = require('mongoose') ; // Ensure mongoose is imported
-
+const mongoose = require('mongoose') ; 
 const firebaseConfig = {
   apiKey: "AIzaSyDYLnccO_kXVjnZ89zBBVucmJ2P4S4kPJM",
   authDomain: "relish-42e92.firebaseapp.com",
@@ -15,7 +14,11 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);
 
-const productSchema = new mongoose.Schema({
+const MobileproductSchema = new mongoose.Schema({
+  category: {
+    type: String,
+    trim: true
+  },
   name: {
     type: String,
     required: true,
@@ -34,10 +37,7 @@ const productSchema = new mongoose.Schema({
     type: Number,
     default: 0
   },
-  category: {
-    type: String,
-    trim: true
-  },
+
   stock: {
     type: Number,
     required: true,
@@ -57,17 +57,17 @@ const productSchema = new mongoose.Schema({
   }
 });
 
-// Optional: Add pre-save middleware to update `updatedAt`
-productSchema.pre('save', function(next) {
+
+MobileproductSchema.pre('save', function(next) {
   this.updatedAt = Date.now();
   next();
 });
 
-// Optional: Add a virtual field to calculate the final price
-productSchema.virtual('finalPrice').get(function() {
+
+MobileproductSchema.virtual('finalPrice').get(function() {
   return this.discountPrice > 0 ? this.discountPrice : this.price;
 });
 
-const Product = mongoose.model('Product', productSchema);
+const MobileProduct = mongoose.model('MobileProduct', MobileproductSchema);
 
-module.exports = {  Product,storage};
+module.exports = {  MobileProduct,storage};
