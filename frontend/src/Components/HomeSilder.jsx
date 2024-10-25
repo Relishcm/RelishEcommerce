@@ -69,6 +69,34 @@ export const HomeSlider = () => {
       title: "Mobile Phone",
       description: "This podcast features conversations with nonprofit leaders to brainstorm ways they can grow their organizations and do more good. Read how"
     },
+    {
+      mobileSrc: "mobile2.png",
+      desktopSrc: "mobile2.png",
+      alt: "Slide 1",
+      title: "Mobile Phone",
+      description: "This podcast features conversations with nonprofit leaders to brainstorm ways they can grow their organizations and do more good. Read how"
+    },
+    {
+      mobileSrc: "garments7.png",
+      desktopSrc: "garments7.png",
+      alt: "Slide 1",
+      title: "Mobile Phone",
+      description: "This podcast features conversations with nonprofit leaders to brainstorm ways they can grow their organizations and do more good. Read how"
+    },
+    {
+      mobileSrc: "bags1.png",
+      desktopSrc: "bags1.png",
+      alt: "Slide 1",
+      title: "Mobile Phone",
+      description: "This podcast features conversations with nonprofit leaders to brainstorm ways they can grow their organizations and do more good. Read how"
+    },
+    {
+      mobileSrc: "garments8.png",
+      desktopSrc: "garments8.png",
+      alt: "Slide 1",
+      title: "Mobile Phone",
+      description: "This podcast features conversations with nonprofit leaders to brainstorm ways they can grow their organizations and do more good. Read how"
+    },
   ];
 
   const settings = {

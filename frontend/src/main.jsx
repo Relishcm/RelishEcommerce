@@ -5,13 +5,16 @@ import './index.css'
 import { DropdownProvider } from './Contextapi/DropdownContext.jsx'
 import { DropHoverProvider } from './Contextapi/CartDropDownHover.jsx'
 import { CartContextProvider } from './Contextapi/CartContextapi.jsx'
+import { WishContextProvider } from './Contextapi/WishContextapi.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <DropdownProvider>
       <DropHoverProvider>
         <CartContextProvider >
+          <WishContextProvider>
           <App />
+          </WishContextProvider>
         </CartContextProvider>
       </DropHoverProvider>
     </DropdownProvider>

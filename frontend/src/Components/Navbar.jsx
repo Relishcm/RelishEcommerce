@@ -171,13 +171,16 @@ import { GiArchiveRegister } from "react-icons/gi";
 import CartlistCount from './CartCount';
 import { useCart } from '../Contextapi/CartContextapi';
 import axios from 'axios'; // Ensure axios is imported
+import WishlistCount from './Wishlistcount';
+import { useWish } from '../Contextapi/WishContextapi';
 
 export const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [login, setLogin] = useState(false);
     const [userName, setUserName] = useState('');
     const [avatar, setAvatar] = useState('');
-    const { cartlistCount, setCartlistCount } = useCart(); // Get cart count from context
+    const { cartlistCount, setCartlistCount } = useCart(); 
+    const {setWishlistCount} = useWish()
 
     const handleMenuToggle = () => {
         setIsOpen(!isOpen);
@@ -196,6 +199,12 @@ export const Navbar = () => {
                     headers: { Authorization: token }
                 });
                 setCartlistCount(cartResponse.data.count);
+            
+
+            const wishlistResponse = await axios.get("http://localhost:5500/wishRouter/count", {
+                headers: { Authorization: token }
+              });
+              setWishlistCount(wishlistResponse.data.count);
             }
         } catch (error) {
             console.error("Error fetching cart count:", error);
@@ -211,7 +220,7 @@ export const Navbar = () => {
             setLogin(true);
             setUserName(name);
             setAvatar(avatar);
-            fetchCartCount(); // Fetch cart count on login
+            fetchCartCount(); 
         }
     }, []);
 
@@ -220,6 +229,7 @@ export const Navbar = () => {
         localStorage.removeItem("name");
         localStorage.removeItem("avatar");
         setCartlistCount(0);
+        setWishlistCount(0)
         setLogin(false);
         setUserName('');
         setAvatar('');
@@ -230,7 +240,7 @@ export const Navbar = () => {
         { path: '/about', name: 'About Us' },
         { path: '/contact', name: 'Contact' },
         {
-            path: '/wishlist', name: <div className='md:flex hidden items-center gap-1 '> Wishlist<FaHeart className='text-red-800 text-xl' /></div>
+            path: '/wishlist', name: <div className='md:flex hidden items-center gap-1 '> Wishlist<WishlistCount /></div>
         },
         { path: '/cart', name: <div className='md:flex hidden items-center gap-1 '>Cart <CartlistCount /></div> },
     ];

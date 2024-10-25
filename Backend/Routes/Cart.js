@@ -107,7 +107,22 @@ cartRouter.get('/count', Auth, async (req, res) => {
     }
 });
 
-
+cartRouter.get('/cartcheckStatus/:productId', Auth, async (req, res) => {
+    try {
+      const productId = req.params.productId;
+      const userId = req.userId; 
+  
+      const cartListItem = await Cart.findOne({ userId, productId });
+  
+      if (cartListItem) {
+        res.json({ isInCart: true });
+      } else {
+        res.json({ isInCart: false });
+      }
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  });
 
 cartRouter.put('/addqunatity', Auth, async (req, res) => {
     try {

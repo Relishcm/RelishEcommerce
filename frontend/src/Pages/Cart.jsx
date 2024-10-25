@@ -13,6 +13,8 @@ const Cart = () => {
 
   useEffect(() => {
     async function servercall() {
+    if (localStorage.getItem("token")) {
+
       try {
         const response = await axios.get("http://localhost:5500/cartRouter/cart", {
           headers: { Authorization: localStorage.getItem("token") }
@@ -21,9 +23,8 @@ const Cart = () => {
         setCart(cartItems);
         setShow(cartItems.length > 0);
 
-        // Calculate total price considering quantity
         const totalPrice = cartItems.reduce((acc, item) => {
-          const itemPrice = parseFloat(item.price) || 0;
+          const itemPrice = parseFloat(item.discountPrice) || 0;
           const itemQuantity = parseInt(item.quantity, 10) || 0;
           return acc + (itemPrice * itemQuantity);
         }, 0);
@@ -32,7 +33,11 @@ const Cart = () => {
         console.error("Error fetching cart data:", error);
         alert("Error fetching cart data");
       }
+    }else{
+      navigate('/auth')
     }
+    }
+ 
     servercall();
   }, []);
 
@@ -42,12 +47,7 @@ const Cart = () => {
         await removeFromCart(productId);
         const updatedCart = carts.filter(item => item.productId !== productId);
         setCart(updatedCart);
-        const newTotalPrice = updatedCart.reduce((acc, item) => {
-          const itemPrice = parseFloat(item.price) || 0;
-          const itemQuantity = parseInt(item.quantity, 10) || 0;
-          return acc + (itemPrice * itemQuantity);
-        }, 0);
-        setPrice(newTotalPrice);
+        updateTotalPrice(updatedCart);
       } catch (error) {
         console.error("Error removing from Cart:", error.response?.data || error);
         alert("Failed to remove from Cart.");
@@ -57,11 +57,43 @@ const Cart = () => {
     }
   };
 
+  const updateTotalPrice = (cartItems) => {
+    const totalPrice = cartItems.reduce((acc, item) => {
+      const itemPrice = parseFloat(item.price) || 0;
+      const itemQuantity = parseInt(item.quantity, 10) || 0;
+      return acc + (itemPrice * itemQuantity);
+    }, 0);
+    setPrice(totalPrice);
+  };
+
   
-const handleorder = ()=>{
-  navigate("/order")
-}
-  
+  const incrementQuantity = async (productId) => {
+    const updatedCart = carts.map(item => {
+      if (item.productId === productId) {
+        item.quantity += 1; 
+      }
+      return item;
+    });
+    setCart(updatedCart);
+    updateTotalPrice(updatedCart);
+    
+  };
+
+  const decrementQuantity = async (productId) => {
+    const updatedCart = carts.map(item => {
+      if (item.productId === productId && item.quantity > 1) {
+        item.quantity -= 1; 
+      }
+      return item;
+    });
+    setCart(updatedCart);
+    updateTotalPrice(updatedCart);
+    
+  };
+
+  const handleorder = () => {
+    navigate("/PlaceOrder");
+  }
 
   return (
     <div className='min-h-screen'>
@@ -73,33 +105,28 @@ const handleorder = ()=>{
               <table className='w-full border-collapse border border-gray-300'>
                 <thead>
                   <tr className='bg-gray-200'>
-                    <th className='border text-center  border-gray-300 px-4 py-2'>Image</th>
-                    <th className='border text-center   border-gray-300 px-4 py-2'>Category</th>
-                    <th className='border text-center  border-gray-300 px-4 py-2'>Price</th>
-                    <th className='border text-center  border-gray-300 px-4 py-2'>Quantity</th>
-                    <th className='border text-center  border-gray-300 px-4 py-2'>Actions</th>
+                    <th className='border text-center border-gray-300 px-4 py-2'>Image</th>
+                    <th className='border text-center border-gray-300 px-4 py-2'>Category</th>
+                    <th className='border text-center border-gray-300 px-4 py-2'>Price</th>
+                    <th className='border text-center border-gray-300 px-4 py-2'>Quantity</th>
+                    <th className='border text-center border-gray-300 px-4 py-2'>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {carts.map((item, index) => (
                     <tr key={index} className='border-b'>
-                      <td className='border text-center  border-gray-300 px-4 py-2'>
-                        <img src={item.image} className='w-24 h-auto text-center ' alt={item.category} />
+                      <td className='border text-center border-gray-300 px-4 py-2'>
+                        <img src={item.image} className='w-24 h-auto text-center ' alt={item.name} />
                       </td>
-                      <td className='border text-center  border-gray-300 px-4 py-2'>{item.category}</td>
-                      <td className='border text-center border-gray-300 px-4 py-2'>₹{item.price}</td>
-                      <td className='border text-center  border-gray-300 px-4 py-2'>
+                      <td className='border text-center border-gray-300 px-4 py-2'>{item.name}</td>
+                      <td className='border text-center border-gray-300 px-4 py-2'>₹{item.discountPrice}</td>
+                      <td className='border text-center border-gray-300 px-4 py-2'>
+                        <button onClick={() => decrementQuantity(item.productId)} className='px-2'>-</button>
                         {item.quantity}
-                        {/* <input
-                          type="number"
-                          min="1"
-                          value={item.quantity}
-                          onChange={(e) => handleQuantityChange(item.productId, parseInt(e.target.value, 10))}
-                          className='w-16 px-2 py-1 border border-gray-300 rounded-md'
-                        /> */}
+                        <button onClick={() => incrementQuantity(item.productId)} className='px-2'>+</button>
                       </td>
-                      <td className='border text-center  border-gray-300 px-4 py-2'>
-                        <MdDelete onClick={() => handleRemoveFromCart(item.productId)} className='text-center  text-red-600 size-6 cursor-pointer' />
+                      <td className='border text-center border-gray-300 px-4 py-2'>
+                        <MdDelete onClick={() => handleRemoveFromCart(item.productId)} className='text-center text-red-600 size-6 cursor-pointer' />
                       </td>
                     </tr>
                   ))}
