@@ -8,6 +8,7 @@ const userRouter = require("./Routes/user");
 const ProductRouter = require("./Routes/Mobileproduct");
 const cartRouter = require("./Routes/Cart");
 const wishRouter = require("./Routes/Wishlist");
+const paymentRouter = require("./Routes/Payment");
 connectDB();
 
 
@@ -15,6 +16,7 @@ app.use("/user",userRouter)
 app.use("/MobileProductRouter",ProductRouter)
 app.use("/cartRouter",cartRouter)
 app.use("/wishRouter",wishRouter)
+app.use("/paymentRouter",paymentRouter)
 
 
 app.listen(5500,()=>{

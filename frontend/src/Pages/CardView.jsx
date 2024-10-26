@@ -9,14 +9,15 @@ const CardView = () => {
   const product = location.state?.product;
 
   const [quantity, setQuantity] = useState(1);
-  const [totalPrice, setTotalPrice] = useState(product.discountPrice);
+  const [totalPrice, setTotalPrice] = useState(product?.discountPrice || 0);
 
   useEffect(() => {
+    if (product) {
+      setTotalPrice(product.discountPrice * quantity);
+    }
+  }, [quantity, product]);
 
-    setTotalPrice(product.discountPrice * quantity);
-  }, [quantity, product.discountPrice]);
-
-  if (!product || !product.price || !product.category || !product.image || !product.discountPrice || !product.name || !product.description) {
+  if (!product) {
     return <div>No product details available.</div>;
   }
 
@@ -44,10 +45,17 @@ const CardView = () => {
       <div className='gap-8 justify-center p-8'>
         <h1 className='font-semibold text-3xl'>{product.name}</h1>
         <p className='ml-2 text-lg'>{product.description}</p>
-        <p className='text-3xl mt-5'>₹{totalPrice.toFixed(0)} <span className='line-through'>₹{product.price}</span></p>
+        <p className='text-3xl mt-5'>
+          ₹{totalPrice.toFixed(0)} <span className='line-through'>₹{product.price}</span>
+        </p>
         
         <div className='flex items-center mt-5'>
-          <button onClick={decrementQuantity} className='border border-gray-300 px-3 py-1 rounded-md'>-</button>
+          <button 
+            onClick={decrementQuantity} 
+            className='border border-gray-300 px-3 py-1 rounded-md'
+          >
+            -
+          </button>
           <input
             type="number"
             min="1"
@@ -55,7 +63,12 @@ const CardView = () => {
             readOnly
             className='w-16 px-2 py-1 border border-gray-300 rounded-md text-center mx-2'
           />
-          <button onClick={incrementQuantity} className='border border-gray-300 px-3 py-1 rounded-md'>+</button>
+          <button 
+            onClick={incrementQuantity} 
+            className='border border-gray-300 px-3 py-1 rounded-md'
+          >
+            +
+          </button>
         </div>
 
         <button

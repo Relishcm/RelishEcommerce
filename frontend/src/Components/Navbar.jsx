@@ -240,7 +240,7 @@ export const Navbar = () => {
         { path: '/about', name: 'About Us' },
         { path: '/contact', name: 'Contact' },
         {
-            path: '/wishlist', name: <div className='md:flex hidden items-center gap-1 '> Wishlist<WishlistCount /></div>
+            path: '/WishView', name: <div className='md:flex hidden items-center gap-1 '> Wishlist<WishlistCount /></div>
         },
         { path: '/cart', name: <div className='md:flex hidden items-center gap-1 '>Cart <CartlistCount /></div> },
     ];
@@ -266,7 +266,7 @@ export const Navbar = () => {
                                 >
                                     {item.name}
                                 </Link>
-                                <span className={`absolute left-0 bottom-0 top-8 w-full h-1 bg-red-800 transition-transform duration-300 ${location.pathname === item.path ? 'scale-x-100' : 'scale-x-0'}`}></span>
+                                <span className={`absolute left-0 z-0 bottom-0 top-8 w-full h-1 bg-red-800 transition-transform duration-300 ${location.pathname === item.path ? 'scale-x-100' : 'scale-x-0'}`}></span>
                             </li>
                         ))}
                     </ul>

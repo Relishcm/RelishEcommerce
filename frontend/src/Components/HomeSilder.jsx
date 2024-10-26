@@ -5,98 +5,21 @@ import "slick-carousel/slick/slick-theme.css";
 
 export const HomeSlider = () => {
   const slides = [
-    {
-      mobileSrc: "cosmetices1.png",
-      desktopSrc: "cosmetices1.png",
-      alt: "Slide 3",
-      title: "Headphones",
-      description: "This podcast features conversations with nonprofit leaders to brainstorm ways they can grow their organizations and do more good. Read how"
-    },
-    {
-      mobileSrc: "garments4.png",
-      desktopSrc: "garments4.png",
-      alt: "Slide 2",
-      title: "Accessories",
-      description: "This podcast features conversations with nonprofit leaders to brainstorm ways they can grow their organizations and do more good. Read how"
-    },
-    {
-      mobileSrc: "Jewellry.png",
-      desktopSrc: "Jewellry.png",
-      alt: "Slide 2",
-      title: "Accessories",
-      description: "This podcast features conversations with nonprofit leaders to brainstorm ways they can grow their organizations and do more good. Read how"
-    },
-    {
-      mobileSrc: "mobile1.png",
-      desktopSrc: "mobile1.png",
-      alt: "Slide 2",
-      title: "Accessories",
-      description: "This podcast features conversations with nonprofit leaders to brainstorm ways they can grow their organizations and do more good. Read how"
-    },
-    {
-      mobileSrc: "bags.png",
-      desktopSrc: "bags.png",
-      alt: "Slide 1",
-      title: "Mobile Phone",
-      description: "This podcast features conversations with nonprofit leaders to brainstorm ways they can grow their organizations and do more good. Read how"
-    },
-    {
-      mobileSrc: "garments3.png",
-      desktopSrc: "garments3.png",
-      alt: "Slide 1",
-      title: "Mobile Phone",
-      description: "This podcast features conversations with nonprofit leaders to brainstorm ways they can grow their organizations and do more good. Read how"
-    },
-    {
-      mobileSrc: "cosmetices1.png",
-      desktopSrc: "cosmetices1.png",
-      alt: "Slide 1",
-      title: "Mobile Phone",
-      description: "This podcast features conversations with nonprofit leaders to brainstorm ways they can grow their organizations and do more good. Read how"
-    },
-    {
-      mobileSrc: "garments5.png",
-      desktopSrc: "garments5.png",
-      alt: "Slide 1",
-      title: "Mobile Phone",
-      description: "This podcast features conversations with nonprofit leaders to brainstorm ways they can grow their organizations and do more good. Read how"
-    },
-
-    {
-      mobileSrc: "garments6.png",
-      desktopSrc: "garments6.png",
-      alt: "Slide 1",
-      title: "Mobile Phone",
-      description: "This podcast features conversations with nonprofit leaders to brainstorm ways they can grow their organizations and do more good. Read how"
-    },
-    {
-      mobileSrc: "mobile2.png",
-      desktopSrc: "mobile2.png",
-      alt: "Slide 1",
-      title: "Mobile Phone",
-      description: "This podcast features conversations with nonprofit leaders to brainstorm ways they can grow their organizations and do more good. Read how"
-    },
-    {
-      mobileSrc: "garments7.png",
-      desktopSrc: "garments7.png",
-      alt: "Slide 1",
-      title: "Mobile Phone",
-      description: "This podcast features conversations with nonprofit leaders to brainstorm ways they can grow their organizations and do more good. Read how"
-    },
-    {
-      mobileSrc: "bags1.png",
-      desktopSrc: "bags1.png",
-      alt: "Slide 1",
-      title: "Mobile Phone",
-      description: "This podcast features conversations with nonprofit leaders to brainstorm ways they can grow their organizations and do more good. Read how"
-    },
-    {
-      mobileSrc: "garments8.png",
-      desktopSrc: "garments8.png",
-      alt: "Slide 1",
-      title: "Mobile Phone",
-      description: "This podcast features conversations with nonprofit leaders to brainstorm ways they can grow their organizations and do more good. Read how"
-    },
+    { mobileSrc: "cosmetices1.png", desktopSrc: "cosmetices1.png", alt: "Slide 1" },
+    { mobileSrc: "garments4.png", desktopSrc: "garments4.png", alt: "Slide 2" },
+    { mobileSrc: "Jewellry1.png", desktopSrc: "Jewellry1.png", alt: "Slide 3" },
+    { mobileSrc: "mobile3.png", desktopSrc: "mobile3.png", alt: "Slide 4" },
+    { mobileSrc: "Sunglasses1.png", desktopSrc: "Sunglasses1.png", alt: "Slide 5" },
+    { mobileSrc: "bags.png", desktopSrc: "bags.png", alt: "Slide 6" },
+    { mobileSrc: "cosmetices2.png", desktopSrc: "cosmetices2.png", alt: "Slide 7" },
+   { mobileSrc: "garments3.png", desktopSrc: "garments3.png", alt: "Slide 8" },
+    { mobileSrc: "garments5.png", desktopSrc: "garments5.png", alt: "Slide 9" },
+    { mobileSrc: "mobile2.png", desktopSrc: "mobile2.png", alt: "Slide 10" },
+    { mobileSrc: "Jewellry2.png", desktopSrc: "Jewellry2.png", alt: "Slide 11" },
+    { mobileSrc: "garments7.png", desktopSrc: "garments7.png", alt: "Slide 12" },
+    { mobileSrc: "Sunglasses2.png", desktopSrc: "Sunglasses2.png", alt: "Slide 13" },
+    { mobileSrc: "bags1.png", desktopSrc: "bags1.png", alt: "Slide 14" },
+    { mobileSrc: "garments8.png", desktopSrc: "garments8.png", alt: "Slide 15" },
   ];
 
   const settings = {
@@ -112,7 +35,7 @@ export const HomeSlider = () => {
 
   return (
     <div className='flex justify-center items-center text-center'>
-      <div className="relative w-full overflow-hidden z-10 h-full  text-center">
+      <div className="relative w-full overflow-hidden z-10 h-full">
         <Slider {...settings}>
           {slides.map((slide, index) => (
             <div key={index} className="relative">
@@ -122,19 +45,9 @@ export const HomeSlider = () => {
                   className="h-full w-full object-cover"
                   src={slide.mobileSrc}
                   alt={slide.alt}
+                  loading="lazy" // Lazy load images
                 />
               </picture>
-              {/* Optionally include overlay for title and description */}
-              {/* <div className="absolute inset-0 flex text-center justify-center bg-black bg-opacity-40 text-white">
-                <div className="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg px-4 sm:py-40">
-                  <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold sm:mb-4">
-                    {slide.title}
-                  </h1>
-                  <p className="text-xs top-1/4 sm:text-sm md:text-base lg:text-lg mx-auto">
-                    {slide.description}
-                  </p>
-                </div>
-              </div> */}
             </div>
           ))}
         </Slider>
@@ -148,8 +61,9 @@ const CustomNextArrow = (props) => (
     className="absolute md:top-44 lg:top-60 top-20 sm:top-40 rounded-tl-xl rounded-bl-xl right-0 z-10 transform -translate-y-1/2 sm:p-3 text-center bg-white text-red-800 shadow-lg cursor-pointer"
     onClick={props.onClick}
     aria-label="Next slide"
+    role="button"
   >
-    <span className="md:text-3xl text-xl font-extrabold ">&rarr;</span>
+    <span className="md:text-3xl text-xl font-extrabold">&rarr;</span>
   </div>
 );
 
@@ -158,7 +72,8 @@ const CustomPrevArrow = (props) => (
     className="absolute md:top-44 lg:top-60 top-20 sm:top-40 rounded-tr-xl rounded-br-xl left-0 z-10 transform -translate-y-1/2 sm:p-3 bg-white text-red-800 shadow-lg cursor-pointer"
     onClick={props.onClick}
     aria-label="Previous slide"
+    role="button"
   >
-    <span className="md:text-3xl text-xl font-extrabold ">&larr;</span>
+    <span className="md:text-3xl text-xl font-extrabold">&larr;</span>
   </div>
 );

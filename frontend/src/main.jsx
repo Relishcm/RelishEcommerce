@@ -6,6 +6,7 @@ import { DropdownProvider } from './Contextapi/DropdownContext.jsx'
 import { DropHoverProvider } from './Contextapi/CartDropDownHover.jsx'
 import { CartContextProvider } from './Contextapi/CartContextapi.jsx'
 import { WishContextProvider } from './Contextapi/WishContextapi.jsx'
+import { CartTableProvider } from './Contextapi/CartTablecontextapi.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -13,7 +14,9 @@ createRoot(document.getElementById('root')).render(
       <DropHoverProvider>
         <CartContextProvider >
           <WishContextProvider>
+            <CartTableProvider>
           <App />
+          </CartTableProvider>
           </WishContextProvider>
         </CartContextProvider>
       </DropHoverProvider>

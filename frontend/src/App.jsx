@@ -9,6 +9,9 @@ import Charge from "./Pages/Mobile/Charge";
 import CardView from "./Pages/CardView";
 import Cart from "./Pages/Cart";
 import { PlaceOrder } from "./Pages/PlaceOrder";
+import { WishView } from "./Pages/WishView";
+import { SuccessPayment } from "./Pages/SuccessPayment";
+import { CancelPayment } from "./Pages/CancelPayment";
 // import { MobileHome } from "./Pages/Mobile/MobileHome";
 
 
@@ -28,9 +31,13 @@ function App() {
       
             <Route path="view" element={<CardView />} />
             <Route path="cart" element={<Cart />} />
+            <Route path="WishView" element={<WishView />} />
 
             <Route path="PlaceOrder" element={<PlaceOrder />} />
+            <Route path="SuccessPayment" element={<SuccessPayment />} />
+            <Route path="CancelPayment" element={<CancelPayment />} />
 
+            
           </Route>
      
            <Route path="auth" element={<Signup />} />

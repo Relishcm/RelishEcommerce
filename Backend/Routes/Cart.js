@@ -124,7 +124,8 @@ cartRouter.get('/cartcheckStatus/:productId', Auth, async (req, res) => {
     }
   });
 
-cartRouter.put('/addqunatity', Auth, async (req, res) => {
+// Update Quantity
+cartRouter.put('/addquantity', Auth, async (req, res) => {
     try {
         const { productId, quantity } = req.body;
         const userId = req.userId;
@@ -138,15 +139,40 @@ cartRouter.put('/addqunatity', Auth, async (req, res) => {
             return res.status(404).json({ msg: 'Item not found in cart' });
         }
 
+        // Update quantity
         cartItem.quantity = quantity;
         await cartItem.save();
 
-        res.status(200).json({ msg: 'Quantity updated successfully', item: cartItem });
+        // Calculate total price after updating the quantity
+        const totalPrice = await calculateTotalPrice(userId);
+
+        res.status(200).json({ msg: 'Quantity updated successfully', item: cartItem, totalPrice });
     } catch (error) {
         console.error('Error updating cart item:', error);
         res.status(500).json({ msg: 'Server error' });
     }
 });
+
+// Helper function to calculate total price
+const calculateTotalPrice = async (userId) => {
+    const cartItems = await Cart.find({ userId });
+    return cartItems.reduce((total, item) => {
+        return total + (item.discountPrice * item.quantity);
+    }, 0);
+};
+
+// Get Total Price
+cartRouter.get('/totalprice', Auth, async (req, res) => {
+    try {
+        const userId = req.userId;
+        const totalPrice = await calculateTotalPrice(userId);
+        res.status(200).json({ totalPrice });
+    } catch (error) {
+        console.error('Error calculating total price:', error);
+        res.status(500).json({ msg: 'Server error' });
+    }
+});
+
 
 
 
