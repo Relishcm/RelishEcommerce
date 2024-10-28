@@ -107,17 +107,30 @@ export const DropHoverCart = ({ dropdownName, product}) => {
                         className={`py-1 px-4  hover:bg-red-50 cursor-pointer transition-colors duration-300 ${isInCart ? 'text-red-800' : ''}`}
                         onClick={() => isInCart ? handleRemoveFromCart() : handleAddToCart(1)}
                     >
-                        <GiShoppingBag className='text-2xl' />
+                       <Tooltip text="Add to Cart"> <GiShoppingBag className='text-2xl' /></Tooltip>
                     </li>
                     <li className={`py-1 px-4 hover:bg-red-50 cursor-pointer transition-colors duration-300  ${isLike ? 'text-red-800' : ''}`}
                         onClick={handleLikeClick}>
-                        <FaHeart className='text-2xl' />
+                       <Tooltip text="Add to Wishlist"> <FaHeart className='text-2xl' /></Tooltip>
                     </li>
                     <li className='py-1 px-4 hover:bg-red-50 cursor-pointer transition-colors duration-300 ' onClick={handleClick}>
-                    <FaEye className='text-2xl'/>
+                    <Tooltip text="View Page"><FaEye className='text-2xl'/></Tooltip>
                     </li>
                 </ul>
             )}
         </div>
     );
 };
+const Tooltip = ({ children, text }) => {
+    return (
+        <div className="relative group inline-block">
+            {children}
+            <div className="absolute hidden group-hover:block bg-black text-white text-sm rounded py-1 px-2 max-w-xs whitespace-nowrap transform -translate-x-1/2 -translate-y-2 bottom-full left-1/2">
+                {text}
+                <div className="absolute left-1/2 transform -translate-x-1/2 translate-y-full w-0 h-0 border-l-4 border-l-transparent border-r-4 border-r-transparent border-t-4 border-t-black" />
+            </div>
+        </div>
+    );
+};
+
+

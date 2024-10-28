@@ -4,7 +4,7 @@ import { DropHoverCart } from './DropHoverCart';
 
 export const MobileCardProducts = ({ category, price, image, productId, discountPrice, name, description }) => {
     const { setOpenDropdown } = useHoverDropdown();
-    const [loading, setLoading] = useState(true); // State to track loading
+    const [loading, setLoading] = useState(true); 
 
     return (
         <div
@@ -35,7 +35,7 @@ export const MobileCardProducts = ({ category, price, image, productId, discount
                     src={image} 
                     className={`h-full w-full rounded-lg border object-cover ${loading ? 'hidden' : 'block'}`} 
                     alt={name} 
-                    onLoad={() => setLoading(false)} // Set loading to false when the image loads
+                    onLoad={() => setLoading(false)} 
                 /> 
             </div>
         </div>
