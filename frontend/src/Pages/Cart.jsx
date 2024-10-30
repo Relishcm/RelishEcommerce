@@ -11,7 +11,7 @@ const Cart = () => {
   const [price, setPrice] = useState(0);
   const navigate = useNavigate();
   const { carts, updateCart, setCarts } = useUpdatedCarts();
-
+  
   useEffect(() => {
     async function serverCall() {
       if (localStorage.getItem("token")) {
@@ -72,7 +72,7 @@ const Cart = () => {
         headers: { Authorization: localStorage.getItem("token") }
       });
       setCarts(updatedCart);
-      setPrice(response.data.totalPrice); // Update total price
+      setPrice(response.data.totalPrice); 
     } catch (error) {
       console.error("Error updating quantity:", error);
       alert("Failed to update quantity.");
@@ -92,7 +92,7 @@ const Cart = () => {
         headers: { Authorization: localStorage.getItem("token") }
       });
       setCarts(updatedCart);
-      setPrice(response.data.totalPrice); // Update total price
+      setPrice(response.data.totalPrice); 
     } catch (error) {
       console.error("Error updating quantity:", error);
       alert("Failed to update quantity.");
