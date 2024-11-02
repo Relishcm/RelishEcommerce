@@ -16,7 +16,7 @@ const Cart = () => {
     async function serverCall() {
       if (localStorage.getItem("token")) {
         try {
-          const response = await axios.get("https://renbanecommerce.onrender.com/cartRouter/cart", {
+          const response = await axios.get("http://localhost:5500/cartRouter/cart", {
             headers: { Authorization: localStorage.getItem("token") }
           });
           const cartItems = response.data.items;
