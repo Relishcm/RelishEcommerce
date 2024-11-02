@@ -195,13 +195,13 @@ export const Navbar = () => {
         try {
             const token = localStorage.getItem('token');
             if (token) {
-                const cartResponse = await axios.get("http://localhost:5500/cartRouter/count", {
+                const cartResponse = await axios.get("https://renbanecommerce.onrender.com/cartRouter/count", {
                     headers: { Authorization: token }
                 });
                 setCartlistCount(cartResponse.data.count);
             
 
-            const wishlistResponse = await axios.get("http://localhost:5500/wishRouter/count", {
+            const wishlistResponse = await axios.get("https://renbanecommerce.onrender.com/wishRouter/count", {
                 headers: { Authorization: token }
               });
               setWishlistCount(wishlistResponse.data.count);

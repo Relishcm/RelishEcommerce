@@ -19,7 +19,7 @@ const WishContextProvider = ({ children }) => {
 
         try {
             const response = await axios.post(
-                "http://localhost:5500/wishRouter/addwish",
+                "https://renbanecommerce.onrender.com/wishRouter/addwish",
                 {
                     price: product.price,
                     name: product.name,
@@ -52,7 +52,7 @@ const WishContextProvider = ({ children }) => {
 
         try {
             const response = await axios.post(
-                "http://localhost:5500/wishRouter/removeWishlist",
+                "https://renbanecommerce.onrender.com/wishRouter/removeWishlist",
                 { productId },
                 {
                     headers: {
@@ -75,7 +75,7 @@ const WishContextProvider = ({ children }) => {
     const fetchCount = async () => {
 
         try {
-            const response = await axios.get("http://localhost:5500/wishRouter/count", {
+            const response = await axios.get("https://renbanecommerce.onrender.com/wishRouter/count", {
                 headers: { Authorization: localStorage.getItem("token") }
             });
             if (response.data && typeof response.data.count === 'number') {
@@ -94,7 +94,7 @@ const WishContextProvider = ({ children }) => {
 
         try {
             const response = await axios.get(
-                `http://localhost:5500/wishRouter/checkStatus/${productId}`,
+                `https://renbanecommerce.onrender.com/wishRouter/checkStatus/${productId}`,
                 { headers: { Authorization: localStorage.getItem("token") } }
             );
             return response.data.isLiked;

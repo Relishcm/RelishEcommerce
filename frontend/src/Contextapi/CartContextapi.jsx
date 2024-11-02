@@ -25,7 +25,7 @@ const CartContextProvider = ({ children }) => {
 
         try {
             const response = await axios.post(
-                "http://localhost:5500/cartRouter/addcart",
+                "https://renbanecommerce.onrender.com/cartRouter/addcart",
                 {
                     category: product.category,
                     name: product.name,
@@ -53,7 +53,7 @@ const CartContextProvider = ({ children }) => {
         const removeFromCart = async (productId) => {
         try {
             const response = await axios.post(
-                "http://localhost:5500/cartRouter/removeCart",
+                "https://renbanecommerce.onrender.com/cartRouter/removeCart",
                 { productId },
                 { headers: { Authorization: localStorage.getItem("token") } }
             );
@@ -76,7 +76,7 @@ const CartContextProvider = ({ children }) => {
         }
 
         try {
-            const response = await axios.get("http://localhost:5500/cartRouter/count", {
+            const response = await axios.get("https://renbanecommerce.onrender.com/cartRouter/count", {
                 headers: { Authorization: localStorage.getItem("token") }
             });
             if (response.data && typeof response.data.count === 'number') {
@@ -94,7 +94,7 @@ const CartContextProvider = ({ children }) => {
         }
 
         try {
-            const response = await axios.get("http://localhost:5500/cartRouter/cart", {
+            const response = await axios.get("https://renbanecommerce.onrender.com/cartRouter/cart", {
                 headers: { Authorization: localStorage.getItem("token") }
             });
             setCarts(response.data.items || []);
@@ -107,7 +107,7 @@ const CartContextProvider = ({ children }) => {
 
         try {
             const response = await axios.get(
-                `http://localhost:5500/cartRouter/cartcheckStatus/${productId}`,
+                `https://renbanecommerce.onrender.com/cartRouter/cartcheckStatus/${productId}`,
                 { headers: { Authorization: localStorage.getItem("token") } }
             );
             return response.data.isInCart;
