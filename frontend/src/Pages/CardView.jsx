@@ -25,7 +25,7 @@ const CardView = () => {
     if (localStorage.getItem('token')) {
       addToCart(product, quantity);
     } else {
-      navigate("/signup");
+      navigate("/auth");
     }
   };
 

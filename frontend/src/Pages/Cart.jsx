@@ -68,7 +68,7 @@ const Cart = () => {
         return item;
       });
       await updateCart(updatedCart);
-      const response = await axios.put('https://renbanecommerce.onrender.com/cartRouter/addquantity', { productId, quantity: updatedCart.find(item => item.productId === productId).quantity }, {
+      const response = await axios.put('http://localhost:5500/cartRouter/addquantity', { productId, quantity: updatedCart.find(item => item.productId === productId).quantity }, {
         headers: { Authorization: localStorage.getItem("token") }
       });
       setCarts(updatedCart);
@@ -88,7 +88,7 @@ const Cart = () => {
         return item;
       });
       await updateCart(updatedCart);
-      const response = await axios.put('https://renbanecommerce.onrender.com/cartRouter/addquantity', { productId, quantity: updatedCart.find(item => item.productId === productId).quantity }, {
+      const response = await axios.put('http://localhost:5500/cartRouter/addquantity', { productId, quantity: updatedCart.find(item => item.productId === productId).quantity }, {
         headers: { Authorization: localStorage.getItem("token") }
       });
       setCarts(updatedCart);

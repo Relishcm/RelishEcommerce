@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-axios.defaults.baseURL = "https://renbanecommerce.onrender.com";
+axios.defaults.baseURL = "http://localhost:5500/";
 
 const Signup = () => {
   const navigate = useNavigate();

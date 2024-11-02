@@ -23,7 +23,7 @@ export const PlaceOrder = () => {
   useEffect(() => {
     async function servercall() {
       try {
-        const response = await axios.get("https://renbanecommerce.onrender.com/cartRouter/cart", {
+        const response = await axios.get("http://localhost:5500/cartRouter/cart", {
           headers: { Authorization: localStorage.getItem("token") }
         });
         const cartItems = response.data.items;
@@ -147,7 +147,7 @@ const handlePayment = async () => {
   const body = { products: carts, ...form };
 
   try {
-    const response = await axios.post("https://renbanecommerce.onrender.com/paymentRouter/razorpay-order", body, {
+    const response = await axios.post("http://localhost:5500/paymentRouter/razorpay-order", body, {
       headers: { "Content-Type": "application/json" },
     });
 
@@ -168,7 +168,7 @@ const handlePayment = async () => {
       order_id: orderId,
       handler: async function (response) {
         try {
-          const verificationResponse = await axios.post('https://renbanecommerce.onrender.com/paymentRouter/razorpay-payment-verification', {
+          const verificationResponse = await axios.post('http://localhost:5500/paymentRouter/razorpay-payment-verification', {
             orderId,
             paymentId: response.razorpay_payment_id,
             signature: response.razorpay_signature
