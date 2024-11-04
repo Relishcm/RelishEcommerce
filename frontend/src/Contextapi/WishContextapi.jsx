@@ -94,7 +94,7 @@ const WishContextProvider = ({ children }) => {
 
         try {
             const response = await axios.get(
-                `${import.meta.env.VITE_API_CART_CHECK_STATUS}/${productId}`,
+                `${import.meta.env.VITE_API_WISHLIST_CHECK_STATUS}/${productId}`,
                
                 { headers: { Authorization: localStorage.getItem("token") } }
             );

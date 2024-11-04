@@ -1,132 +1,3 @@
-// const express = require('express');
-// const cors = require('cors');
-// const { Order } = require('../Modal/PaymentModal');
-
-
-
-// const app = express();
-// app.use(cors());
-// app.use(express.json());
-// require("dotenv").config()
-
-// const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-
-
-// const paymentRouter = express.Router();
-
-
-// paymentRouter.post('/checkout-session', async (req, res) => {
-//     try {
-        
-//         const { products, username, email, address, phone   } = req.body;
-
-//         const order = await Order.create({
-//             username,
-//             email,
-//             address,
-//             phone,
-         
-//             orders: products
-//         });
-//         console.log("order :",order)
-
-//         const line_items = products.map(product => ({
-//             price_data: {
-//                 currency: 'usd',
-//                 product_data: {
-//                     name: product.category,
-//                     name: product.name,
-                    
-//                 },
-//                 unit_amount: product.discountPrice  * 100,
-//             },
-//             quantity: product.quantity,
-//         }));
-
-//         const session = await stripe.checkout.sessions.create({
-//             payment_method_types: ['card'],
-//             line_items: line_items,
-//             mode: 'payment',
-//             success_url: `http://localhost:5173/SuccessPayment?session_id={CHECKOUT_SESSION_ID}`,
-//             cancel_url: 'http://localhost:5173/CancelPayment',
-//             metadata: {
-//                 orderId: order._id.toString() 
-//             }
-//         });
-//         // console.log("session :", session);
-
-//         res.json({ sessionId: session.id });
-
-//     } catch (error) {
-//         console.error('Error:', error);
-//         res.status(500).json({ error: 'Internal Server Error' });
-//     }
-// });
-
-
-// paymentRouter.get('/success', async (req, res) => {
-//     try {
-//         const sessionId = req.query.session_id;
-//         const session = await stripe.checkout.sessions.retrieve(sessionId);
-
-//         if (session.payment_status === 'paid') {
-//             const orderId = session.metadata.orderId;
-      
-//             console.log('Retrieved Order ID from metadata:', orderId);
-
-//             const order = await Order.findOne({ _id: orderId });  
-//             if (order) {
-//                 order.paymentStatus = 'completed';
-//                 order.paymentTime = new Date();
-
-                
-//                 await order.save();
-//                 console.log('Order updated:', order);
-//                 res.send('Payment successful! Order status has been updated.');
-//             } else {
-//                 console.error('Order not found:', orderId);
-//                 res.status(404).send('Order not found.');
-//             }
-//         } else {
-//             res.send('Payment failed or was not completed.');
-//         }
-//     } catch (error) {
-//         console.error('Error processing payment:', error);
-//         res.status(500).send('Internal Server Error');
-//     }
-// });
-
-// paymentRouter.get('/showorder', async (req, res) => {
-//     const {orderId} = req.query;
-
-//     if (!orderId) {
-//         return res.status(400).json({ message: "Order ID is required." });
-//     }
-
-//     try {
-      
-//         const order = await Order.findById(orderId);
-//         if (!order) {
-//             return res.status(404).json({ message: "Order not found." });
-//         }
-
-//         res.json(order);
-//     } catch (error) {
-//         console.error("Error fetching order:", error);
-//         res.status(500).json({ message: "Server error" });
-//     }
-// });
-
-
-
-
-// module.exports = paymentRouter;
-
-
-
-
-
-
 const express = require('express');
 const cors = require('cors');
 const { Order } = require('../Modal/PaymentModal');
@@ -139,8 +10,8 @@ app.use(express.json());
 require("dotenv").config();
 
 const razorpay = new Razorpay({
-    key_id: process.env.RAZORPAY_KEY_ID, // Your Razorpay key id
-    key_secret: process.env.RAZORPAY_KEY_SECRET // Your Razorpay key secret
+    key_id: process.env.RAZORPAY_KEY_ID, 
+    key_secret: process.env.RAZORPAY_KEY_SECRET 
 });
 
 const paymentRouter = express.Router();
@@ -179,6 +50,7 @@ paymentRouter.post('/razorpay-order', async (req, res) => {
     }
 });
 
+
 // Verify Payment
 paymentRouter.post('/razorpay-payment-verification', async (req, res) => {
     const { orderId, paymentId, signature } = req.body;
@@ -188,11 +60,16 @@ paymentRouter.post('/razorpay-payment-verification', async (req, res) => {
         const expectedSign = crypto.createHmac("sha256", process.env.RAZORPAY_KEY_SECRET).update(sign.toString()).digest("hex");
 
         if (expectedSign === signature) {
-            
             const order = await Order.findOne({ razorpayOrderId: orderId }); 
             if (order) {
+                // Update payment status and time
                 order.paymentStatus = 'completed';
                 order.paymentTime = new Date();
+                
+                // Calculate delivery time as 7 days from now
+                order.deliveryTime = new Date();
+                order.deliveryTime.setDate(order.deliveryTime.getDate() + 7); 
+
                 await order.save();
                 return res.json({ message: 'Payment successful! Order status has been updated.' });
             } else {
@@ -207,7 +84,9 @@ paymentRouter.post('/razorpay-payment-verification', async (req, res) => {
     }
 });
 
+
 // Fetch Order
+
 paymentRouter.get('/showorder', async (req, res) => {
     const { orderId } = req.query;
 
@@ -221,11 +100,23 @@ paymentRouter.get('/showorder', async (req, res) => {
             return res.status(404).json({ message: "Order not found." });
         }
 
-        res.json(order);
+        // Return all relevant order details
+        res.json({
+            username: order.username,
+            email: order.email,
+            address: order.address,
+            phone: order.phone,
+            razorpayOrderId: order.razorpayOrderId,
+            paymentStatus: order.paymentStatus,
+            paymentTime: order.paymentTime,
+            deliveryTime: order.deliveryTime,
+            orders: order.orders
+        });
     } catch (error) {
         console.error("Error fetching order:", error);
         res.status(500).json({ message: "Server error", error: error.message });
     }
 });
+
 
 module.exports = paymentRouter;

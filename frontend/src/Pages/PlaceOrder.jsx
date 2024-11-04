@@ -180,6 +180,7 @@ const handlePayment = async () => {
 
           alert(verificationResponse.data.message);
           setPaymentSuccess(true);
+          navigate("/SuccessPayment")
         } catch (error) {
           console.error('Error during payment verification:', error);
           alert('Payment verification failed: ' + (error.response?.data?.message || 'Please try again.'));

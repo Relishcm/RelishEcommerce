@@ -105,7 +105,7 @@ const CartContextProvider = ({ children }) => {
         }
     };
 
-    const checkWishStatus = async (productId) => {
+    const checkCartStatus = async (productId) => {
 
         try {
             const response = await axios.get(
@@ -125,7 +125,7 @@ const CartContextProvider = ({ children }) => {
     }, [isLoggedIn]);
 
     return (
-        <CartContext.Provider value={{ cartlistCount,setCartlistCount, addToCart,checkWishStatus, isLoggedIn,removeFromCart, setIsLoggedIn, carts }}>
+        <CartContext.Provider value={{ cartlistCount,setCartlistCount, addToCart,checkCartStatus, isLoggedIn,removeFromCart, setIsLoggedIn, carts }}>
             {children}
         </CartContext.Provider>
     );

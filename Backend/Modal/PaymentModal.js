@@ -67,7 +67,7 @@ const orderItemSchema = new mongoose.Schema({
   // paymentMode:String,
   // currency:String,
   paymentTime:Date,
-  // deliveryTime:Date,
+  deliveryTime: Date,
   
     orders: [orderItemSchema] 
   });
