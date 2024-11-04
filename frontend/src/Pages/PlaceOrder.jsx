@@ -23,7 +23,9 @@ export const PlaceOrder = () => {
   useEffect(() => {
     async function servercall() {
       try {
-        const response = await axios.get("http://localhost:5500/cartRouter/cart", {
+        const response = await axios.get(import.meta.env.VITE_API_CART_VIEW
+       
+          , {
           headers: { Authorization: localStorage.getItem("token") }
         });
         const cartItems = response.data.items;
@@ -123,7 +125,7 @@ export const PlaceOrder = () => {
 
   useEffect(() => {
     const script = document.createElement('script');
-    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    script.src = import.meta.env.VITE_SRC_CHECKOUT;
     script.async = true;
 
     script.onload = () => {
@@ -147,7 +149,7 @@ const handlePayment = async () => {
   const body = { products: carts, ...form };
 
   try {
-    const response = await axios.post("http://localhost:5500/paymentRouter/razorpay-order", body, {
+    const response = await axios.post(import.meta.env.VITE_API_ORDER, body, {
       headers: { "Content-Type": "application/json" },
     });
 
@@ -160,7 +162,7 @@ const handlePayment = async () => {
     }
 
     const options = {
-      key: "rzp_test_XDEDjqvOzR6hQP", 
+      key: import.meta.env.VITE_KEY, 
       amount: price * 100,
       currency: "INR",
       name: "Renban",
@@ -168,7 +170,7 @@ const handlePayment = async () => {
       order_id: orderId,
       handler: async function (response) {
         try {
-          const verificationResponse = await axios.post('http://localhost:5500/paymentRouter/razorpay-payment-verification', {
+          const verificationResponse = await axios.post(import.meta.env.VITE_API_ORDER_CHECK_STATUS, {
             orderId,
             paymentId: response.razorpay_payment_id,
             signature: response.razorpay_signature

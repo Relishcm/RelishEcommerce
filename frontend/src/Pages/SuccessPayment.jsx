@@ -16,7 +16,7 @@ export const SuccessPayment = () => {
         const verifyPayment = async () => {
             try {
                 
-                const response = await axios.get('http://localhost:5500/paymentRouter/success', {
+                const response = await axios.get('/paymentRouter/success', {
                     params: { session_id: sessionId }
                     
                 });

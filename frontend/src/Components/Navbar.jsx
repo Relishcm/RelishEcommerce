@@ -195,13 +195,13 @@ export const Navbar = () => {
         try {
             const token = localStorage.getItem('token');
             if (token) {
-                const cartResponse = await axios.get("http://localhost:5500/cartRouter/count", {
+                const cartResponse = await axios.get(import.meta.env.VITE_API_CART_COUNT, {
                     headers: { Authorization: token }
                 });
                 setCartlistCount(cartResponse.data.count);
             
 
-            const wishlistResponse = await axios.get("http://localhost:5500/wishRouter/count", {
+            const wishlistResponse = await axios.get(import.meta.env.VITE_API_WISHLIST_COUNT, {
                 headers: { Authorization: token }
               });
               setWishlistCount(wishlistResponse.data.count);
@@ -214,7 +214,8 @@ export const Navbar = () => {
     useEffect(() => {
         const token = localStorage.getItem('token');
         const name = localStorage.getItem('name');
-        const avatar = localStorage.getItem('name')?.slice(0, 1);
+        const avatar = localStorage.getItem('name')?.charAt(0).toUpperCase();
+
 
         if (token && name) {
             setLogin(true);

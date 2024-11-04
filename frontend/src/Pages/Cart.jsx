@@ -16,7 +16,7 @@ const Cart = () => {
     async function serverCall() {
       if (localStorage.getItem("token")) {
         try {
-          const response = await axios.get("http://localhost:5500/cartRouter/cart", {
+          const response = await axios.get(import.meta.env.VITE_API_CART_VIEW, {
             headers: { Authorization: localStorage.getItem("token") }
           });
           const cartItems = response.data.items;
@@ -68,7 +68,7 @@ const Cart = () => {
         return item;
       });
       await updateCart(updatedCart);
-      const response = await axios.put('http://localhost:5500/cartRouter/addquantity', { productId, quantity: updatedCart.find(item => item.productId === productId).quantity }, {
+      const response = await axios.put(import.meta.env.VITE_API_CART_ADD_QUANTITY, { productId, quantity: updatedCart.find(item => item.productId === productId).quantity }, {
         headers: { Authorization: localStorage.getItem("token") }
       });
       setCarts(updatedCart);
@@ -88,7 +88,7 @@ const Cart = () => {
         return item;
       });
       await updateCart(updatedCart);
-      const response = await axios.put('http://localhost:5500/cartRouter/addquantity', { productId, quantity: updatedCart.find(item => item.productId === productId).quantity }, {
+      const response = await axios.put(import.meta.env.VITE_API_CART_ADD_QUANTITY, { productId, quantity: updatedCart.find(item => item.productId === productId).quantity }, {
         headers: { Authorization: localStorage.getItem("token") }
       });
       setCarts(updatedCart);

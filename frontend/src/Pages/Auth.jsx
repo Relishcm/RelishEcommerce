@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-axios.defaults.baseURL = "http://localhost:5500/";
+axios.defaults.baseURL = import.meta.env.VITE_API_AUTH;
 
 const Signup = () => {
   const navigate = useNavigate();

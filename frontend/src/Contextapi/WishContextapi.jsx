@@ -19,7 +19,7 @@ const WishContextProvider = ({ children }) => {
 
         try {
             const response = await axios.post(
-                "http://localhost:5500/wishRouter/addwish",
+               import.meta.env.VITE_API_ADD_WISHLIST ,
                 {
                     price: product.price,
                     name: product.name,
@@ -52,7 +52,7 @@ const WishContextProvider = ({ children }) => {
 
         try {
             const response = await axios.post(
-                "http://localhost:5500/wishRouter/removeWishlist",
+               import.meta.env.VITE_API_REMOVE_WISHLIST,
                 { productId },
                 {
                     headers: {
@@ -75,7 +75,7 @@ const WishContextProvider = ({ children }) => {
     const fetchCount = async () => {
 
         try {
-            const response = await axios.get("http://localhost:5500/wishRouter/count", {
+            const response = await axios.get(import.meta.env.VITE_API_WISHLIST_COUNT, {
                 headers: { Authorization: localStorage.getItem("token") }
             });
             if (response.data && typeof response.data.count === 'number') {
@@ -94,7 +94,8 @@ const WishContextProvider = ({ children }) => {
 
         try {
             const response = await axios.get(
-                `http://localhost:5500/wishRouter/checkStatus/${productId}`,
+                `${import.meta.env.VITE_API_CART_CHECK_STATUS}/${productId}`,
+               
                 { headers: { Authorization: localStorage.getItem("token") } }
             );
             return response.data.isLiked;

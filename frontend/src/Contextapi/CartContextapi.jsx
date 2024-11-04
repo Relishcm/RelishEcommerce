@@ -25,7 +25,7 @@ const CartContextProvider = ({ children }) => {
 
         try {
             const response = await axios.post(
-                "http://localhost:5500/cartRouter/addcart",
+                import.meta.env.VITE_API_ADD_CART,
                 {
                     category: product.category,
                     name: product.name,
@@ -53,7 +53,7 @@ const CartContextProvider = ({ children }) => {
         const removeFromCart = async (productId) => {
         try {
             const response = await axios.post(
-                "http://localhost:5500/cartRouter/removeCart",
+                import.meta.env.VITE_API_REMOVE_CART,
                 { productId },
                 { headers: { Authorization: localStorage.getItem("token") } }
             );
@@ -76,7 +76,7 @@ const CartContextProvider = ({ children }) => {
         }
 
         try {
-            const response = await axios.get("http://localhost:5500/cartRouter/count", {
+            const response = await axios.get(import.meta.env.VITE_API_CART_COUNT, {
                 headers: { Authorization: localStorage.getItem("token") }
             });
             if (response.data && typeof response.data.count === 'number') {
@@ -94,7 +94,9 @@ const CartContextProvider = ({ children }) => {
         }
 
         try {
-            const response = await axios.get("http://localhost:5500/cartRouter/cart", {
+            const response = await axios.get(import.meta.env.VITE_API_CART_VIEW
+                
+                , {
                 headers: { Authorization: localStorage.getItem("token") }
             });
             setCarts(response.data.items || []);
@@ -107,7 +109,7 @@ const CartContextProvider = ({ children }) => {
 
         try {
             const response = await axios.get(
-                `http://localhost:5500/cartRouter/cartcheckStatus/${productId}`,
+               `${import.meta.env.VITE_API_CART_CHECK_STATUS}/${productId}`,
                 { headers: { Authorization: localStorage.getItem("token") } }
             );
             return response.data.isInCart;

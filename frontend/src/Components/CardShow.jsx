@@ -8,7 +8,7 @@ export const CardShow = ({ category }) => {
     useEffect(() => {
         async function fetchProducts() {
             try {
-                const response = await axios.get("http://localhost:5500/MobileProductRouter/getallproducts");
+                const response = await axios.get(import.meta.env.VITE_API_CART_SHOW);
                 setItemShow(response.data.products); 
             } catch (error) {
                 console.error("Failed to fetch products", error);
