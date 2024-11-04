@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useHoverDropdown } from '../Contextapi/CartDropDownHover';
 import { DropHoverCart } from './DropHoverCart';
+import '../CSS/spinner.css'
 
 export const MobileCardProducts = ({ category, price, image, productId, discountPrice, name, description }) => {
     const { setOpenDropdown } = useHoverDropdown();
