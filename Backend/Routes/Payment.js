@@ -3,6 +3,7 @@ const cors = require('cors');
 const { Order } = require('../Modal/PaymentModal');
 const Razorpay = require('razorpay');
 const crypto = require('crypto');
+const Auth = require('../Middleware/AuthMiddleware');
 
 const app = express();
 app.use(cors());
@@ -87,20 +88,22 @@ paymentRouter.post('/razorpay-payment-verification', async (req, res) => {
 
 // Fetch Order
 
-paymentRouter.get('/showorder', async (req, res) => {
+paymentRouter.get('/showorder', Auth, async (req, res) => {
     const { orderId } = req.query;
+    const userId = req.userId;  // from Auth middleware (you set it on req.userId)
 
     if (!orderId) {
         return res.status(400).json({ message: "Order ID is required." });
     }
 
     try {
-        const order = await Order.findById(orderId);
+        // Find the order by orderId and userId
+        const order = await Order.findOne({ _id: orderId, userId: userId });
         if (!order) {
             return res.status(404).json({ message: "Order not found." });
         }
 
-        // Return all relevant order details
+        // Return order details
         res.json({
             username: order.username,
             email: order.email,
