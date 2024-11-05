@@ -122,72 +122,71 @@ export const PlaceOrder = () => {
   //   }
   // };
 
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = import.meta.env.VITE_SRC_CHECKOUT;
+    script.async = true;
+
+    script.onload = () => {
+      console.log('Razorpay script loaded');
+    };
+
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
   const handlePayment = async () => {
     if (!validateForm()) {
       return;
     }
-  
+
     setLoading(true);
-  
+
     const body = { products: carts, ...form };
-  
-    // Get the token from localStorage
-    const token = localStorage.getItem('authToken'); // Assuming token is stored in localStorage
-    if (!token) {
-      console.error("User is not authenticated!");
-      alert("Please log in to proceed with the payment.");
-      return;
-    }
-  
-    // Decode token to get userId (optional, based on your needs)
-    const decodedToken = jwt_decode(token);
-    const userId = decodedToken._id; // or however the userId is stored in your token
-  
-    // Attach token and userId to the request body
-    const orderRequestBody = { ...body, userId };
-  
+
     try {
-      const response = await axios.post(import.meta.env.VITE_API_ORDER, orderRequestBody, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Include token in the header
-        },
+      const response = await axios.post(import.meta.env.VITE_API_ORDER, body, {
+        headers: { "Content-Type": "application/json" },
       });
-  
+
       const { orderId } = response.data;
-  
+
       if (!window.Razorpay) {
         console.error("Razorpay script not loaded.");
         alert("Razorpay is not available. Please try again.");
         return;
       }
-  
+
       const options = {
         key: import.meta.env.VITE_KEY,
         amount: price * 100,
         currency: "INR",
         name: "Renban",
+        // description: "",
         order_id: orderId,
         handler: async function (response) {
           try {
             const verificationResponse = await axios.post(import.meta.env.VITE_API_ORDER_CHECK_STATUS, {
               orderId,
               paymentId: response.razorpay_payment_id,
-              signature: response.razorpay_signature,
+              signature: response.razorpay_signature
             }, {
               headers: { 'Content-Type': 'application/json' },
             });
-  
+
             alert(verificationResponse.data.message);
             setPaymentSuccess(true);
-            navigate("/SuccessPayment");
+            navigate("/SuccessPayment")
           } catch (error) {
             console.error('Error during payment verification:', error);
             alert('Payment verification failed: ' + (error.response?.data?.message || 'Please try again.'));
           }
-        },
+        }
       };
-  
+
       const razorpay = new window.Razorpay(options);
       razorpay.open();
     } catch (error) {

@@ -28,12 +28,6 @@ const orderItemSchema = new mongoose.Schema({
   });
   
   const orderSchema = new mongoose.Schema({
-    userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "users",
-      required: true
-  },
-  
   
     username:{
       type: String,

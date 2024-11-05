@@ -3,7 +3,6 @@ const cors = require('cors');
 const { Order } = require('../Modal/PaymentModal');
 const Razorpay = require('razorpay');
 const crypto = require('crypto');
-const Auth = require('../Middleware/AuthMiddleware');
 
 const app = express();
 app.use(cors());
@@ -18,11 +17,10 @@ const razorpay = new Razorpay({
 const paymentRouter = express.Router();
 
 // Create Order
-paymentRouter.post('/razorpay-order',Auth, async (req, res) => {
+paymentRouter.post('/razorpay-order', async (req, res) => {
     try {
         const { products, username, email, address, phone } = req.body;
-        const userId = req.userId;
-         
+
         const amount = products.reduce((acc, product) => acc + product.discountPrice * product.quantity, 0) * 100; 
         const currency = 'INR';
         const receipt = crypto.randomBytes(10).toString("hex");
@@ -37,7 +35,6 @@ paymentRouter.post('/razorpay-order',Auth, async (req, res) => {
 
         // Save order to database
         const order = await Order.create({
-            userId,
             username,
             email,
             address,
