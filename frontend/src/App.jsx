@@ -12,6 +12,7 @@ import { PlaceOrder } from "./Pages/PlaceOrder";
 import { WishView } from "./Pages/WishView";
 import { SuccessPayment } from "./Pages/SuccessPayment";
 import { CancelPayment } from "./Pages/CancelPayment";
+import { OrderDetails } from "./Pages/OrderDetails";
 // import { MobileHome } from "./Pages/Mobile/MobileHome";
 
 
@@ -34,6 +35,7 @@ function App() {
             <Route path="WishView" element={<WishView />} />
 
             <Route path="PlaceOrder" element={<PlaceOrder />} />
+            <Route path="OrderDetails" element={<OrderDetails />} />
             <Route path="SuccessPayment" element={<SuccessPayment />} />
             <Route path="CancelPayment" element={<CancelPayment />} />
 

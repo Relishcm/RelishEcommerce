@@ -19,9 +19,9 @@ const paymentRouter = express.Router();
 // Create Order
 paymentRouter.post('/razorpay-order', async (req, res) => {
     try {
-        const { products, username, email, address, phone } = req.body;
+        const { products, username, email, address, phone, userId } = req.body; // Make sure to send userId from frontend
 
-        const amount = products.reduce((acc, product) => acc + product.discountPrice * product.quantity, 0) * 100; 
+        const amount = products.reduce((acc, product) => acc + product.discountPrice * product.quantity, 0) * 100; // Calculate total amount
         const currency = 'INR';
         const receipt = crypto.randomBytes(10).toString("hex");
         
@@ -30,17 +30,18 @@ paymentRouter.post('/razorpay-order', async (req, res) => {
             amount,
             currency,
             receipt,
-            payment_capture: 1 
+            payment_capture: 1
         });
 
-        // Save order to database
+        // Save order to the database with userId
         const order = await Order.create({
             username,
             email,
             address,
             phone,
             razorpayOrderId: razorpayOrder.id, 
-            orders: products
+            orders: products,
+            userId // Save the userId in the order
         });
 
         res.json({ orderId: razorpayOrder.id, message: 'Order created successfully!' });
@@ -49,6 +50,7 @@ paymentRouter.post('/razorpay-order', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error', message: error.message });
     }
 });
+
 
 
 // Verify Payment
@@ -88,20 +90,22 @@ paymentRouter.post('/razorpay-payment-verification', async (req, res) => {
 // Fetch Order
 
 paymentRouter.get('/showorder', async (req, res) => {
-    const { orderId } = req.query;
+    const { userId } = req.query; // Make sure userId is passed in the request
 
-    if (!orderId) {
-        return res.status(400).json({ message: "Order ID is required." });
+    if (!userId) {
+        return res.status(400).json({ message: "User ID is required." });
     }
 
     try {
-        const order = await Order.findById(orderId);
-        if (!order) {
-            return res.status(404).json({ message: "Order not found." });
+        // Find orders by userId
+        const orders = await Order.find({ userId: userId });
+
+        if (orders.length === 0) {
+            return res.status(404).json({ message: "No orders found for this user." });
         }
 
         // Return all relevant order details
-        res.json({
+        res.json(orders.map(order => ({
             username: order.username,
             email: order.email,
             address: order.address,
@@ -111,12 +115,13 @@ paymentRouter.get('/showorder', async (req, res) => {
             paymentTime: order.paymentTime,
             deliveryTime: order.deliveryTime,
             orders: order.orders
-        });
+        })));
     } catch (error) {
-        console.error("Error fetching order:", error);
+        console.error("Error fetching orders:", error);
         res.status(500).json({ message: "Server error", error: error.message });
     }
 });
+
 
 
 module.exports = paymentRouter;

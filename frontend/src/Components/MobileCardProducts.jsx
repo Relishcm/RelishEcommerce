@@ -27,7 +27,7 @@ export const MobileCardProducts = ({ category, price, image, productId, discount
             <div className="icon h-60 flex items-center justify-center relative">
                 {loading && (
                     <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 border-red-700 rounded-full" role="status">
+                        <div className="spinner-border animate-spin inline-block w-8 h-8 rounded-full" role="status">
                             <span className="visually-hidden"></span>
                         </div>
                     </div>
