@@ -179,7 +179,7 @@ export const PlaceOrder = () => {
 
             alert(verificationResponse.data.message);
             setPaymentSuccess(true);
-            navigate("/SuccessPayment")
+            navigate("/OrderDetails")
           } catch (error) {
             console.error('Error during payment verification:', error);
             alert('Payment verification failed: ' + (error.response?.data?.message || 'Please try again.'));

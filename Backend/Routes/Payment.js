@@ -19,29 +19,35 @@ const paymentRouter = express.Router();
 // Create Order
 paymentRouter.post('/razorpay-order', async (req, res) => {
     try {
-        const { products, username, email, address, phone, userId } = req.body; // Make sure to send userId from frontend
+        const { userId, products, username, email, address, phone } = req.body; // Get userId from request body
 
-        const amount = products.reduce((acc, product) => acc + product.discountPrice * product.quantity, 0) * 100; // Calculate total amount
+        // Make sure userId is provided
+        if (!userId) {
+            return res.status(400).json({ error: 'User ID is required' });
+        }
+
+        // Calculate the total amount for the order
+        const amount = products.reduce((acc, product) => acc + product.discountPrice * product.quantity, 0) * 100; 
         const currency = 'INR';
         const receipt = crypto.randomBytes(10).toString("hex");
-        
+
         // Create Razorpay order
         const razorpayOrder = await razorpay.orders.create({
             amount,
             currency,
             receipt,
-            payment_capture: 1
+            payment_capture: 1 
         });
 
-        // Save order to the database with userId
+        // Save the order in the database, including userId
         const order = await Order.create({
+            userId, // Save userId here
             username,
             email,
             address,
             phone,
             razorpayOrderId: razorpayOrder.id, 
-            orders: products,
-            userId // Save the userId in the order
+            orders: products
         });
 
         res.json({ orderId: razorpayOrder.id, message: 'Order created successfully!' });
@@ -50,6 +56,7 @@ paymentRouter.post('/razorpay-order', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error', message: error.message });
     }
 });
+
 
 
 
