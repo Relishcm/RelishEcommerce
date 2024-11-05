@@ -19,18 +19,12 @@ const paymentRouter = express.Router();
 // Create Order
 paymentRouter.post('/razorpay-order', async (req, res) => {
     try {
-        const { userId, products, username, email, address, phone } = req.body; // Get userId from request body
+        const { products, username, email, address, phone } = req.body;
 
-        // Make sure userId is provided
-        if (!userId) {
-            return res.status(400).json({ error: 'User ID is required' });
-        }
-
-        // Calculate the total amount for the order
         const amount = products.reduce((acc, product) => acc + product.discountPrice * product.quantity, 0) * 100; 
         const currency = 'INR';
         const receipt = crypto.randomBytes(10).toString("hex");
-
+        
         // Create Razorpay order
         const razorpayOrder = await razorpay.orders.create({
             amount,
@@ -39,9 +33,8 @@ paymentRouter.post('/razorpay-order', async (req, res) => {
             payment_capture: 1 
         });
 
-        // Save the order in the database, including userId
+        // Save order to database
         const order = await Order.create({
-            userId, // Save userId here
             username,
             email,
             address,
@@ -56,8 +49,6 @@ paymentRouter.post('/razorpay-order', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error', message: error.message });
     }
 });
-
-
 
 
 // Verify Payment
@@ -97,22 +88,20 @@ paymentRouter.post('/razorpay-payment-verification', async (req, res) => {
 // Fetch Order
 
 paymentRouter.get('/showorder', async (req, res) => {
-    const { userId } = req.query; // Make sure userId is passed in the request
+    const { orderId } = req.query;
 
-    if (!userId) {
-        return res.status(400).json({ message: "User ID is required." });
+    if (!orderId) {
+        return res.status(400).json({ message: "Order ID is required." });
     }
 
     try {
-        // Find orders by userId
-        const orders = await Order.find({ userId: userId });
-
-        if (orders.length === 0) {
-            return res.status(404).json({ message: "No orders found for this user." });
+        const order = await Order.findById(orderId);
+        if (!order) {
+            return res.status(404).json({ message: "Order not found." });
         }
 
         // Return all relevant order details
-        res.json(orders.map(order => ({
+        res.json({
             username: order.username,
             email: order.email,
             address: order.address,
@@ -122,13 +111,12 @@ paymentRouter.get('/showorder', async (req, res) => {
             paymentTime: order.paymentTime,
             deliveryTime: order.deliveryTime,
             orders: order.orders
-        })));
+        });
     } catch (error) {
-        console.error("Error fetching orders:", error);
+        console.error("Error fetching order:", error);
         res.status(500).json({ message: "Server error", error: error.message });
     }
 });
-
 
 
 module.exports = paymentRouter;
