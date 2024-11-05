@@ -144,7 +144,8 @@ export const PlaceOrder = () => {
     }
 
     setLoading(true);
-    const userId = localStorage.setItem('userId', response.data.userId); 
+    
+    const userId = localStorage.setItem('userId'); 
     if (!userId) {
       console.error("userId is missing from localStorage");
       alert("User is not authenticated.");

@@ -19,8 +19,8 @@ const paymentRouter = express.Router();
 // Create Order
 paymentRouter.post('/razorpay-order', async (req, res) => {
     try {
-        const { products, username, email, address, phone } = req.body;
-        const userId = req.userId;
+        const { products, username, email, address, phone,userId } = req.body;
+ 
         // Validate userId is present
         if (!userId) {
             return res.status(400).json({ message: 'userId is required' });
