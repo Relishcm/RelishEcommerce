@@ -3,7 +3,6 @@ const cors = require('cors');
 const { Order } = require('../Modal/PaymentModal');
 const Razorpay = require('razorpay');
 const crypto = require('crypto');
-const Auth = require('../Middleware/AuthMiddleware');
 
 const app = express();
 app.use(cors());
@@ -18,50 +17,38 @@ const razorpay = new Razorpay({
 const paymentRouter = express.Router();
 
 // Create Order
-paymentRouter.post('/razorpay-order', Auth, async (req, res) => {
+paymentRouter.post('/razorpay-order', async (req, res) => {
     try {
-      const { orders, username, email, address, phone } = req.body;
-      const userId = req.userId;
-  
-      if (!Array.isArray(orders) || orders.length === 0) {
-        return res.status(400).json({ error: "Products array is missing or empty." });
-      }
-  
-      // Validate order items
-      for (const order of orders) {
-        if (!order.discountPrice || !order.name || !order.category || !order.quantity) {
-          return res.status(400).json({ error: "Each order item must have discountPrice, name, category, and quantity." });
-        }
-      }
-  
-      const amount = orders.reduce((acc, product) => acc + product.discountPrice * product.quantity, 0) * 100; 
-      const currency = 'INR';
-      const receipt = crypto.randomBytes(10).toString("hex");
-  
-      const razorpayOrder = await razorpay.orders.create({
-        amount,
-        currency,
-        receipt,
-        payment_capture: 1 
-      });
-  
-      const order = await Order.create({
-        userId,
-        username,
-        email,
-        address,
-        phone,
-        razorpayOrderId: razorpayOrder.id, 
-        orders
-      });
-  
-      res.json({ orderId: razorpayOrder.id, message: 'Order created successfully!' });
+        const { products, username, email, address, phone } = req.body;
+
+        const amount = products.reduce((acc, product) => acc + product.discountPrice * product.quantity, 0) * 100; 
+        const currency = 'INR';
+        const receipt = crypto.randomBytes(10).toString("hex");
+        
+        // Create Razorpay order
+        const razorpayOrder = await razorpay.orders.create({
+            amount,
+            currency,
+            receipt,
+            payment_capture: 1 
+        });
+
+        // Save order to database
+        const order = await Order.create({
+            username,
+            email,
+            address,
+            phone,
+            razorpayOrderId: razorpayOrder.id, 
+            orders: products
+        });
+
+        res.json({ orderId: razorpayOrder.id, message: 'Order created successfully!' });
     } catch (error) {
-      console.error('Error creating order:', error);
-      res.status(500).json({ error: 'Internal Server Error', message: error.message });
+        console.error('Error creating order:', error);
+        res.status(500).json({ error: 'Internal Server Error', message: error.message });
     }
-  });
-  
+});
 
 
 // Verify Payment
@@ -100,20 +87,17 @@ paymentRouter.post('/razorpay-payment-verification', async (req, res) => {
 
 // Fetch Order
 
-paymentRouter.get('/showorder', Auth, async (req, res) => {
+paymentRouter.get('/showorder', async (req, res) => {
     const { orderId } = req.query;
-    const userId = req.userId;  // Retrieve the userId from the authentication middleware
 
     if (!orderId) {
         return res.status(400).json({ message: "Order ID is required." });
     }
 
     try {
-        // Fetch the order based on both orderId and userId
-        const order = await Order.findOne({ _id: orderId, userId });
-
+        const order = await Order.findById(orderId);
         if (!order) {
-            return res.status(404).json({ message: "Order not found or you are not authorized to view this order." });
+            return res.status(404).json({ message: "Order not found." });
         }
 
         // Return all relevant order details
@@ -133,7 +117,6 @@ paymentRouter.get('/showorder', Auth, async (req, res) => {
         res.status(500).json({ message: "Server error", error: error.message });
     }
 });
-
 
 
 module.exports = paymentRouter;
