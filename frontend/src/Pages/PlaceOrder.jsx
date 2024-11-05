@@ -145,7 +145,11 @@ export const PlaceOrder = () => {
 
     setLoading(true);
 
-    const body = { products: carts, ...form };
+    const body = {
+      products: carts,
+      ...form,
+      userId: localStorage.getItem('userId')
+    };
 
     try {
       const response = await axios.post(import.meta.env.VITE_API_ORDER, body, {

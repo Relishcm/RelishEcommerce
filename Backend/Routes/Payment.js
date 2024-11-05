@@ -19,7 +19,12 @@ const paymentRouter = express.Router();
 // Create Order
 paymentRouter.post('/razorpay-order', async (req, res) => {
     try {
-        const { products, username, email, address, phone,userId } = req.body;
+        const { products, username, email, address, phone, userId } = req.body;
+
+        // Validate userId is present
+        if (!userId) {
+            return res.status(400).json({ message: 'userId is required' });
+        }
 
         const amount = products.reduce((acc, product) => acc + product.discountPrice * product.quantity, 0) * 100; 
         const currency = 'INR';
@@ -35,7 +40,7 @@ paymentRouter.post('/razorpay-order', async (req, res) => {
 
         // Save order to database
         const order = await Order.create({
-            userId,
+            userId,  // This should now be valid and present
             username,
             email,
             address,
@@ -50,6 +55,7 @@ paymentRouter.post('/razorpay-order', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error', message: error.message });
     }
 });
+
 
 
 // Verify Payment
