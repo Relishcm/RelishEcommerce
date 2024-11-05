@@ -57,7 +57,7 @@ const Signup = () => {
       // Store token and name in localStorage
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("name", response.data.name);
-
+      localStorage.setItem("userId", response.data.userId);
       // Reset form and errors
       setAuth({
         username: "",

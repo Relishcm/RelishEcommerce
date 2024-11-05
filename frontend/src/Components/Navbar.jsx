@@ -229,6 +229,7 @@ export const Navbar = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("name");
         localStorage.removeItem("avatar");
+        localStorage.removeItem("userId");
         setCartlistCount(0);
         setWishlistCount(0)
         setLogin(false);

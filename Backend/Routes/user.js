@@ -21,39 +21,46 @@ const signupValidator = zod.object({
     password:zod.string().min(5)
 })
 
-userRouter.post("/signup",async(req,res)=>{
-    const body = req.body
-    console.log("body", body)
-    const success = signupValidator.safeParse(body)
-    if(!success){
-        return res.status(403).json({msg:"invalid inputs"})
+userRouter.post("/signup", async (req, res) => {
+    const body = req.body;
+    console.log("body", body);
+    const success = signupValidator.safeParse(body);
+    if (!success) {
+      return res.status(403).json({ msg: "Invalid inputs" });
     }
-
+  
     try {
-        const Check = await User.findOne({
-        email:body.email
-        })
-        if(Check){
-        return res.status(403).json({msg:'email already exist'})
-        }
-
-        const response = await User.create({
-            username:body.username,
-            email:body.email,
-            password:bcrypt.hashSync(body.password,10),
-            // isadmin:false
-        })
-        console.log(response)
-     const token = jwt.sign(response._id.toHexString(),process.env.SECRET)
-     return res.json({
-        name :response.username,
-        token:token
-     })
+      const check = await User.findOne({
+        email: body.email,
+      });
+      if (check) {
+        return res.status(403).json({ msg: "Email already exists" });
+      }
+  
+      const response = await User.create({
+        username: body.username,
+        email: body.email,
+        password: bcrypt.hashSync(body.password, 10),
+      });
+      console.log(response);
+  
+      // Generate JWT token including the userId
+      const token = jwt.sign(
+        { userId: response._id.toHexString() }, // Include the userId in the token payload
+        process.env.SECRET,
+        { expiresIn: "1h" } // Optional: Set an expiration for the token
+      );
+  
+      return res.json({
+        username: response.username,
+        token: token,
+        userId: response._id.toHexString(), // Optionally return userId in the response
+      });
     } catch (error) {
-        console.error('Signup error:', error); 
-        return res.status(404).json({msg:"signup error"})
+      console.error("Signup error:", error);
+      return res.status(404).json({ msg: "Signup error" });
     }
-})
+  });
 
 //login
 
@@ -61,35 +68,47 @@ const loginValidator= zod.object({
     email:zod.string().email(),
     password:zod.string().min(5)
 })
-userRouter.post("/login",async(req,res)=>{
-    const body = req.body
-    const success = loginValidator.safeParse(body)
-    if(!success){
-        return res.status(403).json({msg:"invalid inputs"})
+userRouter.post("/login", async (req, res) => {
+    const body = req.body;
+    const success = loginValidator.safeParse(body);
+    if (!success) {
+      return res.status(403).json({ msg: "Invalid inputs" });
     }
-
+  
     try {
-        const emailCheck = await User.findOne({
-        email:body.email
-        })
-        if(!emailCheck){
-        return res.status(403).json({msg:'email does not exist'})
-        }
-        
-
-        const passwordMatch = await bcrypt.compare(body.password, emailCheck.password);
-        
-        if (!passwordMatch) {
-            return res.status(403).json({ msg: "Incorrect password" });
-        }
-     const token = jwt.sign(emailCheck._id.toHexString(),process.env.SECRET)
-     return res.json({
-        name:emailCheck.username,
-        token:token
-     })
+      const emailCheck = await User.findOne({
+        email: body.email,
+      });
+      if (!emailCheck) {
+        return res.status(403).json({ msg: "Email does not exist" });
+      }
+  
+      const passwordMatch = await bcrypt.compare(
+        body.password,
+        emailCheck.password
+      );
+  
+      if (!passwordMatch) {
+        return res.status(403).json({ msg: "Incorrect password" });
+      }
+  
+      // Generate JWT token including the userId
+      const token = jwt.sign(
+        { userId: emailCheck._id.toHexString() }, // Include userId in token payload
+        process.env.SECRET,
+        { expiresIn: "1h" } // Optional: Set an expiration for the token
+      );
+  
+      return res.json({
+        username: emailCheck.username,
+        token: token,
+        userId: emailCheck._id.toHexString(), // Optionally return userId in the response
+      });
     } catch (error) {
-        return res.status(404).json({msg:"login error"})
+      console.error("Login error:", error);
+      return res.status(404).json({ msg: "Login error" });
     }
-})
+  });
+  
 
 module.exports= userRouter;
