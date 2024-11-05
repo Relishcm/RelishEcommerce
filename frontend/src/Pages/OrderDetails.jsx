@@ -9,16 +9,12 @@ export const OrderDetails = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Get the token from localStorage
-    const token = localStorage.getItem('authToken');
-    if (!token) {
-      navigate("/login"); // Redirect to login if not authenticated
-      return;
-    }
-
     const fetchOrderDetails = async () => {
+      // Extract the orderId from the query string (URL)
       const orderId = new URLSearchParams(window.location.search).get("orderId");
+      console.log("Order ID from URL:", orderId);
 
+      // Check if the orderId is present in the URL
       if (!orderId) {
         setError("Order ID is required");
         setLoading(false);
@@ -26,12 +22,14 @@ export const OrderDetails = () => {
       }
 
       try {
-        const response = await axios.get(`https://renbanecommerce.onrender.com/paymentRouter/showorder?orderId=${orderId}`, {
+        const response = await axios.get('https://renbanecommerce.onrender.com/paymentRouter/showorder', {
+          params: { orderId },  // Send orderId as query parameter
           headers: {
-            Authorization: localStorage.getItem("token"),
+            Authorization: `Bearer ${localStorage.getItem("token")}`,  // Add Bearer token from localStorage
           },
         });
 
+        // If request is successful, store order details
         setOrderDetails(response.data);
         setLoading(false);
       } catch (err) {
@@ -42,11 +40,15 @@ export const OrderDetails = () => {
     };
 
     fetchOrderDetails();
-  }, [navigate]);
+  }, [navigate]);  // Ensure re-fetching on navigation
 
+  // Show loading message while fetching
   if (loading) return <div>Loading...</div>;
+
+  // Show error message if fetching fails
   if (error) return <div>{error}</div>;
 
+  // If order details are found, display them
   return (
     <div>
       <h2>Order Details</h2>
@@ -69,8 +71,8 @@ export const OrderDetails = () => {
             ))}
           </ul>
         </div>
-      ):(
-         <div>No Order Details </div>
+      ) : (
+        <div>No Order Details</div>
       )}
     </div>
   );

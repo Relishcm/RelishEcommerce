@@ -144,8 +144,14 @@ export const PlaceOrder = () => {
     }
 
     setLoading(true);
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+      alert("Please log in to proceed with the payment.");
+      setLoading(false);
+      return;
+    }
 
-    const body = { products: carts, ...form };
+    const body = { products: carts, ...form, userId };
 
     try {
       const response = await axios.post(import.meta.env.VITE_API_ORDER, body, {
