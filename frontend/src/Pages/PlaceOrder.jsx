@@ -145,7 +145,7 @@ export const PlaceOrder = () => {
 
     setLoading(true);
 
-    const body = { products: carts, ...form };
+    const body = { userId: loggedInUserId, products: carts, ...form };
 
     try {
       const response = await axios.post(import.meta.env.VITE_API_ORDER, body, {
