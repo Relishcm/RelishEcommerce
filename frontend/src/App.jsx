@@ -13,6 +13,7 @@ import { WishView } from "./Pages/WishView";
 import { SuccessPayment } from "./Pages/SuccessPayment";
 import { CancelPayment } from "./Pages/CancelPayment";
 import { OrderDetails } from "./Pages/OrderDetails";
+import { SearchProduct } from "./Components/SearchProduct";
 // import { MobileHome } from "./Pages/Mobile/MobileHome";
 
 
@@ -39,6 +40,7 @@ function App() {
             <Route path="SuccessPayment" element={<SuccessPayment />} />
             <Route path="CancelPayment" element={<CancelPayment />} />
 
+            <Route path="/search/:term" element={<SearchProduct />} />
             
           </Route>
      

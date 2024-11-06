@@ -8,11 +8,21 @@ export const OrderDetails = () => {
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
+ 
     useEffect(() => {
-        // Fetch userId from localStorage
+      window.scrollTo(0, 0);
+    }, []);
+
+    useEffect(() => {
         const token = localStorage.getItem("token");
-        if (token) {
+        
+        if (!token) {
+            navigate("/auth"); 
+            return;
+        }
+
         const userId = localStorage.getItem('userId');
+        // console.log('User ID:', userId);
 
         if (!userId) {
             setError('User is not logged in.');
@@ -20,12 +30,20 @@ export const OrderDetails = () => {
             return;
         }
 
-        // Make API call to fetch orders
         const fetchOrders = async () => {
             try {
                 const response = await axios.get(`${import.meta.env.VITE_API_SHOW_ORDER}/?userId=${userId}`);
-                setOrders(response.data.orders);
+                console.log('API Response:', response.data); // Log the response to inspect
+
+              
+                if (!response.data.orders || response.data.orders.length === 0) {
+                    setError('No orders found.');
+                } else {
+                    setOrders(response.data.orders);
+                }
+
             } catch (err) {
+                console.error('Error fetching orders:', err);
                 setError('Failed to fetch orders. Please try again later.');
             } finally {
                 setLoading(false);
@@ -33,10 +51,7 @@ export const OrderDetails = () => {
         };
 
         fetchOrders();
-      }else {
-        navigate("/auth");
-    }
-    }, []);
+    }, [navigate]);
 
     if (loading) {
         return <div>Loading orders...</div>;
@@ -53,13 +68,11 @@ export const OrderDetails = () => {
                 <p>No orders found.</p>
             ) : (
                 orders.map((order) => {
-                    // Calculate total price and total quantity for the order
                     const totalPrice = order.items.reduce((acc, item) => acc + item.discountPrice * item.quantity, 0);
                     const totalQuantity = order.items.reduce((acc, item) => acc + item.quantity, 0);
 
                     return (
                         <div key={order.orderId} className="bg-white p-4 rounded-lg shadow-md mb-6 flex flex-wrap">
-                            {/* User Details */}
                             <div className="w-full md:w-1/2 pr-4 mb-4 md:mb-0">
                                 <h3 className="text-xl font-semibold mb-2">Order ID: {order.orderId}</h3>
                                 <p><strong>Username:</strong> {order.username}</p>
@@ -71,7 +84,6 @@ export const OrderDetails = () => {
                                 <p><strong>Delivery Time:</strong> {new Date(order.deliveryTime).toLocaleString()}</p>
                             </div>
 
-                            {/* Items Details */}
                             <div className="w-full md:w-1/2">
                                 <h4 className="text-lg font-semibold mb-2">Items:</h4>
                                 <table className="min-w-full table-auto">
@@ -94,20 +106,17 @@ export const OrderDetails = () => {
                                         ))}
                                     </tbody>
                                 </table>
-                                
-                            <div className="w-full mt-4 flex justify-end gap-10">
-                            <div className="font-semibold">
-                                    <p>Total Price: ₹{totalPrice}</p>
+
+                                <div className="w-full mt-4 flex justify-end gap-10">
+                                    <div className="font-semibold">
+                                        <p>Total Price: ₹{totalPrice}</p>
+                                    </div>
+                                    <div className="font-semibold">
+                                        <p>Total Quantity: {totalQuantity}</p>
+                                    </div>
                                 </div>
-                                <div className="font-semibold">
-                                    <p>Total Quantity: {totalQuantity}</p>
-                                </div>
-                            
                             </div>
                         </div>
-                            </div>
-
-             
                     );
                 })
             )}

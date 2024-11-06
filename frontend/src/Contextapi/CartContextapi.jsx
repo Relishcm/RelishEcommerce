@@ -5,8 +5,8 @@ const CartContext = createContext();
 
 const CartContextProvider = ({ children }) => {
     const [cartlistCount, setCartlistCount] = useState(0);
-    const [carts, setCarts] = useState([]); 
-    const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
+    // const [carts, setCarts] = useState([]); 
+    // const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
 
     async function addToCart(product, quantity) {
        

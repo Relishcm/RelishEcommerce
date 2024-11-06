@@ -163,7 +163,7 @@
 
 
 import React, { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaBars, FaTimes, FaUser } from 'react-icons/fa';
 import { FaHeart } from "react-icons/fa";
 import { GiShoppingBag } from "react-icons/gi";
@@ -179,8 +179,8 @@ export const Navbar = () => {
     const [login, setLogin] = useState(false);
     const [userName, setUserName] = useState('');
     const [avatar, setAvatar] = useState('');
-    const { cartlistCount, setCartlistCount } = useCart(); 
-    const {setWishlistCount} = useWish()
+    const { cartlistCount, setCartlistCount } = useCart();
+    const { setWishlistCount } = useWish()
 
     const handleMenuToggle = () => {
         setIsOpen(!isOpen);
@@ -199,12 +199,12 @@ export const Navbar = () => {
                     headers: { Authorization: token }
                 });
                 setCartlistCount(cartResponse.data.count);
-            
 
-            const wishlistResponse = await axios.get(import.meta.env.VITE_API_WISHLIST_COUNT, {
-                headers: { Authorization: token }
-              });
-              setWishlistCount(wishlistResponse.data.count);
+
+                const wishlistResponse = await axios.get(import.meta.env.VITE_API_WISHLIST_COUNT, {
+                    headers: { Authorization: token }
+                });
+                setWishlistCount(wishlistResponse.data.count);
             }
         } catch (error) {
             console.error("Error fetching cart count:", error);
@@ -221,7 +221,7 @@ export const Navbar = () => {
             setLogin(true);
             setUserName(name);
             setAvatar(avatar);
-            fetchCartCount(); 
+            fetchCartCount();
         }
     }, []);
 
@@ -229,7 +229,7 @@ export const Navbar = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("name");
         localStorage.removeItem("avatar");
-          localStorage.removeItem("userId");
+        localStorage.removeItem("userId");
         setCartlistCount(0);
         setWishlistCount(0)
         setLogin(false);
@@ -245,11 +245,22 @@ export const Navbar = () => {
             path: '/WishView', name: <div className='md:flex hidden items-center gap-1 '> Wishlist<WishlistCount /></div>
         },
         { path: '/cart', name: <div className='md:flex hidden items-center gap-1 '>Cart <CartlistCount /></div> },
-        { path: '/OrderDetails', name:"Orders" },
+        { path: '/OrderDetails', name: "Orders" },
 
     ];
 
     const location = useLocation();
+    const [searchTerm, setSearchTerm] = useState('');
+    const navigate = useNavigate();
+
+    // Handle form submission
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (searchTerm.trim()) {
+            navigate(`/search/${searchTerm.trim()}`);
+            setSearchTerm('')
+        }
+    };
 
     return (
         <div className="bg-gray-50 sm:p-2 md:p-2 shadow-md font-medium ">
@@ -277,8 +288,16 @@ export const Navbar = () => {
                 </div>
 
                 <div className="items-center md:flex hidden gap-3">
-                    <input type="text" placeholder="Search..." className="p-2 w-full border border-gray-950 rounded" />
 
+                    <form onSubmit={handleSubmit}>
+                        <input
+                            type="text"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            placeholder="Search..."
+                            className="p-2 w-full border border-gray-950 rounded"
+                        />
+                    </form>
                     {login ? (
                         <div className="flex items-center gap-2">
                             <div className='bg-red-800 text-white p-1 rounded-full w-10 h-10 flex justify-center items-center'>{avatar}</div>

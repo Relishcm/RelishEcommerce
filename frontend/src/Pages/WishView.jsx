@@ -8,8 +8,9 @@ export const WishView = () => {
     const navigate = useNavigate();
     const [wishs, setWishs] = useState([]);
     const { removeFromWish } = useWish();
-    const { addToCart, isLoggedIn } = useCart();
+    const { addToCart } = useCart(); // Access the addToCart function from the CartContext
 
+    // Fetch wishlist items
     useEffect(() => {
         const fetchWishes = async () => {
             try {
@@ -18,14 +19,20 @@ export const WishView = () => {
                         Authorization: localStorage.getItem("token"),
                     },
                 });
-                setWishs(response.data.items);
+                setWishs(response.data.items || []); // Set empty array if no items are returned
             } catch (error) {
-                alert("Error fetching wishlist");
+                if (error.response && error.response.status === 401) {
+                    alert("Your session has expired. Please log in again.");
+                    navigate("/auth");
+                } else {
+                    alert("Error fetching wishlist. Please try again later.");
+                }
             }
         };
         fetchWishes();
-    }, []);
+    }, [navigate]);
 
+    // Remove product from wishlist
     const handleRemoveFromWish = async (productId) => {
         if (localStorage.getItem("token")) {
             try {
@@ -39,16 +46,19 @@ export const WishView = () => {
         }
     };
 
-    const handleAddToCart = async (product) => {
-        if (localStorage.getItem("token")) {
-            if (!isLoggedIn) {
-                alert("You need to log in to add items to the cart.");
-                navigate("/auth"); // Redirect to login if not logged in
-            } else {
-                addToCart(product, 1); // Add product to cart with quantity of 1
+    // Add product to cart
+    const handleAddToCart = (product) => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            try {
+                addToCart(product, 1); 
+              
+            } catch (error) {
+                console.error("Failed to add to cart:", error);
+                alert("Failed to add to cart.");
             }
         } else {
-            navigate("/auth");
+            navigate("/auth"); 
         }
     };
 
@@ -60,7 +70,7 @@ export const WishView = () => {
                     <p>No items in your wishlist.</p>
                 ) : (
                     wishs.map((wish) => (
-                        <div key={wish.productId} className="bg-white w-4/5 border rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105">
+                        <div key={wish.productId} className="bg-white w-4/5 border rounded-lg shadow-lg overflow-hidden ">
                             <img src={wish.image} alt={wish.name} className="w-full h-48 object-cover" />
                             <div className="p-4 text-center">
                                 <p className="text-xl font-semibold">{wish.name}</p>

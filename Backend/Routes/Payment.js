@@ -98,8 +98,8 @@ paymentRouter.get('/showorders', async (req, res) => {
 
     try {
         // Find all orders associated with the userId
-        const orders = await Order.find({ userId }).populate('userId', 'username email'); // Populate user details
-
+        // const orders = await Order.find({ userId }).populate('userId', 'username email'); // Populate user details
+        const orders = await Order.find({ userId: userId });
         if (!orders || orders.length === 0) {
             return res.status(404).json({ message: "No orders found for this user." });
         }

@@ -13,13 +13,14 @@ const Cart = () => {
   const { carts, updateCart, setCarts } = useUpdatedCarts();
   
   useEffect(() => {
-    async function serverCall() {
-      if (localStorage.getItem("token")) {
+    const token = localStorage.getItem('token');
+    if (token) {
+      async function serverCall() {
         try {
           const response = await axios.get(import.meta.env.VITE_API_CART_VIEW, {
-            headers: { Authorization: localStorage.getItem("token") }
+            headers: { Authorization: token }
           });
-          const cartItems = response.data.items;
+          const cartItems = response.data.items || []; 
           setCarts(cartItems);
           setShow(cartItems.length > 0);
           updateTotalPrice(cartItems);
@@ -27,12 +28,13 @@ const Cart = () => {
           console.error("Error fetching cart data:", error);
           alert("Error fetching cart data");
         }
-      } else {
-        navigate('/auth');
       }
+      serverCall();
+    } else {
+      navigate('/auth');
     }
-    serverCall();
-  }, []);
+  }, []); // Only run once when the component mounts
+  
 
   const handleRemoveFromCart = async (productId) => {
     if (localStorage.getItem("token")) {
@@ -104,9 +106,14 @@ const Cart = () => {
   };
 
   return (
-    <div className='min-h-screen'>
+    <div className=''>
+      {!show && (
+        <div className="flex justify-center items-center min-h-[40vh]">
+          <h2>No items in your cart.</h2>
+        </div>
+      )}
       {show && (
-        <div className='pt-[10vh] min-h-[100%] '>
+        <div className='pt-[10vh] min-h-[100%]'>
           <div className='w-full flex flex-col items-center'>
             <h1 className='text-2xl font-bold mb-4'>Items in Cart</h1>
             <div className='w-full max-w-5xl'>
@@ -152,6 +159,7 @@ const Cart = () => {
       )}
     </div>
   );
+  
 };
 
 export default Cart;
