@@ -144,8 +144,14 @@ export const PlaceOrder = () => {
     }
 
     setLoading(true);
+    const userId = localStorage.getItem("userId");
 
-    const body = { userId: loggedInUserId, products: carts, ...form };
+    if (!userId) {
+      alert("User is not logged in or userId is not available.");
+      return;
+    }
+
+    const body = { userId, products: carts, ...form };
 
     try {
       const response = await axios.post(import.meta.env.VITE_API_ORDER, body, {

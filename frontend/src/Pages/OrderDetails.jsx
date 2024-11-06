@@ -1,79 +1,74 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';  // If you're using React Router for navigation
 
 export const OrderDetails = () => {
-  const [orderDetails, setOrderDetails] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const navigate = useNavigate();
+    const [orders, setOrders] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchOrderDetails = async () => {
-      // Extract the orderId from the query string (URL)
-      const orderId = new URLSearchParams(window.location.search).get("orderId");
-      console.log("Order ID from URL:", orderId);
+    useEffect(() => {
+        // Fetch userId from localStorage
+        const userId = localStorage.getItem('userId');
 
-      // Check if the orderId is present in the URL
-      if (!orderId) {
-        setError("Order ID is required");
-        setLoading(false);
-        return;
-      }
+        if (!userId) {
+            setError('User is not logged in.');
+            setLoading(false);
+            return;
+        }
 
-      try {
-        const response = await axios.get('https://renbanecommerce.onrender.com/paymentRouter/showorder', {
-          params: { orderId },  // Send orderId as query parameter
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,  // Add Bearer token from localStorage
-          },
-        });
+        // Make API call to fetch orders
+        const fetchOrders = async () => {
+            try {
+                const response = await axios.get(`http://localhost:5500/paymentRouter/showorders?userId=${userId}`);
+                setOrders(response.data.orders);
+            } catch (err) {
+                setError('Failed to fetch orders. Please try again later.');
+            } finally {
+                setLoading(false);
+            }
+        };
 
-        // If request is successful, store order details
-        setOrderDetails(response.data);
-        setLoading(false);
-      } catch (err) {
-        console.error("Error fetching order details:", err);
-        setError("Could not fetch order details");
-        setLoading(false);
-      }
-    };
+        fetchOrders();
+    }, []);
 
-    fetchOrderDetails();
-  }, [navigate]);  // Ensure re-fetching on navigation
+    if (loading) {
+        return <div>Loading orders...</div>;
+    }
 
-  // Show loading message while fetching
-  if (loading) return <div>Loading...</div>;
+    if (error) {
+        return <div>{error}</div>;
+    }
 
-  // Show error message if fetching fails
-  if (error) return <div>{error}</div>;
-
-  // If order details are found, display them
-  return (
-    <div>
-      <h2>Order Details</h2>
-      {orderDetails ? (
+    return (
         <div>
-          <p><strong>Username:</strong> {orderDetails.username}</p>
-          <p><strong>Email:</strong> {orderDetails.email}</p>
-          <p><strong>Address:</strong> {orderDetails.address}</p>
-          <p><strong>Phone:</strong> {orderDetails.phone}</p>
-          <p><strong>Razorpay Order ID:</strong> {orderDetails.razorpayOrderId}</p>
-          <p><strong>Payment Status:</strong> {orderDetails.paymentStatus}</p>
-          <p><strong>Payment Time:</strong> {orderDetails.paymentTime}</p>
-          <p><strong>Delivery Time:</strong> {orderDetails.deliveryTime}</p>
-          <h3>Ordered Items:</h3>
-          <ul>
-            {orderDetails.orders.map((item, index) => (
-              <li key={index}>
-                {item.name} (x{item.quantity}) - ₹{item.discountPrice}
-              </li>
-            ))}
-          </ul>
+            <h2>Your Orders</h2>
+            {orders.length === 0 ? (
+                <p>No orders found.</p>
+            ) : (
+                orders.map((order) => (
+                    <div key={order.orderId} className="order">
+                        <h3>Order ID: {order.orderId}</h3>
+                        <p><strong>Username:</strong> {order.username}</p>
+                        <p><strong>Email:</strong> {order.email}</p>
+                        <p><strong>Address:</strong> {order.address}</p>
+                        <p><strong>Phone:</strong> {order.phone}</p>
+                        <p><strong>Payment Status:</strong> {order.paymentStatus}</p>
+                        <p><strong>Payment Time:</strong> {new Date(order.paymentTime).toLocaleString()}</p>
+                        <p><strong>Delivery Time:</strong> {new Date(order.deliveryTime).toLocaleString()}</p>
+                        <h4>Items:</h4>
+                        <ul>
+                            {order.items.map((item, index) => (
+                                <li key={index}>
+                                    <p><strong>{item.name}</strong></p>
+                                    <p>Category: {item.category}</p>
+                                    <p>Price: ₹{item.discountPrice}</p>
+                                    <p>Quantity: {item.quantity}</p>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                ))
+            )}
         </div>
-      ) : (
-        <div>No Order Details</div>
-      )}
-    </div>
-  );
+    );
 };

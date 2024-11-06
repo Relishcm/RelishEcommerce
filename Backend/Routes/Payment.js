@@ -89,38 +89,42 @@ paymentRouter.post('/razorpay-payment-verification', async (req, res) => {
 });
 
 
-// Fetch Order
+paymentRouter.get('/showorders', async (req, res) => {
+    const { userId } = req.query;
 
-paymentRouter.get('/showorder', async (req, res) => {
-    const { orderId } = req.query;
-
-    if (!orderId) {
-        return res.status(400).json({ message: "Order ID is required." });
+    if (!userId) {
+        return res.status(400).json({ message: "User ID is required." });
     }
 
     try {
-        const order = await Order.findById(orderId);
-        if (!order) {
-            return res.status(404).json({ message: "Order not found." });
+        // Find all orders associated with the userId
+        const orders = await Order.find({ userId }).populate('userId', 'username email'); // Populate user details
+
+        if (!orders || orders.length === 0) {
+            return res.status(404).json({ message: "No orders found for this user." });
         }
 
-        // Return all relevant order details
+        // Return relevant order details
         res.json({
-            username: order.username,
-            email: order.email,
-            address: order.address,
-            phone: order.phone,
-            razorpayOrderId: order.razorpayOrderId,
-            paymentStatus: order.paymentStatus,
-            paymentTime: order.paymentTime,
-            deliveryTime: order.deliveryTime,
-            orders: order.orders
+            orders: orders.map(order => ({
+                orderId: order._id,
+                username: order.username,
+                email: order.email,
+                address: order.address,
+                phone: order.phone,
+                razorpayOrderId: order.razorpayOrderId,
+                paymentStatus: order.paymentStatus,
+                paymentTime: order.paymentTime,
+                deliveryTime: order.deliveryTime,
+                items: order.orders, // List of items in the order
+            }))
         });
     } catch (error) {
-        console.error("Error fetching order:", error);
+        console.error("Error fetching orders:", error);
         res.status(500).json({ message: "Server error", error: error.message });
     }
 });
+
 
 
 module.exports = paymentRouter;
