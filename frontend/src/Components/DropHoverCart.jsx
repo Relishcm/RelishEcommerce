@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 export const DropHoverCart = ({ dropdownName, product }) => {
     const { openDropdown, setOpenDropdown, dropdownRef } = useHoverDropdown();
-    const { addToCart, removeFromCart, isLoggedIn, carts, checkCartStatus } = useCart();
+    const { addToCart, removeFromCart, checkCartStatus } = useCart();
     const { addToWish, removeFromWish, checkWishStatus } = useWish();
     const navigate = useNavigate();
 

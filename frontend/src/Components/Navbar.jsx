@@ -245,6 +245,8 @@ export const Navbar = () => {
             path: '/WishView', name: <div className='md:flex hidden items-center gap-1 '> Wishlist<WishlistCount /></div>
         },
         { path: '/cart', name: <div className='md:flex hidden items-center gap-1 '>Cart <CartlistCount /></div> },
+        { path: '/OrderDetails', name:"Orders" },
+
     ];
 
     const location = useLocation();

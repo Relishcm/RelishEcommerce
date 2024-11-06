@@ -9,10 +9,7 @@ const CartContextProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
 
     async function addToCart(product, quantity) {
-        if (!isLoggedIn) {
-            alert("You need to log in to add items to the cart.");
-            return;
-        }
+       
 
         
         const requiredFields = ['category', 'name', 'description', 'price', 'discountPrice', 'image', 'productId'];
@@ -42,7 +39,7 @@ const CartContextProvider = ({ children }) => {
             if (response.status === 201) {
                 alert("Added to Cart");
                 fetchCount();
-                fetchCart();
+                // fetchCart();
             }
         } catch (error) {
             console.error("Failed to add to cart:", error.response?.data || error);
@@ -60,7 +57,7 @@ const CartContextProvider = ({ children }) => {
             if (response.status === 200) {
                 alert("Removed from cart");
                 fetchCount();
-                fetchCart(); // Fetch updated cart items
+                // fetchCart(); 
             }
         } catch (error) {
             console.error("Error removing from cart:", error.response?.data || error);
@@ -70,10 +67,7 @@ const CartContextProvider = ({ children }) => {
 
 
     const fetchCount = async () => {
-        if (!isLoggedIn) {
-            setCartlistCount(0);
-            return;
-        }
+      
 
         try {
             const response = await axios.get(import.meta.env.VITE_API_CART_COUNT, {
@@ -87,23 +81,20 @@ const CartContextProvider = ({ children }) => {
         }
     };
 
-    const fetchCart = async () => {
-        if (!isLoggedIn) {
-            setCarts([]);
-            return;
-        }
+    // const fetchCart = async () => {
+       
 
-        try {
-            const response = await axios.get(import.meta.env.VITE_API_CART_VIEW
+    //     try {
+    //         const response = await axios.get(import.meta.env.VITE_API_CART_VIEW
                 
-                , {
-                headers: { Authorization: localStorage.getItem("token") }
-            });
-            setCarts(response.data.items || []);
-        } catch (error) {
-            console.error("Error fetching cart items:", error);
-        }
-    };
+    //             , {
+    //             headers: { Authorization: localStorage.getItem("token") }
+    //         });
+    //         setCarts(response.data.items || []);
+    //     } catch (error) {
+    //         console.error("Error fetching cart items:", error);
+    //     }
+    // };
 
     const checkCartStatus = async (productId) => {
 
@@ -121,11 +112,11 @@ const CartContextProvider = ({ children }) => {
     };
     useEffect(() => {
         fetchCount();
-        fetchCart();
-    }, [isLoggedIn]);
+        // fetchCart();
+    }, []);
 
     return (
-        <CartContext.Provider value={{ cartlistCount,setCartlistCount, addToCart,checkCartStatus, isLoggedIn,removeFromCart, setIsLoggedIn, carts }}>
+        <CartContext.Provider value={{ cartlistCount,setCartlistCount, addToCart,checkCartStatus ,removeFromCart }}>
             {children}
         </CartContext.Provider>
     );
