@@ -75,6 +75,8 @@ const CartContextProvider = ({ children }) => {
             });
             if (response.data && typeof response.data.count === 'number') {
                 setCartlistCount(response.data.count);
+            }else {
+                console.error("Unexpected response format:", response.data);
             }
         } catch (error) {
             console.error("Error fetching cart count:", error);
