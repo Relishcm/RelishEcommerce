@@ -12,7 +12,10 @@ export const WishView = () => {
 
     // Fetch wishlist items
     useEffect(() => {
+        if (localStorage.getItem("token")) {
+
         const fetchWishes = async () => {
+
             try {
                 const response = await axios.get(import.meta.env.VITE_API_WISHLIST_VIEW, {
                     headers: {
@@ -30,6 +33,9 @@ export const WishView = () => {
             }
         };
         fetchWishes();
+    } else {
+        navigate("/auth");
+    }
     }, [navigate]);
 
     // Remove product from wishlist
@@ -42,7 +48,7 @@ export const WishView = () => {
                 console.error("Error removing from wishlist:", error);
             }
         } else {
-            navigate("/signup");
+            navigate("/auth");
         }
     };
 
