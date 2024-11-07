@@ -16,7 +16,7 @@ export const GarmentsProductProvider = ({ children }) => {
     useEffect(() => {
         async function fetchProducts() {
             try {
-                const response = await axios.get(import.meta.env.VITE_API_CART_SHOW);
+                const response = await axios.get(import.meta.env.VITE_API_GARMENTS_SHOW);
                 setItemShow(response.data.products);
                 setLoading(false);
             } catch (error) {
