@@ -91,6 +91,7 @@ paymentRouter.post('/razorpay-payment-verification', async (req, res) => {
 
 
 paymentRouter.get('/showorders',Auth, async (req, res) => {
+    // const { userId } = req.query;
     const userId = req.userId;
 
     if (!userId) {

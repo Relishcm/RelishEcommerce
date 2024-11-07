@@ -41,7 +41,7 @@ export const OrderDetails = () => {
                
 
             } catch (err) {
-                console.error('Error fetching orders:', err);
+                // console.error('Error fetching orders:', err);
                 setError('Failed to fetch orders. Please try again later.');
             } finally {
                 setLoading(false);

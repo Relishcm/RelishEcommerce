@@ -2,18 +2,17 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
-const ProductContext = createContext();
+const GarmentsProductContext = createContext();
 
-
-export const useProducts = () => {
-    return useContext(ProductContext);
+export const useGarmentsProducts = () => {
+    return useContext(GarmentsProductContext);
 };
 
-export const ProductProvider = ({ children }) => {
+export const GarmentsProductProvider = ({ children }) => {
     const [itemShow, setItemShow] = useState([]);
     const [loading, setLoading] = useState(true);
 
-   
+
     useEffect(() => {
         async function fetchProducts() {
             try {
@@ -29,8 +28,8 @@ export const ProductProvider = ({ children }) => {
     }, []);
 
     return (
-        <ProductContext.Provider value={{ itemShow, loading }}>
+        <GarmentsProductContext.Provider value={{ itemShow, loading }}>
             {children}
-        </ProductContext.Provider>
+        </GarmentsProductContext.Provider>
     );
 };

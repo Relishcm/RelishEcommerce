@@ -8,21 +8,24 @@ import { CartContextProvider } from './Contextapi/CartContextapi.jsx'
 import { WishContextProvider } from './Contextapi/WishContextapi.jsx'
 import { CartTableProvider } from './Contextapi/CartTablecontextapi.jsx'
 import { ProductProvider } from './Contextapi/ShowProduct.jsx'
+import { GarmentsProductProvider } from './Contextapi/ShowGarmentsProducts.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ProductProvider>
-    <DropdownProvider>
-      <DropHoverProvider>
-        <CartContextProvider >
-          <WishContextProvider>
-            <CartTableProvider>
-          <App />
-          </CartTableProvider>
-          </WishContextProvider>
-        </CartContextProvider>
-      </DropHoverProvider>
-    </DropdownProvider>
+      <GarmentsProductProvider>
+        <DropdownProvider>
+          <DropHoverProvider>
+            <CartContextProvider >
+              <WishContextProvider>
+                <CartTableProvider>
+                  <App />
+                </CartTableProvider>
+              </WishContextProvider>
+            </CartContextProvider>
+          </DropHoverProvider>
+        </DropdownProvider>
+      </GarmentsProductProvider>
     </ProductProvider>
   </StrictMode>,
 )

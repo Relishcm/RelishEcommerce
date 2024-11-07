@@ -14,6 +14,10 @@ import { SuccessPayment } from "./Pages/SuccessPayment";
 import { CancelPayment } from "./Pages/CancelPayment";
 import { OrderDetails } from "./Pages/OrderDetails";
 import { SearchProduct } from "./Components/SearchProduct";
+
+import Woman from "./Pages/Garments/Woman";
+import Child from "./Pages/Garments/Child";
+import Man from "./Pages/Garments/Man";
 // import { MobileHome } from "./Pages/Mobile/MobileHome";
 
 
@@ -30,6 +34,13 @@ function App() {
             <Route path="cable" element={<CtypeUSB />} />
             <Route path="Headphone" element={<Headphone />} />
             <Route path="charge" element={<Charge />} />
+
+            <Route path="Man" element={<Man />} />
+         
+            <Route path="Woman" element={<Woman />} />
+            <Route path="Child" element={<Child />} />
+
+
       
             <Route path="view" element={<CardView />} />
             <Route path="cart" element={<Cart />} />

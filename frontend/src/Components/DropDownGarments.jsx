@@ -15,13 +15,13 @@ export const DropDownGarments = () => {
             </div>
             {openDropdown === 'garments' && (
                 <ul ref={dropdownRef} className="list-none font-medium absolute bg-white z-50 border border-gray-300 rounded-md shadow-lg text-xs md:text-sm">
-                    <Link to="/man">
+                    <Link to="/Man">
                         <li className="py-1 px-4 hover:bg-red-100 cursor-pointer transition-colors duration-300">Man</li>
                     </Link>
-                    <Link to="/woman">
+                    <Link to="/Woman">
                         <li className="py-1 px-4 hover:bg-red-100 cursor-pointer transition-colors duration-300">Woman</li>
                     </Link>
-                    <Link to="/child">
+                    <Link to="/Child">
                         <li className="py-1 px-4 hover:bg-red-100 cursor-pointer transition-colors duration-300">Child</li>
                     </Link>
               

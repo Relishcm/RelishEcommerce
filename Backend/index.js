@@ -13,6 +13,7 @@ const ProductRouter = require("./Routes/Mobileproduct");
 const cartRouter = require("./Routes/Cart");
 const wishRouter = require("./Routes/Wishlist");
 const paymentRouter = require("./Routes/Payment");
+const GarmentsProductRouter = require("./Routes/GarmentsProducts");
 
 connectDB();
 
@@ -21,6 +22,8 @@ app.use("/MobileProductRouter", ProductRouter);
 app.use("/cartRouter", cartRouter);
 app.use("/wishRouter", wishRouter);
 app.use("/paymentRouter", paymentRouter);
+app.use("/GarmentsProductRouter", GarmentsProductRouter);
+
 
 const PORT = 5500;
 
