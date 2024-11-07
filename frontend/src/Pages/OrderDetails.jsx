@@ -32,15 +32,13 @@ export const OrderDetails = () => {
 
         const fetchOrders = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_API_SHOW_ORDER}/?userId=${userId}`);
-                console.log('API Response:', response.data); // Log the response to inspect
+                const response = await axios.get(`${import.meta.env.VITE_API_SHOW_ORDER}/?userId=${userId}`,{
+                    headers: { Authorization: token }
+                });
+                console.log('API Response:', response); 
 
-              
-                if (!response.data.orders || response.data.orders.length === 0) {
-                    setError('No orders found.');
-                } else {
-                    setOrders(response.data.orders);
-                }
+                setOrders(response.data.orders || []);
+               
 
             } catch (err) {
                 console.error('Error fetching orders:', err);
@@ -51,15 +49,15 @@ export const OrderDetails = () => {
         };
 
         fetchOrders();
-    }, [navigate]);
+    }, []);
 
     if (loading) {
         return <div>Loading orders...</div>;
     }
 
-    if (error) {
-        return <div>{error}</div>;
-    }
+    // if (error) {
+    //     return <div>{error}</div>;
+    // }
 
     return (
         <div className="container mx-auto p-4">

@@ -7,9 +7,11 @@ import { DropHoverProvider } from './Contextapi/CartDropDownHover.jsx'
 import { CartContextProvider } from './Contextapi/CartContextapi.jsx'
 import { WishContextProvider } from './Contextapi/WishContextapi.jsx'
 import { CartTableProvider } from './Contextapi/CartTablecontextapi.jsx'
+import { ProductProvider } from './Contextapi/ShowProduct.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <ProductProvider>
     <DropdownProvider>
       <DropHoverProvider>
         <CartContextProvider >
@@ -21,5 +23,6 @@ createRoot(document.getElementById('root')).render(
         </CartContextProvider>
       </DropHoverProvider>
     </DropdownProvider>
+    </ProductProvider>
   </StrictMode>,
 )

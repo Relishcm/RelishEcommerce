@@ -8,9 +8,9 @@ export const WishView = () => {
     const navigate = useNavigate();
     const [wishs, setWishs] = useState([]);
     const { removeFromWish } = useWish();
-    const { addToCart } = useCart(); // Access the addToCart function from the CartContext
+    const { addToCart } = useCart(); 
 
-    // Fetch wishlist items
+ 
     useEffect(() => {
         if (localStorage.getItem("token")) {
 
@@ -22,7 +22,7 @@ export const WishView = () => {
                         Authorization: localStorage.getItem("token"),
                     },
                 });
-                setWishs(response.data.items || []); // Set empty array if no items are returned
+                setWishs(response.data.items || []); 
             } catch (error) {
                 if (error.response && error.response.status === 401) {
                     alert("Your session has expired. Please log in again.");

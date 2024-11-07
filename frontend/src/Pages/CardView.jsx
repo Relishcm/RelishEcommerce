@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useCart } from '../Contextapi/CartContextapi';
+import { RelatedProduct } from '../Components/RelatedProduct';
 
 const CardView = () => {
   const { addToCart } = useCart();
@@ -38,6 +39,7 @@ const CardView = () => {
   };
 
   return (
+    <> 
     <div className='xl:grid pt-[5vh] grid-cols-2'>
       <div className='md:w-[500px] ml-40 p-6'>
         <img src={product.image} alt={product.name} className='w-full h-auto border' />
@@ -78,7 +80,10 @@ const CardView = () => {
           Add to Cart
         </button>
       </div>
-    </div>
+       </div>
+       
+    <RelatedProduct category={product?.category}/>
+    </>
   );
 }
 

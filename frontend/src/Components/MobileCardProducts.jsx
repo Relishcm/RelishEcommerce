@@ -5,7 +5,7 @@ import '../CSS/Spinner.css'
 
 export const MobileCardProducts = ({ category, price, image, productId, discountPrice, name, description }) => {
     const { setOpenDropdown } = useHoverDropdown();
-    const [loading, setLoading] = useState(true); 
+    const [loading, setLoading] = useState(true);
 
     return (
         <div
@@ -20,9 +20,9 @@ export const MobileCardProducts = ({ category, price, image, productId, discount
                 <p className="text-red-600 font-bold">₹{discountPrice}</p>
                 <p className='text-gray-500 line-through'>₹{price}</p>
             </div>
-            <DropHoverCart 
-                dropdownName={name}  
-                product={{ category, price, image, productId, discountPrice, name, description }} 
+            <DropHoverCart
+                dropdownName={name}
+                product={{ category, price, image, productId, discountPrice, name, description }}
             />
             <div className="icon h-60 flex items-center justify-center relative">
                 {loading && (
@@ -32,12 +32,12 @@ export const MobileCardProducts = ({ category, price, image, productId, discount
                         </div>
                     </div>
                 )}
-                <img 
-                    src={image} 
-                    className={`h-full w-full rounded-lg border object-cover ${loading ? 'hidden' : 'block'}`} 
-                    alt={name} 
-                    onLoad={() => setLoading(false)} 
-                /> 
+                <img
+                    src={image}
+                    className={`h-full w-full rounded-lg border object-cover ${loading ? 'hidden' : 'block'}`}
+                    alt={name}
+                    onLoad={() => setLoading(false)}
+                />
             </div>
         </div>
     );

@@ -3,6 +3,7 @@ const cors = require('cors');
 const { Order } = require('../Modal/PaymentModal');
 const Razorpay = require('razorpay');
 const crypto = require('crypto');
+const Auth = require('../Middleware/AuthMiddleware');
 
 const app = express();
 app.use(cors());
@@ -89,8 +90,8 @@ paymentRouter.post('/razorpay-payment-verification', async (req, res) => {
 });
 
 
-paymentRouter.get('/showorders', async (req, res) => {
-    const { userId } = req.query;
+paymentRouter.get('/showorders',Auth, async (req, res) => {
+    const userId = req.userId;
 
     if (!userId) {
         return res.status(400).json({ message: "User ID is required." });
@@ -100,6 +101,7 @@ paymentRouter.get('/showorders', async (req, res) => {
         // Find all orders associated with the userId
         // const orders = await Order.find({ userId }).populate('userId', 'username email'); // Populate user details
         const orders = await Order.find({ userId: userId });
+
         if (!orders || orders.length === 0) {
             return res.status(404).json({ message: "No orders found for this user." });
         }
