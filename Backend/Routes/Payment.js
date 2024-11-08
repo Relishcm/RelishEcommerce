@@ -81,37 +81,56 @@ paymentRouter.post('/razorpay-payment-verification', async (req, res) => {
     const { orderId, paymentId, signature } = req.body;
 
     try {
-        // Fetch order from DB
+        // Log the incoming request to ensure the paymentMethod is correct
+        console.log('Received request for payment verification:', req.body);
+
+        // Fetch the order from DB
         const order = await Order.findOne({ razorpayOrderId: orderId });
 
         if (!order) {
             return res.status(404).json({ message: "Order not found." });
         }
 
+        // Log the order to confirm it's being fetched correctly
+        console.log('Fetched order:', order);
+
         if (order.paymentMethod === 'cash') {
             // If payment method is cash, skip Razorpay verification and update status directly
+            console.log('Cash on delivery order. Skipping Razorpay verification.');
             order.paymentStatus = 'pending';
-            order.paymentTime = new Date();
+            // order.paymentTime = new Date();
             order.deliveryTime = new Date();
             order.deliveryTime.setDate(order.deliveryTime.getDate() + 7); // Delivery time after 7 days
             await order.save();
             return res.json({ message: 'Cash on delivery order confirmed. Delivery will be scheduled.' });
         }
 
-        // Razorpay verification for online payments
-        const sign = orderId + "|" + paymentId;
-        const expectedSign = crypto.createHmac("sha256", process.env.RAZORPAY_KEY_SECRET).update(sign.toString()).digest("hex");
+        if (order.paymentMethod === 'online') {
+            // If the payment method is online, perform Razorpay verification
+            console.log('Processing Razorpay payment verification for order:', orderId);
 
-        if (expectedSign === signature) {
-            // If verification is successful
-            order.paymentStatus = 'completed';
-            order.paymentTime = new Date();
-            order.deliveryTime = new Date();
-            order.deliveryTime.setDate(order.deliveryTime.getDate() + 7); // Delivery time after 7 days
-            await order.save();
-            return res.json({ message: 'Payment successful! Order status has been updated.' });
-        } else {
-            return res.status(400).json({ message: "Payment verification failed." });
+            // Generate the expected signature for verification
+            const sign = orderId + "|" + paymentId;
+            const expectedSign = crypto.createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
+                .update(sign.toString())
+                .digest("hex");
+
+            console.log('Generated expected signature:', expectedSign);
+            console.log('Received signature:', signature);
+
+            if (expectedSign === signature) {
+                // If verification is successful
+                order.paymentStatus = 'completed';
+                order.paymentTime = new Date();
+                order.deliveryTime = new Date();
+                order.deliveryTime.setDate(order.deliveryTime.getDate() + 7); // Delivery time after 7 days
+                await order.save();
+                return res.json({ message: 'Payment successful! Order status has been updated.' });
+            } else {
+                // If verification fails
+                console.log('Payment verification failed: Signatures do not match');
+                return res.status(400).json({ message: "Payment verification failed." });
+            }
         }
     } catch (error) {
         console.error("Error during payment verification:", error);
