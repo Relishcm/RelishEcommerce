@@ -11,7 +11,7 @@ const Cart = () => {
   const [price, setPrice] = useState(0);
   const navigate = useNavigate();
   const { carts, updateCart, setCarts } = useUpdatedCarts();
-  
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
@@ -20,7 +20,7 @@ const Cart = () => {
           const response = await axios.get(import.meta.env.VITE_API_CART_VIEW, {
             headers: { Authorization: token }
           });
-          const cartItems = response.data.items || []; 
+          const cartItems = response.data.items || [];
           setCarts(cartItems);
           setShow(cartItems.length > 0);
           updateTotalPrice(cartItems);
@@ -34,7 +34,7 @@ const Cart = () => {
       navigate('/auth');
     }
   }, []); // Only run once when the component mounts
-  
+
 
   const handleRemoveFromCart = async (productId) => {
     if (localStorage.getItem("token")) {
@@ -65,7 +65,7 @@ const Cart = () => {
     try {
       const updatedCart = carts.map(item => {
         if (item.productId === productId) {
-          item.quantity += 1; 
+          item.quantity += 1;
         }
         return item;
       });
@@ -74,7 +74,7 @@ const Cart = () => {
         headers: { Authorization: localStorage.getItem("token") }
       });
       setCarts(updatedCart);
-      setPrice(response.data.totalPrice); 
+      setPrice(response.data.totalPrice);
     } catch (error) {
       console.error("Error updating quantity:", error);
       alert("Failed to update quantity.");
@@ -85,7 +85,7 @@ const Cart = () => {
     try {
       const updatedCart = carts.map(item => {
         if (item.productId === productId && item.quantity > 1) {
-          item.quantity -= 1; 
+          item.quantity -= 1;
         }
         return item;
       });
@@ -94,7 +94,7 @@ const Cart = () => {
         headers: { Authorization: localStorage.getItem("token") }
       });
       setCarts(updatedCart);
-      setPrice(response.data.totalPrice); 
+      setPrice(response.data.totalPrice);
     } catch (error) {
       console.error("Error updating quantity:", error);
       alert("Failed to update quantity.");
@@ -141,7 +141,11 @@ const Cart = () => {
                         <button onClick={() => incrementQuantity(item.productId)} className='px-2 text-xl'>+</button>
                       </td>
                       <td className='text-center flex justify-center items-center px-2 py-5'>
-                        <MdDelete onClick={() => handleRemoveFromCart(item.productId)} className='text-red-600 cursor-pointer' />
+                        <MdDelete onClick={() => {
+                          if (confirm("Are You Sure,want remove from cart")) {
+                            handleRemoveFromCart(item.productId)
+                          }
+                        }} className='text-red-600 cursor-pointer' />
                       </td>
                     </tr>
                   ))}
@@ -159,7 +163,7 @@ const Cart = () => {
       )}
     </div>
   );
-  
+
 };
 
 export default Cart;

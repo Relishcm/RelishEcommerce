@@ -51,9 +51,24 @@ const orderItemSchema = new mongoose.Schema({
       required: true
   
     },
+    city:{
+      type: String,
+      required: true
+  
+    },
+    state:{
+      type: String,
+      required: true
+  
+    },
+    pincode:{
+      type: String,
+      required: true
+  
+    },
     razorpayOrderId: { 
       type: String,
-       required: true 
+       required: false  
       },
 
     paymentStatus:{
@@ -64,8 +79,8 @@ const orderItemSchema = new mongoose.Schema({
   },
   paymentMethod:{
       type:String,
-      enum:["card", "cash", "upi"],
-      default:"card"
+      enum:["online", "cash",],
+      default:"online"
   },
   
   // paymentToken:String,

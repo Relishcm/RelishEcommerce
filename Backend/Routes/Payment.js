@@ -20,35 +20,53 @@ const paymentRouter = express.Router();
 // Create Order
 paymentRouter.post('/razorpay-order', async (req, res) => {
     try {
-        const { products, username, email, address, phone,userId } = req.body;
-        
+        const { products, username, email, address, phone, pincode, state, city, userId, paymentMethod } = req.body;
+
+        // Ensure that the userId is provided
         if (!userId) {
             return res.status(400).json({ error: 'User ID is required.' });
         }
-        const amount = products.reduce((acc, product) => acc + product.discountPrice * product.quantity, 0) * 100; 
+
+        // Calculate the total amount for the products
+        const amount = products.reduce((acc, product) => acc + product.discountPrice * product.quantity, 0) * 100; // Convert to paise
         const currency = 'INR';
         const receipt = crypto.randomBytes(10).toString("hex");
-        
-        // Create Razorpay order
-        const razorpayOrder = await razorpay.orders.create({
-            amount,
-            currency,
-            receipt,
-            payment_capture: 1 
-        });
 
-        // Save order to database
+        // Initialize razorpayOrderId
+        let razorpayOrderId = null;
+
+        if (paymentMethod === 'online') {
+            // Create Razorpay order for online payment
+            const razorpayOrder = await razorpay.orders.create({
+                amount,
+                currency,
+                receipt,
+                payment_capture: 1 // Auto-capture payment
+            });
+            razorpayOrderId = razorpayOrder.id;
+        }
+
+        // Save the order to the database with the chosen payment method
         const order = await Order.create({
             userId,
             username,
             email,
             address,
             phone,
-            razorpayOrderId: razorpayOrder.id, 
+            city,
+            state,
+            pincode,
+            razorpayOrderId, // Store Razorpay order ID if payment method is online
+            paymentStatus: paymentMethod === 'online' ? 'pending' : 'completed', // Set status to 'completed' for COD
+            paymentMethod,
             orders: products
         });
 
-        res.json({ orderId: razorpayOrder.id, message: 'Order created successfully!' });
+        res.json({ 
+            orderId: razorpayOrderId,
+            message: 'Order created successfully!',
+            paymentMethod // Include payment method in response
+        });
     } catch (error) {
         console.error('Error creating order:', error);
         res.status(500).json({ error: 'Internal Server Error', message: error.message });
@@ -56,30 +74,42 @@ paymentRouter.post('/razorpay-order', async (req, res) => {
 });
 
 
+
+
 // Verify Payment
 paymentRouter.post('/razorpay-payment-verification', async (req, res) => {
     const { orderId, paymentId, signature } = req.body;
 
     try {
+        // Fetch order from DB
+        const order = await Order.findOne({ razorpayOrderId: orderId });
+
+        if (!order) {
+            return res.status(404).json({ message: "Order not found." });
+        }
+
+        if (order.paymentMethod === 'cash') {
+            // If payment method is cash, skip Razorpay verification and update status directly
+            order.paymentStatus = 'pending';
+            order.paymentTime = new Date();
+            order.deliveryTime = new Date();
+            order.deliveryTime.setDate(order.deliveryTime.getDate() + 7); // Delivery time after 7 days
+            await order.save();
+            return res.json({ message: 'Cash on delivery order confirmed. Delivery will be scheduled.' });
+        }
+
+        // Razorpay verification for online payments
         const sign = orderId + "|" + paymentId;
         const expectedSign = crypto.createHmac("sha256", process.env.RAZORPAY_KEY_SECRET).update(sign.toString()).digest("hex");
 
         if (expectedSign === signature) {
-            const order = await Order.findOne({ razorpayOrderId: orderId }); 
-            if (order) {
-                // Update payment status and time
-                order.paymentStatus = 'completed';
-                order.paymentTime = new Date();
-                
-                // Calculate delivery time as 7 days from now
-                order.deliveryTime = new Date();
-                order.deliveryTime.setDate(order.deliveryTime.getDate() + 7); 
-
-                await order.save();
-                return res.json({ message: 'Payment successful! Order status has been updated.' });
-            } else {
-                return res.status(404).json({ message: "Order not found." });
-            }
+            // If verification is successful
+            order.paymentStatus = 'completed';
+            order.paymentTime = new Date();
+            order.deliveryTime = new Date();
+            order.deliveryTime.setDate(order.deliveryTime.getDate() + 7); // Delivery time after 7 days
+            await order.save();
+            return res.json({ message: 'Payment successful! Order status has been updated.' });
         } else {
             return res.status(400).json({ message: "Payment verification failed." });
         }
@@ -88,6 +118,7 @@ paymentRouter.post('/razorpay-payment-verification', async (req, res) => {
         return res.status(400).json({ message: "Payment verification failed.", error: error.message });
     }
 });
+
 
 
 paymentRouter.get('/showorders',Auth, async (req, res) => {

@@ -9,7 +9,8 @@ import { useNavigate } from 'react-router-dom';
 
 export const DropHoverCart = ({ dropdownName, product }) => {
     const { openDropdown, setOpenDropdown, dropdownRef } = useHoverDropdown();
-    const { addToCart, removeFromCart, checkCartStatus } = useCart();
+    const { addToCart, removeFromCart, checkCartStatus, alertMessage,  
+        alertType } = useCart();
     const { addToWish, removeFromWish, checkWishStatus } = useWish();
     const navigate = useNavigate();
 
@@ -102,6 +103,7 @@ export const DropHoverCart = ({ dropdownName, product }) => {
     };
 
     return (
+        <>
         <div className="relative z-50" onClick={() => setOpenDropdown(openDropdown === dropdownName ? null : dropdownName)}>
             <div className="flex items-center cursor-pointer">
                 <h1 className="font-medium text-center"></h1>
@@ -124,6 +126,7 @@ export const DropHoverCart = ({ dropdownName, product }) => {
                 </ul>
             )}
         </div>
+        </>
     );
 };
 
