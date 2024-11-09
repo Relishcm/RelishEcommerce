@@ -98,7 +98,7 @@ paymentRouter.post('/razorpay-payment-verification', async (req, res) => {
             // If payment method is cash, skip Razorpay verification and update status directly
             console.log('Cash on delivery order. Skipping Razorpay verification.');
             order.paymentStatus = 'pending';
-            // order.paymentTime = new Date();
+            order.paymentTime = new Date();
             order.deliveryTime = new Date();
             order.deliveryTime.setDate(order.deliveryTime.getDate() + 7); // Delivery time after 7 days
             await order.save();

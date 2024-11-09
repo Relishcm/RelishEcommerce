@@ -535,10 +535,22 @@ export const PlaceOrder = () => {
             const razorpay = new window.Razorpay(options);
             razorpay.open();
         } else {
-            // For Cash on Delivery, show success message directly
-            alert('Order placed successfully with Cash on Delivery. You will receive your order soon.');
-            setPaymentSuccess(true);
-            navigate("/OrderDetails");
+            try {
+                        const verificationResponse = await axios.post(import.meta.env.VITE_API_ORDER_CHECK_STATUS, {
+                            orderId    
+                        }, {
+                            headers: { 'Content-Type': 'application/json' },
+                        });
+
+                        alert(verificationResponse.data.message);
+                        alert('Order placed successfully with Cash on Delivery. You will receive your order soon.');
+                        setPaymentSuccess(true);
+                        navigate("/OrderDetails");
+                    } catch (error) {
+                        console.error('Error during payment verification:', error);
+                        alert('Payment verification failed: ' + (error.response?.data?.message || 'Please try again.'));
+                    }
+       
         }
     } catch (error) {
         console.error('Error during payment:', error);
