@@ -75,18 +75,20 @@ const orderItemSchema = new mongoose.Schema({
       type:String,
        enum:["pending","completed","failed"],
       default:"pending"
-     
   },
   paymentMethod:{
       type:String,
       enum:["online", "cash",],
-      default:"online"
+
   },
   
   // paymentToken:String,
   // paymentMode:String,
   // currency:String,
-  paymentTime:Date,
+  paymentTime:{
+    type:Date, 
+    required: false 
+  },
   deliveryTime: Date,
   
     orders: [orderItemSchema] 

@@ -479,86 +479,69 @@ export const PlaceOrder = () => {
 
   const handlePayment = async () => {
     if (!validateForm()) {
-        return;
+      return;
     }
 
     setLoading(true);
     const userId = localStorage.getItem("userId");
 
     if (!userId) {
-        alert("User is not logged in or userId is not available.");
-        return;
+      alert("User is not logged in or userId is not available.");
+      return;
     }
 
     const body = { userId, products: carts, ...form };
 
     try {
-        const response = await axios.post(import.meta.env.VITE_API_ORDER, body, {
-            headers: { "Content-Type": "application/json" },
-        });
+      const response = await axios.post(import.meta.env.VITE_API_ORDER, body, {
+        headers: { "Content-Type": "application/json" },
+      });
 
-        const { orderId, paymentMethod } = response.data;
+      const { orderId, paymentMethod } = response.data;
 
-        if (paymentMethod === 'online') {
-            if (!window.Razorpay) {
-                console.error("Razorpay script not loaded.");
-                alert("Razorpay is not available. Please try again.");
-                return;
-            }
-
-            const options = {
-                key: import.meta.env.VITE_KEY,
-                amount: price * 100, // Convert to paise
-                currency: "INR",
-                name: "Renban",
-                order_id: orderId,
-                handler: async function (response) {
-                    try {
-                        const verificationResponse = await axios.post(import.meta.env.VITE_API_ORDER_CHECK_STATUS, {
-                            orderId,
-                            paymentId: response.razorpay_payment_id,
-                            signature: response.razorpay_signature
-                        }, {
-                            headers: { 'Content-Type': 'application/json' },
-                        });
-
-                        alert(verificationResponse.data.message);
-                        setPaymentSuccess(true);
-                        navigate("/OrderDetails");
-                    } catch (error) {
-                        console.error('Error during payment verification:', error);
-                        alert('Payment verification failed: ' + (error.response?.data?.message || 'Please try again.'));
-                    }
-                }
-            };
-
-            const razorpay = new window.Razorpay(options);
-            razorpay.open();
-        } else {
-            try {
-                        const verificationResponse = await axios.post(import.meta.env.VITE_API_ORDER_CHECK_STATUS, {
-                            orderId    
-                        }, {
-                            headers: { 'Content-Type': 'application/json' },
-                        });
-
-                        alert(verificationResponse.data.message);
-                        alert('Order placed successfully with Cash on Delivery. You will receive your order soon.');
-                        setPaymentSuccess(true);
-                        navigate("/OrderDetails");
-                    } catch (error) {
-                        console.error('Error during payment verification:', error);
-                        alert('Payment verification failed: ' + (error.response?.data?.message || 'Please try again.'));
-                    }
-       
+      if (paymentMethod === 'online') {
+        if (!window.Razorpay) {
+          console.error("Razorpay script not loaded.");
+          alert("Razorpay is not available. Please try again.");
+          return;
         }
+
+        const options = {
+          key: import.meta.env.VITE_KEY,  
+          amount: price * 100, // Convert to paise
+          currency: "INR",
+          name: "Renban",  // Company name
+          order_id: orderId,  // Razorpay order ID
+          handler: async function (response) {
+            try {
+              const verificationResponse = await axios.post(import.meta.env.VITE_API_ORDER_CHECK_STATUS, {
+                orderId,
+                paymentId: response.razorpay_payment_id,
+                signature: response.razorpay_signature
+              });
+
+              alert(verificationResponse.data.message);
+              setPaymentSuccess(true);
+              navigate("/OrderDetails");
+            } catch (error) {
+              console.error('Error during payment verification:', error);
+              alert('Payment verification failed: ' + (error.response?.data?.message || 'Please try again.'));
+            }
+          }
+        };
+
+        const razorpay = new window.Razorpay(options);
+        razorpay.open();
+      } else {
+        navigate("/OrderDetails");
+      }
     } catch (error) {
-        console.error('Error during payment:', error);
-        alert('Payment processing failed: ' + (error.response?.data?.message || 'Please try again.'));
+      console.error('Error during payment:', error);
+      alert('Payment processing failed: ' + (error.response?.data?.message || 'Please try again.'));
     } finally {
-        setLoading(false);
+      setLoading(false);
     }
-};
+  };
 
 
   return (
@@ -609,19 +592,19 @@ export const PlaceOrder = () => {
             />
             {errors.address && <span className="error text-red-600">{errors.address}</span>}
           </div>
-                       <div className='mb-4'>
-               <label htmlFor='phone' className='block text-gray-700'>Phone Number</label>
-               <input
-                type='text'
-                id='phone'
-                name='phone'
-                value={form.phone}
-                onChange={handleInputChange}
-                className='w-full px-3 py-2 border border-gray-300 rounded-md'
-                required
-              />
-              {errors.phone && <span className="error text-red-600">{errors.phone}</span>}
-            </div>
+          <div className='mb-4'>
+            <label htmlFor='phone' className='block text-gray-700'>Phone Number</label>
+            <input
+              type='text'
+              id='phone'
+              name='phone'
+              value={form.phone}
+              onChange={handleInputChange}
+              className='w-full px-3 py-2 border border-gray-300 rounded-md'
+              required
+            />
+            {errors.phone && <span className="error text-red-600">{errors.phone}</span>}
+          </div>
           <div className='flex gap-10'>
             <div className="mb-4">
               <label htmlFor="city" className="block text-gray-700">City</label>
@@ -664,7 +647,7 @@ export const PlaceOrder = () => {
           </div>
           <div className="mb-4">
             <label className="block text-xl">Payment Method</label>
-            <div className=" mt-2 space-y-4">
+            <div className="mt-2 space-y-4">
               <label className="flex items-center">
                 <input
                   type="radio"
@@ -689,6 +672,8 @@ export const PlaceOrder = () => {
               </label>
             </div>
           </div>
+
+
 
 
         </form>
@@ -725,28 +710,28 @@ export const PlaceOrder = () => {
               </div>
             </div>
           )}
-              <div className=" flex flex-col items-center w-full p-6">
-        <h1 className="text-center text-2xl font-bold mb-4">Total: ₹{price}</h1>
-        <button
-          type="button"
-          onClick={handlePayment}
-          className={`text-2xl px-6 py-2 rounded-md bg-black text-white ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
-          disabled={loading}
-        >
-          {loading ? (
-            <div className="flex items-center justify-center">
-              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-            </div>
-          ) : (
-            'Buy Now'
-          )}
-        </button>
-      </div>
+          <div className=" flex flex-col items-center w-full p-6">
+            <h1 className="text-center text-2xl font-bold mb-4">Total: ₹{price}</h1>
+            <button
+              type="button"
+              onClick={handlePayment}
+              className={`text-2xl px-6 py-2 rounded-md bg-black text-white ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+              disabled={loading}
+            >
+              {loading ? (
+                <div className="flex items-center justify-center">
+                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                </div>
+              ) : (
+                'Buy Now'
+              )}
+            </button>
+          </div>
         </div>
-          
+
       </div>
 
-  
+
     </div>
   );
 };

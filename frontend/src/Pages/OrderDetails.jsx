@@ -36,8 +36,10 @@ export const OrderDetails = () => {
                     headers: { Authorization: token }
                 });
                 console.log('API Response:', response); 
-
-                setOrders(response.data.orders || []);
+    const orderData = response.data.orders;
+    console.log(orderData);  // Check if paymentMethod is present in the order data
+    setOrders(orderData);
+                // setOrders(response.data.orders || []);
                
 
             } catch (err) {
@@ -77,6 +79,12 @@ export const OrderDetails = () => {
                                 <p><strong>Email:</strong> {order.email}</p>
                                 <p><strong>Address:</strong> {order.address}</p>
                                 <p><strong>Phone:</strong> {order.phone}</p>
+                                {order.paymentMethod ? (
+            <p><strong>Payment Method:</strong> {order.paymentMethod}</p>
+        ) : (
+            <p><strong>Payment Method:</strong> Not available</p>  // Fallback if missing
+        )}
+
                                 <p><strong>Payment Status:</strong> {order.paymentStatus}</p>
                                 <p><strong>Payment Time:</strong> {new Date(order.paymentTime).toLocaleString()}</p>
                                 <p><strong>Delivery Time:</strong> {new Date(order.deliveryTime).toLocaleString()}</p>

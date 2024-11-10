@@ -27,46 +27,71 @@ paymentRouter.post('/razorpay-order', async (req, res) => {
             return res.status(400).json({ error: 'User ID is required.' });
         }
 
-        // Calculate the total amount for the products
-        const amount = products.reduce((acc, product) => acc + product.discountPrice * product.quantity, 0) * 100; // Convert to paise
+        // Calculate the order amount (convert to paise)
+        const amount = products.reduce((acc, product) => acc + product.discountPrice * product.quantity, 0) * 100;
         const currency = 'INR';
         const receipt = crypto.randomBytes(10).toString("hex");
 
-        // Initialize razorpayOrderId
         let razorpayOrderId = null;
 
         if (paymentMethod === 'online') {
-            // Create Razorpay order for online payment
+            // Create a Razorpay order
             const razorpayOrder = await razorpay.orders.create({
                 amount,
                 currency,
                 receipt,
-                payment_capture: 1 // Auto-capture payment
+                payment_capture: 1 
             });
             razorpayOrderId = razorpayOrder.id;
+            const order = await Order.create({
+                userId,
+                username,
+                email,
+                address,
+                phone,
+                city,
+                state,
+                pincode,
+                razorpayOrderId, 
+                paymentMethod,
+                orders: products
+            });
+    
+            res.json({ 
+                orderId: razorpayOrderId,
+                message: 'Order created successfully!',
+                paymentMethod 
+            });
         }
 
-        // Save the order to the database with the chosen payment method
-        const order = await Order.create({
-            userId,
-            username,
-            email,
-            address,
-            phone,
-            city,
-            state,
-            pincode,
-            razorpayOrderId, // Store Razorpay order ID if payment method is online
-            paymentStatus: paymentMethod === 'online' ? 'pending' : 'completed', // Set status to 'completed' for COD
-            paymentMethod,
-            orders: products
-        });
+        if (paymentMethod === 'cash') {
+            const deliveryTime = new Date();
+            deliveryTime.setDate(deliveryTime.getDate() + 7);
 
-        res.json({ 
-            orderId: razorpayOrderId,
-            message: 'Order created successfully!',
-            paymentMethod // Include payment method in response
-        });
+            const cashOrder = await Order.create({
+                userId,
+                username,
+                email,
+                address,
+                phone,
+                city,
+                state,
+                pincode,
+                deliveryTime,  
+                paymentMethod: 'cash',
+                orders: products
+            });
+
+            // Return the order details including the delivery time
+            return res.json({
+                orderId: cashOrder._id,  // The newly created order's ID
+                deliveryTime: cashOrder.deliveryTime,
+                message: 'Cash order created successfully!',
+                paymentMethod: 'cash'
+            });
+        }
+   
+        
     } catch (error) {
         console.error('Error creating order:', error);
         res.status(500).json({ error: 'Internal Server Error', message: error.message });
@@ -81,35 +106,19 @@ paymentRouter.post('/razorpay-payment-verification', async (req, res) => {
     const { orderId, paymentId, signature } = req.body;
 
     try {
-        // Log the incoming request to ensure the paymentMethod is correct
         console.log('Received request for payment verification:', req.body);
 
-        // Fetch the order from DB
         const order = await Order.findOne({ razorpayOrderId: orderId });
 
         if (!order) {
             return res.status(404).json({ message: "Order not found." });
         }
 
-        // Log the order to confirm it's being fetched correctly
         console.log('Fetched order:', order);
 
-        if (order.paymentMethod === 'cash') {
-            // If payment method is cash, skip Razorpay verification and update status directly
-            console.log('Cash on delivery order. Skipping Razorpay verification.');
-            order.paymentStatus = 'pending';
-            order.paymentTime = new Date();
-            order.deliveryTime = new Date();
-            order.deliveryTime.setDate(order.deliveryTime.getDate() + 7); // Delivery time after 7 days
-            await order.save();
-            return res.json({ message: 'Cash on delivery order confirmed. Delivery will be scheduled.' });
-        }
-
         if (order.paymentMethod === 'online') {
-            // If the payment method is online, perform Razorpay verification
             console.log('Processing Razorpay payment verification for order:', orderId);
 
-            // Generate the expected signature for verification
             const sign = orderId + "|" + paymentId;
             const expectedSign = crypto.createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
                 .update(sign.toString())
@@ -119,15 +128,13 @@ paymentRouter.post('/razorpay-payment-verification', async (req, res) => {
             console.log('Received signature:', signature);
 
             if (expectedSign === signature) {
-                // If verification is successful
                 order.paymentStatus = 'completed';
                 order.paymentTime = new Date();
                 order.deliveryTime = new Date();
-                order.deliveryTime.setDate(order.deliveryTime.getDate() + 7); // Delivery time after 7 days
+                order.deliveryTime.setDate(order.deliveryTime.getDate() + 7); 
                 await order.save();
                 return res.json({ message: 'Payment successful! Order status has been updated.' });
             } else {
-                // If verification fails
                 console.log('Payment verification failed: Signatures do not match');
                 return res.status(400).json({ message: "Payment verification failed." });
             }
