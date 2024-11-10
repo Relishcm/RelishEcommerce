@@ -173,6 +173,7 @@ paymentRouter.get('/showorders',Auth, async (req, res) => {
                 address: order.address,
                 phone: order.phone,
                 razorpayOrderId: order.razorpayOrderId,
+                paymentMethod:order.paymentMethod,
                 paymentStatus: order.paymentStatus,
                 paymentTime: order.paymentTime,
                 deliveryTime: order.deliveryTime,
