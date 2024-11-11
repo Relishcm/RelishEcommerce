@@ -8,16 +8,16 @@ export const OrderDetails = () => {
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
- 
+
     useEffect(() => {
-      window.scrollTo(0, 0);
+        window.scrollTo(0, 0);
     }, []);
 
     useEffect(() => {
         const token = localStorage.getItem("token");
-        
+
         if (!token) {
-            navigate("/auth"); 
+            navigate("/auth");
             return;
         }
 
@@ -32,15 +32,15 @@ export const OrderDetails = () => {
 
         const fetchOrders = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_API_SHOW_ORDER}/?userId=${userId}`,{
+                const response = await axios.get(`${import.meta.env.VITE_API_SHOW_ORDER}/?userId=${userId}`, {
                     headers: { Authorization: token }
                 });
-                console.log('API Response:', response); 
-    const orderData = response.data.orders;
-    console.log(orderData);  // Check if paymentMethod is present in the order data
-    setOrders(orderData);
+                console.log('API Response:', response);
+                const orderData = response.data.orders;
+                console.log(orderData);  // Check if paymentMethod is present in the order data
+                setOrders(orderData);
                 // setOrders(response.data.orders || []);
-               
+
 
             } catch (err) {
                 // console.error('Error fetching orders:', err);
@@ -80,13 +80,17 @@ export const OrderDetails = () => {
                                 <p><strong>Address:</strong> {order.address}</p>
                                 <p><strong>Phone:</strong> {order.phone}</p>
                                 {order.paymentMethod ? (
-            <p><strong>Payment Method:</strong> {order.paymentMethod}</p>
-        ) : (
-            <p><strong>Payment Method:</strong> Not available</p>  // Fallback if missing
-        )}
+                                    <p><strong>Payment Method:</strong> {order.paymentMethod}</p>
+                                ) : (
+                                    <p><strong>Payment Method:</strong> Not available</p>  
+                                )}
+                                {order.paymentMethod === "online" && (
+                                    <>
+                                        <p><strong>Payment Status:</strong> {order.paymentStatus}</p>
+                                        <p><strong>Payment Time:</strong> {new Date(order.paymentTime).toLocaleString()}</p>
+                                    </>
+                                )}
 
-                                <p><strong>Payment Status:</strong> {order.paymentStatus}</p>
-                                <p><strong>Payment Time:</strong> {new Date(order.paymentTime).toLocaleString()}</p>
                                 <p><strong>Delivery Time:</strong> {new Date(order.deliveryTime).toLocaleString()}</p>
                             </div>
 
