@@ -76,7 +76,7 @@ export const Footer = () => {
 </div>
         <div className="text-center mt-8 border-t border-red-800 pt-4  container mx-auto flex flex-col md:flex-row justify-between items-center gap-6 md:gap-10">
         <p>© 2024 Renban. All rights reserved.</p>
-        <div className='flex justify-center items-center gap-7'>
+        <div className='md:flex justify-center items-center gap-7'>
           <h3>We Accept Payments          </h3>
           <img src='Razorpay-Payment-Options.png'></img>
           

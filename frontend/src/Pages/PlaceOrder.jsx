@@ -645,7 +645,15 @@ export const PlaceOrder = () => {
               {errors.pincode && <span className="error text-red-600">{errors.pincode}</span>}
             </div>
           </div>
-          <div className="mb-4">
+         
+
+
+
+
+        </form>
+
+        <div>
+        <div className="mb-4">
             <label className="block text-xl">Payment Method</label>
             <div className="mt-2 space-y-4">
               <label className="flex items-center">
@@ -672,13 +680,7 @@ export const PlaceOrder = () => {
               </label>
             </div>
           </div>
-
-
-
-
-        </form>
-
-        <div>
+          
           {show && (
             <div className="pt-4">
               <div className="w-full max-w-xl flex flex-col items-center">
