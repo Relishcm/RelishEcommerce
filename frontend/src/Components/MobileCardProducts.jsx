@@ -10,8 +10,8 @@ export const MobileCardProducts = ({ category, price, image, productId, discount
     return (
         <div
             className="card p-4 border rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 cursor-pointer relative"
-            // onMouseEnter={() => setOpenDropdown(name)}
-            // onMouseLeave={() => setOpenDropdown(null)}
+            onMouseEnter={() => setOpenDropdown(name)}
+            onMouseLeave={() => setOpenDropdown(null)}
         >
             <div className="text-center mb-3">
                 <h2 className="text-md sm:text-xs md:text-lg lg:text-xl font-semibold">{name}</h2>

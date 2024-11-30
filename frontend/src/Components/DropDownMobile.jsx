@@ -94,7 +94,7 @@ export const DropDownMobile = () => {
                         <li className="py-1 px-2 hover:bg-red-100 cursor-pointer transition-colors duration-300">Headphone</li>
                     </Link>
                     <Link to="/charge">
-                        <li className="py-1 px-2 z-50 hover:bg-red-100 cursor-pointer transition-colors duration-300">Charge</li>
+                        <li className="py-1 px-2 z-50 hover:bg-red-100 cursor-pointer transition-colors duration-300">Charger</li>
                     </Link>
                     <Link to="/Moblie">
                         <li className="py-1 z-50 px-2 hover:bg-red-100 cursor-pointer transition-colors duration-300">Mobile</li>

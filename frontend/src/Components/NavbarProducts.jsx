@@ -30,17 +30,18 @@ export const NavbarProducts = () => {
                         <DropDownCosmetices />
                     </li>
                     <li
-                        onMouseEnter={() => handleMouseEnter('garments')}
-                        onMouseLeave={handleMouseLeave}
-                        className='transition duration-300 ease-in-out'>
-                        <DropDownGarments />
-                    </li>
-                    <li
                         onMouseEnter={() => handleMouseEnter('jewelry')}
                         onMouseLeave={handleMouseLeave}
                         className='transition duration-300 ease-in-out'>
                         <DropDownJewelry />
                     </li>
+                    <li
+                        onMouseEnter={() => handleMouseEnter('garments')}
+                        onMouseLeave={handleMouseLeave}
+                        className='transition duration-300 ease-in-out'>
+                        <DropDownGarments />
+                    </li>
+          
                     <li
                         onMouseEnter={() => handleMouseEnter('mobile')}
                         onMouseLeave={handleMouseLeave}

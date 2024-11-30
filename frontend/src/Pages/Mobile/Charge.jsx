@@ -63,7 +63,7 @@ const Charge = () => {
     <>
  
    <div className='p-5'>
-   <h1 className='md:text-4xl text-3xl font-semibold  mb-2 flex text-red-800 justify-center'>Charge </h1>
+   <h1 className='md:text-4xl text-3xl font-semibold  mb-2 flex text-red-800 justify-center'>Charger </h1>
 
      <div>
       <CardShow  category="charge"/>

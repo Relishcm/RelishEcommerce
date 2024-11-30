@@ -10,20 +10,20 @@ export const DropDownGarments = () => {
     return (
         <div className="relative z-50">
             <div className="flex items-center cursor-pointer ">
-                <h1 className="font-medium mr-2 text-center z-0">Ready Made Garments</h1>
+                <h1 className="font-medium mr-2 text-center z-0">Jewelry</h1>
                 {/* {openDropdown === 'garments' ? <IoMdArrowDropup className="text-md" /> : <IoMdArrowDropdown className="text-md" />} */}
             </div>
             {openDropdown === 'garments' && (
                 <ul ref={dropdownRef} className="list-none font-medium absolute bg-white z-50 border border-gray-300 rounded-md shadow-lg text-xs md:text-sm">
-                    <Link to="/Man">
-                        <li className="py-1 px-4 hover:bg-red-100 cursor-pointer transition-colors duration-300">Man</li>
+                    <Link to="/man">
+                        <li className="py-1 px-4 hover:bg-red-100 cursor-pointer transition-colors duration-300">Jewelry</li>
                     </Link>
-                    <Link to="/Woman">
+                    {/* <Link to="/Woman">
                         <li className="py-1 px-4 hover:bg-red-100 cursor-pointer transition-colors duration-300">Woman</li>
                     </Link>
                     <Link to="/Child">
                         <li className="py-1 px-4 hover:bg-red-100 cursor-pointer transition-colors duration-300">Child</li>
-                    </Link>
+                    </Link> */}
               
                 </ul>
             )}
