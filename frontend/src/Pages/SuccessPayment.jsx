@@ -7,6 +7,7 @@ export const SuccessPayment = () => {
     const location = useLocation();
     const [orderDetails, setOrderDetails] = useState(null);
     const [loading, setLoading] = useState(true); // Loading state
+    const [error, setError] = useState(null); // Error state for removing order
 
     const query = new URLSearchParams(location.search);
     const orderId = query.get('orderId'); 
@@ -15,7 +16,7 @@ export const SuccessPayment = () => {
         const fetchOrderDetails = async () => {
             setLoading(true); // Start loading
             try {
-                const response = await axios.get('https://renbanecommerce.onrender.com/paymentRouter/showorder', {
+                const response = await axios.get('', {
                     params: { orderId } 
                 });
                 setOrderDetails(response.data);
@@ -36,7 +37,26 @@ export const SuccessPayment = () => {
     }, [orderId]);
 
     const handleClick = () => {
-        navigate('/');
+        navigate('/'); // Navigate to home
+    };
+
+    const handleRemoveOrder = async () => {
+        try {
+            const response = await axios.post(
+                '',
+                { orderId }, // Send orderId to the backend
+                {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('authToken')}` // Use token if required for authentication
+                    }
+                }
+            );
+            alert('Order removed successfully');
+            navigate('/'); // Redirect to home after removal
+        } catch (error) {
+            console.error('Error removing order:', error);
+            setError('Failed to remove the order. Please try again later.');
+        }
     };
 
     if (loading) return <p>Loading...</p>; // Loading state UI
@@ -64,6 +84,13 @@ export const SuccessPayment = () => {
                             </li>
                         ))}
                     </ul>
+
+                    {/* Remove Order Button */}
+                    <button onClick={handleRemoveOrder} className='text-red-700'>
+                        Remove Order
+                    </button>
+
+                    {error && <p style={{ color: 'red' }}>{error}</p>} {/* Display error message */}
                 </>
             ) : (
                 <>

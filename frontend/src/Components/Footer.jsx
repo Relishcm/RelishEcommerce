@@ -16,12 +16,7 @@ export const Footer = () => {
           <li className="hover:text-red-800 transition-colors cursor-pointer">Contact Us</li>
          
         </ul>
-     
-       
-       
-       
-
-        
+   
         <ul className="flex flex-col space-y-3">
           <li className="text-xl font-semibold  text-red-800 inline-block ">Information</li>
           <li className="hover:text-red-800 transition-colors cursor-pointer">Privacy Policy</li>

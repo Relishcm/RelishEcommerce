@@ -8,7 +8,6 @@ export const OrderDetails = () => {
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
-
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -22,7 +21,6 @@ export const OrderDetails = () => {
         }
 
         const userId = localStorage.getItem('userId');
-        // console.log('User ID:', userId);
 
         if (!userId) {
             setError('User is not logged in.');
@@ -35,15 +33,8 @@ export const OrderDetails = () => {
                 const response = await axios.get(`${import.meta.env.VITE_API_SHOW_ORDER}/?userId=${userId}`, {
                     headers: { Authorization: token }
                 });
-                console.log('API Response:', response);
-                const orderData = response.data.orders;
-                console.log(orderData);  // Check if paymentMethod is present in the order data
-                setOrders(orderData);
-                // setOrders(response.data.orders || []);
-
-
+                setOrders(response.data.orders || []);
             } catch (err) {
-                // console.error('Error fetching orders:', err);
                 setError('Failed to fetch orders. Please try again later.');
             } finally {
                 setLoading(false);
@@ -53,13 +44,40 @@ export const OrderDetails = () => {
         fetchOrders();
     }, []);
 
+    const handleRemoveOrder = async (orderId) => {
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+            setError('You need to be logged in to remove an order.');
+            return;
+        }
+
+        try {
+            // Send request to backend to remove the order
+            const response = await axios.post(
+                `${import.meta.env.VITE_API_REMOVE_ORDER}`, // API endpoint to remove order
+                { orderId },
+                {
+                    headers: {
+                        Authorization: token // Send the token for authentication
+                    }
+                }
+            );
+
+            if (response.data.msg === "Order removed successfully.") {
+                // Update the state to remove the order from the UI
+                setOrders(orders.filter(order => order.orderId !== orderId));
+            } else {
+                setError('Failed to remove the order.');
+            }
+        } catch (err) {
+            setError('Error removing order. Please try again.');
+        }
+    };
+
     if (loading) {
         return <div>Loading orders...</div>;
     }
-
-    // if (error) {
-    //     return <div>{error}</div>;
-    // }
 
     return (
         <div className="container mx-auto p-4">
@@ -92,6 +110,14 @@ export const OrderDetails = () => {
                                 )}
 
                                 <p><strong>Delivery Time:</strong> {new Date(order.deliveryTime).toLocaleString()}</p>
+
+                                {/* Add Remove button */}
+                                <button 
+                                    onClick={() => handleRemoveOrder(order.orderId)} 
+                                    className="bg-red-500 text-white px-4 py-2 rounded mt-4"
+                                >
+                                    Remove Order
+                                </button>
                             </div>
 
                             <div className="w-full md:w-1/2">
@@ -130,6 +156,7 @@ export const OrderDetails = () => {
                     );
                 })
             )}
+            {error && <p className="text-red-500">{error}</p>} {/* Display error if any */}
         </div>
     );
 };

@@ -11,8 +11,8 @@ app.use(express.json());
 require("dotenv").config();
 
 const razorpay = new Razorpay({
-    key_id: process.env.RAZORPAY_KEY_ID, 
-    key_secret: process.env.RAZORPAY_KEY_SECRET 
+    key_id: process.env.RAZORPAY_KEY_ID,
+    key_secret: process.env.RAZORPAY_KEY_SECRET
 });
 
 const paymentRouter = express.Router();
@@ -40,7 +40,7 @@ paymentRouter.post('/razorpay-order', async (req, res) => {
                 amount,
                 currency,
                 receipt,
-                payment_capture: 1 
+                payment_capture: 1
             });
             razorpayOrderId = razorpayOrder.id;
             const order = await Order.create({
@@ -52,15 +52,15 @@ paymentRouter.post('/razorpay-order', async (req, res) => {
                 city,
                 state,
                 pincode,
-                razorpayOrderId, 
+                razorpayOrderId,
                 paymentMethod,
                 orders: products
             });
-    
-            res.json({ 
+
+            res.json({
                 orderId: razorpayOrderId,
                 message: 'Order created successfully!',
-                paymentMethod 
+                paymentMethod
             });
         }
 
@@ -77,7 +77,7 @@ paymentRouter.post('/razorpay-order', async (req, res) => {
                 city,
                 state,
                 pincode,
-                deliveryTime,  
+                deliveryTime,
                 paymentMethod: 'cash',
                 orders: products
             });
@@ -90,8 +90,8 @@ paymentRouter.post('/razorpay-order', async (req, res) => {
                 paymentMethod: 'cash'
             });
         }
-   
-        
+
+
     } catch (error) {
         console.error('Error creating order:', error);
         res.status(500).json({ error: 'Internal Server Error', message: error.message });
@@ -105,7 +105,85 @@ paymentRouter.post('/razorpay-order', async (req, res) => {
 paymentRouter.post('/razorpay-payment-verification', async (req, res) => {
     const { orderId, paymentId, signature } = req.body;
 
+    try {// Create Order
+paymentRouter.post('/razorpay-order', Auth, async (req, res) => {
     try {
+        const { products, username, email, address, phone, pincode, state, city, paymentMethod } = req.body;
+        const userId = req.userId;
+
+        // Ensure that the userId is provided
+        if (!userId) {
+            return res.status(400).json({ error: 'User ID is required.' });
+        }
+
+        // Calculate the order amount (convert to paise)
+        const amount = products.reduce((acc, product) => acc + product.discountPrice * product.quantity, 0) * 100;
+        const currency = 'INR';
+        const receipt = crypto.randomBytes(10).toString("hex");
+
+        let razorpayOrderId = null;
+
+        if (paymentMethod === 'online') {
+            // Create a Razorpay order
+            const razorpayOrder = await razorpay.orders.create({
+                amount,
+                currency,
+                receipt,
+                payment_capture: 1
+            });
+            razorpayOrderId = razorpayOrder.id;
+            const order = await Order.create({
+                userId,
+                username,
+                email,
+                address,
+                phone,
+                city,
+                state,
+                pincode,
+                razorpayOrderId,
+                paymentMethod,
+                orders: products
+            });
+
+            res.json({
+                orderId: razorpayOrderId,
+                message: 'Order created successfully!',
+                paymentMethod
+            });
+        }
+
+        if (paymentMethod === 'cash') {
+            const deliveryTime = new Date();
+            deliveryTime.setDate(deliveryTime.getDate() + 7);
+
+            const cashOrder = await Order.create({
+                userId,
+                username,
+                email,
+                address,
+                phone,
+                city,
+                state,
+                pincode,
+                deliveryTime,
+                paymentMethod: 'cash',
+                orders: products
+            });
+
+            // Return the order details including the delivery time
+            return res.json({
+                orderId: cashOrder._id,  // The newly created order's ID
+                deliveryTime: cashOrder.deliveryTime,
+                message: 'Cash order created successfully!',
+                paymentMethod: 'cash'
+            });
+        }
+    } catch (error) {
+        console.error('Error creating order:', error);
+        res.status(500).json({ error: 'Internal Server Error', message: error.message });
+    }
+});
         console.log('Received request for payment verification:', req.body);
 
         const order = await Order.findOne({ razorpayOrderId: orderId });
@@ -131,7 +209,7 @@ paymentRouter.post('/razorpay-payment-verification', async (req, res) => {
                 order.paymentStatus = 'completed';
                 order.paymentTime = new Date();
                 order.deliveryTime = new Date();
-                order.deliveryTime.setDate(order.deliveryTime.getDate() + 7); 
+                order.deliveryTime.setDate(order.deliveryTime.getDate() + 7);
                 await order.save();
                 return res.json({ message: 'Payment successful! Order status has been updated.' });
             } else {
@@ -147,7 +225,7 @@ paymentRouter.post('/razorpay-payment-verification', async (req, res) => {
 
 
 
-paymentRouter.get('/showorders',Auth, async (req, res) => {
+paymentRouter.get('/showorders', Auth, async (req, res) => {
     // const { userId } = req.query;
     const userId = req.userId;
 
@@ -157,14 +235,14 @@ paymentRouter.get('/showorders',Auth, async (req, res) => {
 
     try {
         // Find all orders associated with the userId
-        // const orders = await Order.find({ userId }).populate('userId', 'username email'); // Populate user details
+        // const orders = await Order.find({ userId }).populate('userId', 'username email'); 
         const orders = await Order.find({ userId: userId });
 
         if (!orders || orders.length === 0) {
             return res.status(404).json({ message: "No orders found for this user." });
         }
 
-        // Return relevant order details
+
         res.json({
             orders: orders.map(order => ({
                 orderId: order._id,
@@ -173,16 +251,45 @@ paymentRouter.get('/showorders',Auth, async (req, res) => {
                 address: order.address,
                 phone: order.phone,
                 razorpayOrderId: order.razorpayOrderId,
-                paymentMethod:order.paymentMethod,
+                paymentMethod: order.paymentMethod,
                 paymentStatus: order.paymentStatus,
                 paymentTime: order.paymentTime,
                 deliveryTime: order.deliveryTime,
-                items: order.orders, // List of items in the order
+                items: order.orders,
             }))
         });
     } catch (error) {
         console.error("Error fetching orders:", error);
         res.status(500).json({ message: "Server error", error: error.message });
+    }
+});
+
+
+paymentRouter.post('/RemoveOrder', Auth, async (req, res) => {
+    const userId = req.userId;  // Extract userId from the authenticated user
+    const { orderId } = req.body;  // Extract the orderId from the request body
+
+    if (!orderId) {
+        return res.status(400).json({ message: "Order ID is required." });
+    }
+
+    if (!userId) {
+        return res.status(400).json({ message: "User ID is required." });
+    }
+
+    try {
+        const order = await Order.findOne({ _id: orderId, userId: userId });
+
+        if (!order) {
+            return res.status(404).json({ msg: "Order not found or you are not authorized to delete this order." });
+        }
+
+        await Order.findByIdAndDelete(orderId);  // Remove the order from the database
+
+        return res.status(200).json({ msg: "Order removed successfully." });
+    } catch (error) {
+        console.error("Error removing order:", error);
+        return res.status(500).json({ message: "Server error", error: error.message });
     }
 });
 
