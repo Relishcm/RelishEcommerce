@@ -10,6 +10,7 @@ export const GarmentsCardProducts = ({ category, price, image, productId, discou
     return (
         <div
             className="card p-4 border rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 cursor-pointer relative"
+            onClick={() => setOpenDropdown(name)}
             onMouseEnter={() => setOpenDropdown(name)}
             onMouseLeave={() => setOpenDropdown(null)}
         >

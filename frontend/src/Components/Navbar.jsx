@@ -312,7 +312,19 @@ export const Navbar = () => {
                     )}
                 </div>
 
-                <div className="md:hidden flex items-center mr-3">
+                <div className="md:hidden flex items-center mr-3 gap-2">
+                {login ? (
+                        <div className="flex items-center gap-2">
+                            <div className='bg-red-800 text-white p-1 rounded-full w-10 h-10 flex justify-center items-center'>{avatar}</div>
+                            <span className="text-lg">{userName}</span>
+                            <button className='buttonn bg-red-800 text-white p-2 rounded-lg' onClick={handleLogout}>Logout</button>
+                        </div>
+                    ) : (
+                        <div className='p-1 md:flex hidden gap-3 text-black text-lg cursor-pointer'>
+                            <Link to='auth'><div className='flex items-center mr-3 gap-1 p-1'>SignIn<FaUser className='text-red-800 text-2xl' /></div></Link>
+                            <div className='flex items-center gap-1'>Register <GiArchiveRegister className='text-red-800 text-2xl' /></div>
+                        </div>
+                    )}
                     <button onClick={handleMenuToggle} className="text-3xl text-black">
                         {isOpen ? <FaTimes /> : <FaBars />}
                     </button>
@@ -337,17 +349,27 @@ export const Navbar = () => {
             </div>
 
             <div className='md:hidden flex justify-around '>
-                <div className="p-4 flex items-center space-x-1">
-                    <input type="text" placeholder="Search..." className="p-2 w-full border border-gray-950 rounded" />
-                </div>
-                <div className='flex items-center justify-around text-4xl gap-1 p-1'>
-                    <FaHeart className='text-red-800' />
-                    <div className='flex items-center gap-1'><GiShoppingBag className='text-red-800' /></div>
-                    <div className='p-1 '>
+                
+            <form onSubmit={handleSubmit}>
+                        <input
+                            type="text"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            placeholder="Search..."
+                            className="p-2 w-full border border-gray-950 rounded"
+                        />
+                    </form>
+                <div className='flex items-center justify-around text-4xl gap-5 p-1'>
+                 <Link to="/WishView" ><WishlistCount /></Link>
+                 <Link to="/cart" > <CartlistCount /></Link>
+
+                    {/* <div className='p-1 '>
                         <button className="md:text-lg hover:bg-red-900 bg-p-2 text-red-800 rounded-lg">
                             <Link to="auth" className='flex items-center gap-4 '><FaUser className='text-4xl' /></Link>
                         </button>
-                    </div>
+                    </div> */}
+
+
                 </div>
             </div>
         </div>

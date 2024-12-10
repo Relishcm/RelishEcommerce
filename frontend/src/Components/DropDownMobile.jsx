@@ -24,7 +24,7 @@
 //     setOpen(false)
 // }
 //     useEffect(() => {
-      
+
 //         document.addEventListener('mousedown', handleOutsideClick);
 //         window.addEventListener('scroll', handleScroll);
 
@@ -63,8 +63,8 @@
 //                     <Link to="/Headphone">
 //                         <li className="py-1 px-4 hover:bg-green-100 cursor-pointer transition-colors duration-300">Headphone </li>
 //                     </Link>
-                
-                   
+
+
 //                 </ul>
 //             )}
 //         </div>
@@ -77,7 +77,7 @@ import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 import { useDropdown } from '../Contextapi/DropdownContext';
 
 export const DropDownMobile = () => {
-    const { openDropdown, handleMouseLeave,dropdownRef } = useDropdown();
+    const { openDropdown, handleMouseLeave, dropdownRef } = useDropdown();
 
     return (
         <div className="relative z-50">
@@ -87,7 +87,7 @@ export const DropDownMobile = () => {
             </div>
             {openDropdown === 'mobile' && (
                 <ul ref={dropdownRef} className="list-none md:ml-2 font-medium absolute bg-white z-50 border border-gray-300 rounded-md shadow-lg text-sm">
-                  <Link to="/cable">
+                    <Link to="/cable">
                         <li className="py-1 px-2 hover:bg-red-100 cursor-pointer transition-colors duration-300">C type USB</li>
                     </Link>
                     <Link to="/Headphone">

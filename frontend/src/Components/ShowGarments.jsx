@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { GarmentsCardProducts } from './CardGarmentsProducts';
 import { useGarmentsProducts } from '../Contextapi/ShowGarmentsProducts';
 
@@ -16,7 +15,7 @@ export const ShowGarments = ({ category }) => {
 
     return (
         <div className="">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 {filteredItems.length === 0 ? (
                     <p>No products available.</p>
                 ) : (

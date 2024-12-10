@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
 import { DropDownMobile } from './DropDownMobile';
-import { DropDownGarments } from './DropDownGarments';
 import { DropDownCosmetices } from './DropDownCosmetices';
 import { DropDownBags } from './DropDownBags';
 import { useDropdown } from '../Contextapi/DropdownContext';
 import { DropDownJewelry } from './DropDownJewelry';
 import { DropDownSunglasses } from './DropDownSunglasses';
 import { FaBars, FaTimes } from 'react-icons/fa';
+import { DropDownGarments } from './DropDownGarments';
+import { DropDownReadymadeGarments } from './DropDownReadymadeGarments';
 
 export const NavbarProducts = () => {
     const { handleMouseEnter, handleMouseLeave } = useDropdown();
-    const [isOpen, setIsOpen] = useState(false);  // For mobile menu toggling
+    const [isOpen, setIsOpen] = useState(false);
 
     const handleMenuToggle = () => {
-        setIsOpen(prev => !prev); // Toggle the state of mobile menu
+        setIsOpen(prev => !prev);
     };
 
     return (
@@ -21,7 +22,6 @@ export const NavbarProducts = () => {
             <div className='bg-gray-50 border-t p-2 shadow-md font-medium'>
 
 
-                {/* Desktop Menu */}
                 <ul className={`hidden md:flex  gap-1 text-xs md:text-base items-center justify-around max-w-screen-2xl mx-auto`}>
                     <li
                         onMouseEnter={() => handleMouseEnter('cosmetices')}
@@ -30,18 +30,18 @@ export const NavbarProducts = () => {
                         <DropDownCosmetices />
                     </li>
                     <li
+                        onMouseEnter={() => handleMouseEnter('garments')}
+                        onMouseLeave={handleMouseLeave}
+                        className='transition duration-300 ease-in-out'>
+                    <DropDownGarments />
+                    </li>
+                    <li
                         onMouseEnter={() => handleMouseEnter('jewelry')}
                         onMouseLeave={handleMouseLeave}
                         className='transition duration-300 ease-in-out'>
                         <DropDownJewelry />
                     </li>
-                    <li
-                        onMouseEnter={() => handleMouseEnter('garments')}
-                        onMouseLeave={handleMouseLeave}
-                        className='transition duration-300 ease-in-out'>
-                        <DropDownGarments />
-                    </li>
-          
+
                     <li
                         onMouseEnter={() => handleMouseEnter('mobile')}
                         onMouseLeave={handleMouseLeave}
@@ -64,7 +64,7 @@ export const NavbarProducts = () => {
 
                 <div className='flex  justify-between'>
                     <div className="md:hidden flex items-center ">
-                        {/* Mobile Menu Toggle Button */}
+
                         <button onClick={handleMenuToggle} className="text-3xl text-black">
                             {isOpen ? <FaTimes /> : <FaBars />}
                         </button>
@@ -87,7 +87,7 @@ export const NavbarProducts = () => {
                         </ul>
                     </div>    </div>
 
-                {/* Mobile Menu */}
+
                 {isOpen && (
                     <ul className='md:hidden flex flex-col space-y-10 mt-10'>
                         {/* <li

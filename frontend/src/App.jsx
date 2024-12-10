@@ -35,10 +35,9 @@ function App() {
             <Route path="Headphone" element={<Headphone />} />
             <Route path="charge" element={<Charge />} />
 
-            <Route path="/man" element={<Man />} />
-         
-            <Route path="Woman" element={<Woman />} />
-            <Route path="Child" element={<Child />} />
+            <Route path="/Man" element={<Man />} />
+             <Route path="/Woman" element={<Woman />} />
+            <Route path="/Child" element={<Child />} />
 
 
       
