@@ -263,7 +263,7 @@ export const Navbar = () => {
     };
 
     return (
-        <div className="bg-gray-50 sm:p-2 md:p-2 shadow-md font-medium ">
+        <div className="bg-gray-50 p-1 md:p-2 shadow-md font-medium  ">
             <div className="flex items-center justify-between max-w-screen-2xl mx-auto p-2">
                 <div className='flex items-center justify-center gap-10'>
                     <div className="font-bold lg:ml-10">
@@ -320,11 +320,12 @@ export const Navbar = () => {
                             <button className='buttonn bg-red-800 text-white p-2 rounded-lg' onClick={handleLogout}>Logout</button>
                         </div>
                     ) : (
-                        <div className='p-1 md:flex hidden gap-3 text-black text-lg cursor-pointer'>
-                            <Link to='auth'><div className='flex items-center mr-3 gap-1 p-1'>SignIn<FaUser className='text-red-800 text-2xl' /></div></Link>
-                            <div className='flex items-center gap-1'>Register <GiArchiveRegister className='text-red-800 text-2xl' /></div>
+                        <div className='p-1  gap-3 text-black text-lg cursor-pointer'>
+                            <Link to='auth'><div className='flex items-center mr-3 gap-1 p-1'><FaUser className='text-red-800 text-2xl' /></div></Link>
                         </div>
                     )}
+
+
                     <button onClick={handleMenuToggle} className="text-3xl text-black">
                         {isOpen ? <FaTimes /> : <FaBars />}
                     </button>

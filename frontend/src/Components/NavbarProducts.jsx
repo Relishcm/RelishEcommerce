@@ -19,7 +19,7 @@ export const NavbarProducts = () => {
 
     return (
         <>
-            <div className='bg-gray-50 border-t p-2 shadow-md font-medium'>
+            <div className='bg-gray-50 border-t p-2  shadow-md font-medium'>
 
 
                 <ul className={`hidden md:flex  gap-1 text-xs md:text-base items-center justify-around max-w-screen-2xl mx-auto`}>
