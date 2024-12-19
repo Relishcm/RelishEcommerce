@@ -48,12 +48,12 @@ export const NavbarProducts = () => {
                         className='transition duration-300 ease-in-out'>
                         <DropDownMobile />
                     </li>
-                    <li
+                    {/* <li
                         onMouseEnter={() => handleMouseEnter('sunglasses')}
                         onMouseLeave={handleMouseLeave}
                         className='transition duration-300 ease-in-out'>
                         <DropDownSunglasses />
-                    </li>
+                    </li> */}
                     <li
                         onMouseEnter={() => handleMouseEnter('Bags')}
                         onMouseLeave={handleMouseLeave}

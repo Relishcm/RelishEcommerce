@@ -14,11 +14,11 @@ export const DropDownCosmetices = () => {
                 {/* {openDropdown === 'cosmetices' ? <IoMdArrowDropup className="text-md" /> : <IoMdArrowDropdown className="text-md" />} */}
             </div>
             {openDropdown === 'cosmetices' &&  (
-                <ul ref={dropdownRef} className="list-none font-medium absolute bg-white z-50 border border-gray-300 rounded-md shadow-lg w-36 text-sm">
-                    <Link to="/man">
+                <ul  className="list-none font-medium absolute bg-white z-50 border border-gray-300 rounded-md shadow-lg w-36 text-sm">
+                    <Link to="/SkinCare">
                         <li className="py-1 px-2 hover:bg-red-100 cursor-pointer transition-colors duration-300">Skin care products</li>
                     </Link>
-                    <Link to="/woman">
+                    <Link to="/HandCare">
                         <li className="py-1 px-2 hover:bg-red-100 cursor-pointer transition-colors duration-300">Hand care products</li>
                     </Link>
                     <Link to="/child">

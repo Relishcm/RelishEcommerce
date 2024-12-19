@@ -18,6 +18,8 @@ import { SearchProduct } from "./Components/SearchProduct";
 import Woman from "./Pages/Garments/Woman";
 import Child from "./Pages/Garments/Child";
 import Man from "./Pages/Garments/Man";
+import SkinCare from "./Pages/Cosmetices/SkinCare";
+import HandCare from "./Pages/Cosmetices/HandCare";
 // import { MobileHome } from "./Pages/Mobile/MobileHome";
 
 
@@ -39,6 +41,8 @@ function App() {
              <Route path="/Woman" element={<Woman />} />
             <Route path="/Child" element={<Child />} />
 
+            <Route path="/SkinCare" element={<SkinCare />} />
+            <Route path="/HandCare" element={<HandCare />} />
 
       
             <Route path="view" element={<CardView />} />

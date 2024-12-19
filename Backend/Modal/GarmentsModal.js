@@ -47,6 +47,18 @@ const GarmentsproductSchema = new mongoose.Schema({
     type: String,
     trim: true
   },
+  image1: {
+    type: String,
+    trim: true
+  },
+  image2: {
+    type: String,
+    trim: true
+  },
+  image3: {
+    type: String,
+    trim: true
+  },
   createdAt: {
     type: Date,
     default: Date.now
