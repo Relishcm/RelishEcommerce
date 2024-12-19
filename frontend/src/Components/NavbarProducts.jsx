@@ -42,12 +42,12 @@ export const NavbarProducts = () => {
                         <DropDownJewelry />
                     </li>
 
-                    <li
+                    {/* <li
                         onMouseEnter={() => handleMouseEnter('mobile')}
                         onMouseLeave={handleMouseLeave}
                         className='transition duration-300 ease-in-out'>
                         <DropDownMobile />
-                    </li>
+                    </li> */}
                     {/* <li
                         onMouseEnter={() => handleMouseEnter('sunglasses')}
                         onMouseLeave={handleMouseLeave}
@@ -106,18 +106,18 @@ export const NavbarProducts = () => {
                             className='transition duration-300 ease-in-out'>
                             <DropDownJewelry />
                         </li>
-                        <li
+                        {/* <li
                             onClick={() => handleMouseEnter('mobile')}
 
                             className='transition duration-300 ease-in-out'>
                             <DropDownMobile />
-                        </li>
-                        <li
+                        </li> */}
+                        {/* <li
                             onClick={() => handleMouseEnter('sunglasses')}
 
                             className='transition duration-300 ease-in-out'>
                             <DropDownSunglasses />
-                        </li>
+                        </li> */}
                         <li
                             onClick={() => handleMouseEnter('Bags')}
 

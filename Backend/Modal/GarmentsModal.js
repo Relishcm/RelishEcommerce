@@ -66,6 +66,15 @@ const GarmentsproductSchema = new mongoose.Schema({
   updatedAt: {
     type: Date,
     default: Date.now
+  },
+  size: {
+    type: [String],  
+    required: false,  
+    
+  },
+  productNumber: {
+    type: [String],   
+    enum: ['28', '30', '32', '34']
   }
 });
 

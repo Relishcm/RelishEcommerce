@@ -9,7 +9,6 @@ import { useNavigate } from 'react-router-dom';
 
 export const DropHoverCart = ({ dropdownName, product }) => {
     const { openDropdown, setOpenDropdown, dropdownRef } = useHoverDropdown();
-    
     const { addToCart, removeFromCart, checkCartStatus } = useCart();
     const { addToWish, removeFromWish, checkWishStatus } = useWish();
     const navigate = useNavigate();
@@ -19,7 +18,7 @@ export const DropHoverCart = ({ dropdownName, product }) => {
 
     useEffect(() => {
         const fetchWishListStatus = async () => {
-            const liked = await checkWishStatus(product.productId);
+        const liked = await checkWishStatus(product.productId);
             setIsLike(liked);
         };
 

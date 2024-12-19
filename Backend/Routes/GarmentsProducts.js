@@ -19,10 +19,8 @@ GarmentsProductRouter.post("/addGarmentsProduct", multiple, async (req, res) => 
   }
 
   try {
-    // Initialize an array to hold the download URLs
     const downloadURLs = [];
 
-    // Upload each file to Firebase Storage and get the download URL
     for (let i = 0; i < req.files.length; i++) {
       const storageRef = ref(garmentsstorage, `GarmentsProduct/${req.files[i].originalname}`);
       const metadata = {
@@ -30,14 +28,13 @@ GarmentsProductRouter.post("/addGarmentsProduct", multiple, async (req, res) => 
       };
 
       const snapshot = await uploadBytesResumable(storageRef, req.files[i].buffer, metadata);
-      const downloadURL = await getDownloadURL(snapshot.ref); // Corrected this line
+      const downloadURL = await getDownloadURL(snapshot.ref);
 
       downloadURLs.push(downloadURL);
     }
 
-    // Ensure we have at least 4 images (you can adjust this logic as needed)
     while (downloadURLs.length < 4) {
-      downloadURLs.push(""); // Add empty strings if not enough images are uploaded
+      downloadURLs.push(""); 
     }
 
     const product = await GarmentsProduct.create({
@@ -51,6 +48,8 @@ GarmentsProductRouter.post("/addGarmentsProduct", multiple, async (req, res) => 
       image1: downloadURLs[1],
       image2: downloadURLs[2],
       image3: downloadURLs[3],
+      size: body.size,
+      productNumber:body.productNumber
     });
 
     return res.json({

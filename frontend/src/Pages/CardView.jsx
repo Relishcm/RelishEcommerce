@@ -9,8 +9,10 @@ const CardView = () => {
   const location = useLocation();
   const product = location.state?.product;
 
+  // State for quantity, total price, and the current image displayed
   const [quantity, setQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(product?.discountPrice || 0);
+  const [currentImage, setCurrentImage] = useState(product?.image); // Default to the first image
 
   useEffect(() => {
     if (product) {
@@ -38,51 +40,99 @@ const CardView = () => {
     setQuantity(prevQuantity => Math.max(prevQuantity - 1, 1));
   };
 
+  // Function to change the image when one is clicked
+  const handleImageClick = (image) => {
+    setCurrentImage(image);
+  };
+
   return (
-    <> 
-    <div className='xl:grid pt-[5vh] grid-cols-2'>
-      <div className='md:w-[500px] ml-40 p-6'>
-        <img src={product.image} alt={product.name} className='w-full h-auto border' />
-      </div>
-      <div className='gap-8 justify-center p-8'>
-        <h1 className='font-semibold text-3xl'>{product.name}</h1>
-        <p className='ml-2 text-lg'>{product.description}</p>
-        <p className='text-3xl mt-5'>
-          ₹{totalPrice.toFixed(0)} <span className='line-through'>₹{product.price}</span>
-        </p>
-        
-        <div className='flex items-center mt-5'>
-          <button 
-            onClick={decrementQuantity} 
-            className='border border-gray-300 px-3 py-1 rounded-md'
-          >
-            -
-          </button>
-          <input
-            type="number"
-            min="1"
-            value={quantity}
-            readOnly
-            className='w-16 px-2 py-1 border border-gray-300 rounded-md text-center mx-2'
-          />
-          <button 
-            onClick={incrementQuantity} 
-            className='border border-gray-300 px-3 py-1 rounded-md'
-          >
-            +
-          </button>
+    <>
+      <div className="pt-[5vh] max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Product Images */}
+        <div className="flex justify-center items-center space-x-4">
+          <div className="w-16 md:w-28 h-auto flex flex-col gap-4">
+            {/* Clickable images to change the main image */}
+            <img
+              src={product.image}
+              alt="Product Image"
+              className="w-full h-auto object-cover cursor-pointer"
+              onClick={() => handleImageClick(product.image)}
+            />
+            {product.image1 && (
+              <img
+                src={product.image1}
+                alt="Product Image 1"
+                className="w-full h-auto object-cover cursor-pointer"
+                onClick={() => handleImageClick(product.image1)}
+              />
+            )}
+            {product.image2 && (
+              <img
+                src={product.image2}
+                alt="Product Image 2"
+                className="w-full h-auto object-cover cursor-pointer"
+                onClick={() => handleImageClick(product.image2)}
+              />
+            )}
+            {product.image3 && (
+              <img
+                src={product.image3}
+                alt="Product Image 3"
+                className="w-full h-auto object-cover cursor-pointer"
+                onClick={() => handleImageClick(product.image3)}
+              />
+            )}
+          </div>
+
+          {/* Main Displayed Image */}
+          <div className='md:w-[500px] ml-40 p-6'>
+            <img src={currentImage} alt={product.name} className='w-full h-auto border' />
+          </div>
         </div>
 
-        <button
-          onClick={handleAddToCart}
-          className='mt-5 bg-red-700 text-white text-2xl px-4 py-2 rounded-md hover:bg-red-900 border transition-all ease-linear duration-300'
-        >
-          Add to Cart
-        </button>
+        {/* Product Details */}
+        <div className="p-6 space-y-6">
+          <h1 className="text-3xl font-semibold">{product.name}</h1>
+          <p className="text-lg">{product.description}</p>
+          <p className="text-3xl mt-5">
+            ₹{totalPrice.toFixed(0)} <span className="line-through text-gray-500">₹{product.price}</span>
+          </p>
+
+          {/* Quantity Controls */}
+          <div className="flex items-center mt-5">
+            <button
+              onClick={decrementQuantity}
+              className="px-3 py-1 border border-gray-300 rounded-md text-xl"
+            >
+              -
+            </button>
+            <input
+              type="number"
+              min="1"
+              value={quantity}
+              readOnly
+              className="w-16 mx-2 px-2 py-1 border border-gray-300 rounded-md text-center text-xl"
+            />
+            <button
+              onClick={incrementQuantity}
+              className="px-3 py-1 border border-gray-300 rounded-md text-xl"
+            >
+              +
+            </button>
+          </div>
+
+          {/* Add to Cart Button */}
+          <button
+            onClick={handleAddToCart}
+            className="w-full bg-red-700 text-white text-2xl py-2 rounded-md hover:bg-red-900 transition duration-300"
+          >
+            Add to Cart
+          </button>
+        </div>
       </div>
-       </div>
-       
-    <RelatedProduct category={product?.category}/>
+
+      {/* Related Products Section */}
+      <RelatedProduct category={product?.category} />
     </>
   );
 }

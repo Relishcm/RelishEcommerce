@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { useHoverDropdown } from '../Contextapi/CartDropDownHover';
 import { DropHoverCart } from './DropHoverCart';
-import '../CSS/Spinner.css'
+import '../CSS/Spinner.css';
 
-export const GarmentsCardProducts = ({ category, price, image, productId, discountPrice, name, description }) => {
+export const GarmentsCardProducts = ({ category, price, image, image1, image2, image3, productId, discountPrice, name, description }) => {
     const { setOpenDropdown } = useHoverDropdown();
     const [loading, setLoading] = useState(true);
-
+    console.log("image1",image1)
+    console.log("image2",image2)
+    console.log("image3",image3)
     return (
         <div
             className="card p-4 border rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 cursor-pointer relative"
@@ -23,8 +25,9 @@ export const GarmentsCardProducts = ({ category, price, image, productId, discou
             </div>
             <DropHoverCart
                 dropdownName={name}
-                product={{ category, price, image, productId, discountPrice, name, description }}
+                product={{ category, price, image, image1, image2, image3, productId, discountPrice, name, description }}
             />
+
             <div className="icon h-60 flex items-center justify-center relative">
                 {loading && (
                     <div className="absolute inset-0 flex items-center justify-center">
