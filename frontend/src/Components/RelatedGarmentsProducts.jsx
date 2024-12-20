@@ -31,6 +31,11 @@ export const RelatedGarmentsProducts = ({ category }) => {
                                     discountPrice={item.discountPrice}
                                     name={item.name}
                                     description={item.description}
+                                    image1={item.image1}
+                                    image2={item.image2}
+                                    image3={item.image3}
+                                size={item.size}
+
                                 />
                             </div>
                         ))

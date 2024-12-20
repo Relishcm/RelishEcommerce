@@ -107,7 +107,6 @@
 
 
 import React, { useEffect, useState } from 'react';
-
 import { MobileCardProducts } from './MobileCardProducts';
 import { GarmentsCardProducts } from './CardGarmentsProducts'; 
 import { useGarmentsProducts } from '../Contextapi/ShowGarmentsProducts'; 
@@ -118,23 +117,23 @@ export const RelatedProduct = ({ category }) => {
   const { itemShow: garmentsItems, loading: garmentsLoading } = useGarmentsProducts(); // garments products context
   const [relatedProducts, setRelatedProducts] = useState([]);
 
-  // Filter related products by category
+  
   useEffect(() => {
     // Filtering mobile products by category
     const filteredMobileItems = mobileItems.filter((product) =>
       product.category.toLowerCase() === category.toLowerCase()
     );
 
-    // Filtering garment products by category
+
     const filteredGarmentsItems = garmentsItems.filter((product) =>
       product.category.toLowerCase() === category.toLowerCase()
     );
 
-    // Combine the filtered results
+
     setRelatedProducts([...filteredMobileItems, ...filteredGarmentsItems]);
   }, [category, mobileItems, garmentsItems]);
 
-  // Loading state check
+
   if (mobileLoading || garmentsLoading) {
     return <p>Loading...</p>;
   }
@@ -157,6 +156,9 @@ export const RelatedProduct = ({ category }) => {
                   discountPrice={item.discountPrice}
                   name={item.name}
                   description={item.description}
+                  image1={item.image1}
+                  image2={item.image2}
+                  image3={item.image3}
                 />
               ) : (
                 <GarmentsCardProducts
@@ -168,6 +170,10 @@ export const RelatedProduct = ({ category }) => {
                   
                   name={item.name}
                   description={item.description}
+                  size={item.size}
+                  image1={item.image1}
+                  image2={item.image2}
+                  image3={item.image3}
                 />
               )}
             </div>

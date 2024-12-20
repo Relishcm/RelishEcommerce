@@ -13,10 +13,13 @@ const CardView = () => {
   const [quantity, setQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(product?.discountPrice || 0);
   const [currentImage, setCurrentImage] = useState(product?.image); // Default to the first image
+  const [selectedSize, setSelectedSize] = useState('');
+  const [selectedproductNumber, setSelectedproductNumber] = useState('');
 
   useEffect(() => {
     if (product) {
       setTotalPrice(product.discountPrice * quantity);
+      setCurrentImage(product.image);
     }
   }, [quantity, product]);
 
@@ -44,6 +47,9 @@ const CardView = () => {
   const handleImageClick = (image) => {
     setCurrentImage(image);
   };
+  
+  const sizes = product?.size || [];
+  const productNumbers = product?.productNumber || [];
 
   return (
     <>
@@ -52,12 +58,14 @@ const CardView = () => {
         <div className="flex justify-center items-center space-x-4">
           <div className="w-16 md:w-28 h-auto flex flex-col gap-4">
             {/* Clickable images to change the main image */}
+           {product.image && ( 
             <img
               src={product.image}
               alt="Product Image"
               className="w-full h-auto object-cover cursor-pointer"
               onClick={() => handleImageClick(product.image)}
             />
+            )}
             {product.image1 && (
               <img
                 src={product.image1}
@@ -94,6 +102,34 @@ const CardView = () => {
         <div className="p-6 space-y-6">
           <h1 className="text-3xl font-semibold">{product.name}</h1>
           <p className="text-lg">{product.description}</p>
+          <div>
+            {/* <h3 className="font-semibold">Select Size</h3> */}
+            <div className="flex space-x-4 mt-2">
+              {sizes.length > 0 ? (
+                sizes.map((size, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setSelectedSize(size)}
+                    className={`border-2 px-4 py-2 rounded-md 
+                      ${selectedSize === size ? 'bg-red-700 text-white' : 'bg-white text-gray-700'}`}
+                  >
+                    {size}
+                  </button>
+                ))
+              ) : (
+                productNumbers.map((productNumber, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setSelectedproductNumber(productNumber)}
+                    className={`border-2 px-4 py-2 rounded-md 
+                      ${selectedproductNumber === productNumber ? 'bg-red-700 text-white' : 'bg-white text-gray-700'}`}
+                  >
+                    {productNumber}
+                  </button>
+                ))
+              )}
+            </div>
+          </div>
           <p className="text-3xl mt-5">
             ₹{totalPrice.toFixed(0)} <span className="line-through text-gray-500">₹{product.price}</span>
           </p>

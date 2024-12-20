@@ -70,7 +70,7 @@ const GarmentsproductSchema = new mongoose.Schema({
   size: {
     type: [String],  
     required: false,  
-    
+    enum: ['M', 'L', 'XL', 'XXL']
   },
   productNumber: {
     type: [String],   

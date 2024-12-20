@@ -22,12 +22,10 @@ paymentRouter.post('/razorpay-order', async (req, res) => {
     try {
         const { products, username, email, address, phone, pincode, state, city, userId, paymentMethod } = req.body;
 
-        // Ensure that the userId is provided
         if (!userId) {
             return res.status(400).json({ error: 'User ID is required.' });
         }
 
-        // Calculate the order amount (convert to paise)
         const amount = products.reduce((acc, product) => acc + product.discountPrice * product.quantity, 0) * 100;
         const currency = 'INR';
         const receipt = crypto.randomBytes(10).toString("hex");

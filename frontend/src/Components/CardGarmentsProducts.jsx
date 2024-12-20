@@ -3,7 +3,7 @@ import { useHoverDropdown } from '../Contextapi/CartDropDownHover';
 import { DropHoverCart } from './DropHoverCart';
 import '../CSS/Spinner.css';
 
-export const GarmentsCardProducts = ({ category, price, image, image1, image2, image3, productId, discountPrice, name, description }) => {
+export const GarmentsCardProducts = ({ category, price, image, image1, image2, image3, productId, discountPrice,productNumber, name, description,size }) => {
     const { setOpenDropdown } = useHoverDropdown();
     const [loading, setLoading] = useState(true);
     console.log("image1",image1)
@@ -25,7 +25,7 @@ export const GarmentsCardProducts = ({ category, price, image, image1, image2, i
             </div>
             <DropHoverCart
                 dropdownName={name}
-                product={{ category, price, image, image1, image2, image3, productId, discountPrice, name, description }}
+                product={{ category, price, image, image1, image2, image3, productId, discountPrice, name, description,productNumber,size }}
             />
 
             <div className="icon h-60 flex items-center justify-center relative">

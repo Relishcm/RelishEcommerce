@@ -25,13 +25,16 @@ export const ShowGarments = ({ category }) => {
                                 category={item.category}
                                 price={item.price}
                                 image={item.image}
-                                image1={item.image1}
-                                image2={item.image2}
-                                image3={item.image3}
+                              
                                 productId={item._id}
                                 discountPrice={item.discountPrice}
                                 name={item.name}
                                 description={item.description}
+                                size={item.size}
+                                image1={item.image1}
+                                image2={item.image2}
+                                image3={item.image3}
+                                productNumber={item.productNumber}
                             />
                         </div>
                     ))
