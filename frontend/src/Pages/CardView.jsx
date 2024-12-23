@@ -210,7 +210,6 @@ const CardView = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const product = location.state?.product;
-    const { openDropdown, setOpenDropdown, dropdownRef } = useHoverDropdown();
 
   const [quantity, setQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(product?.discountPrice || 0);

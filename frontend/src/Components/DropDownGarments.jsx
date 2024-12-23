@@ -6,7 +6,7 @@ import { useDropdown } from '../Contextapi/DropdownContext';
 
 export const DropDownGarments = () => {
     const { openDropdown,dropdownRef } = useDropdown();
-    console.log('Dropdown Open:', openDropdown);
+    // console.log('Dropdown Open:', openDropdown);
     return (
         <div className="relative z-50">
             <div className="flex items-center cursor-pointer ">

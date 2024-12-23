@@ -15,7 +15,7 @@ cartRouter.post("/addcart", Auth, async (req, res) => {
     const { price, category, image, productId, quantity, discountPrice, description, name,size } = req.body;
     const userId = req.userId;
 
-    if (!price || !quantity || !category || !image || !productId || !discountPrice || !description || !name || !size) {
+    if (!price || !quantity || !category || !image || !productId || !discountPrice || !description || !name ) {
 
         return res.status(400).json({
             msg: "Missing required fields",

@@ -134,7 +134,7 @@ const Cart = () => {
                         <img src={item.image} className='w-24 h-auto' alt={item.name} />
                       </td>
                       <td className='border text-center border-gray-300 px-4 py-2'>{item.name} 
-                        <p>{item.size}</p>
+                        <p>size:{item.size}</p>
                       </td>
                       <td className='border text-center border-gray-300 px-4 py-2'>₹{item.discountPrice}</td>
                       <td className='border text-center border-gray-300 px-4 py-2'>
