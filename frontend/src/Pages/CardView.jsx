@@ -12,7 +12,7 @@ const CardView = () => {
   // State for quantity, total price, and the current image displayed
   const [quantity, setQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(product?.discountPrice || 0);
-  const [currentImage, setCurrentImage] = useState(product?.image); // Default to the first image
+  const [currentImage, setCurrentImage] = useState(product?.image); 
   const [selectedSize, setSelectedSize] = useState('');
   const [selectedproductNumber, setSelectedproductNumber] = useState('');
 
@@ -28,10 +28,18 @@ const CardView = () => {
   }
 
   const handleAddToCart = () => {
+    // Check if a size or product number is selected
+    if (!selectedSize && !selectedproductNumber) {
+      alert("Please select a size or product number before adding to cart.");
+      return;
+    }
+
+    // If the user is logged in, add the item to the cart
     if (localStorage.getItem('token')) {
-      addToCart(product, quantity);
+      // Pass the selected size or product number along with the product details
+      addToCart(product, quantity, selectedSize, selectedproductNumber);
     } else {
-      navigate("/auth");
+      navigate("/auth");  // Navigate to the login page
     }
   };
 
@@ -92,13 +100,11 @@ const CardView = () => {
             )}
           </div>
 
-          {/* Main Displayed Image */}
           <div className='md:w-[500px] ml-40 p-6'>
             <img src={currentImage} alt={product.name} className='w-full h-auto border' />
           </div>
         </div>
 
-        {/* Product Details */}
         <div className="p-6 space-y-6">
           <h1 className="text-3xl font-semibold">{product.name}</h1>
           <p className="text-lg">{product.description}</p>
@@ -129,6 +135,9 @@ const CardView = () => {
                 ))
               )}
             </div>
+          </div>
+          <div>
+          {}
           </div>
           <p className="text-3xl mt-5">
             ₹{totalPrice.toFixed(0)} <span className="line-through text-gray-500">₹{product.price}</span>

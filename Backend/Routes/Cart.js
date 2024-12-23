@@ -12,14 +12,14 @@ const cartRouter = express.Router()
 
 
 cartRouter.post("/addcart", Auth, async (req, res) => {
-    const { price, category, image, productId, quantity, discountPrice, description, name } = req.body;
+    const { price, category, image, productId, quantity, discountPrice, description, name,size } = req.body;
     const userId = req.userId;
 
-    if (!price || !quantity || !category || !image || !productId || !discountPrice || !description || !name) {
+    if (!price || !quantity || !category || !image || !productId || !discountPrice || !description || !name || !size) {
 
         return res.status(400).json({
             msg: "Missing required fields",
-            fields: { price, quantity, category, image, productId, discountPrice, description, name }
+            fields: { price, quantity, category, image, productId, discountPrice, description, name,size }
         });
     }
 
@@ -30,7 +30,8 @@ cartRouter.post("/addcart", Auth, async (req, res) => {
     try {
         const existingItem = await Cart.findOne({
             productId: productId,
-            userId: userId
+            userId: userId,
+            size
         });
 
         if (existingItem) {
@@ -46,7 +47,8 @@ cartRouter.post("/addcart", Auth, async (req, res) => {
             image,
             userId,
             productId,
-            quantity
+            quantity,
+            size
         });
 
 
@@ -161,7 +163,7 @@ const calculateTotalPrice = async (userId) => {
     }, 0);
 };
 
-// Get Total Price
+
 cartRouter.get('/totalprice', Auth, async (req, res) => {
     try {
         const userId = req.userId;

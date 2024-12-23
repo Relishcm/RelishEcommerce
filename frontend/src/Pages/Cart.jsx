@@ -33,7 +33,7 @@ const Cart = () => {
     } else {
       navigate('/auth');
     }
-  }, []); // Only run once when the component mounts
+  }, []); 
 
 
   const handleRemoveFromCart = async (productId) => {
@@ -130,22 +130,27 @@ const Cart = () => {
                 <tbody>
                   {carts.map((item, index) => (
                     <tr key={index} className='border-b'>
-                      <td className='text-center flex justify-center items-center px-4 py-3'>
+                      <td className='text-center flex justify-center items-center px-4 py-2'>
                         <img src={item.image} className='w-24 h-auto' alt={item.name} />
                       </td>
-                      <td className='border text-center border-gray-300 px-4 py-2'>{item.name}</td>
+                      <td className='border text-center border-gray-300 px-4 py-2'>{item.name} 
+                        <p>{item.size}</p>
+                      </td>
                       <td className='border text-center border-gray-300 px-4 py-2'>₹{item.discountPrice}</td>
                       <td className='border text-center border-gray-300 px-4 py-2'>
                         <button onClick={() => decrementQuantity(item.productId)} className='px-2 text-2xl'>-</button>
                         {item.quantity}
                         <button onClick={() => incrementQuantity(item.productId)} className='px-2 text-xl'>+</button>
                       </td>
-                      <td className='text-center flex justify-center items-center px-2 py-5'>
-                        <MdDelete onClick={() => {
+                      <td className=' px-2 py-1'>
+                        <div onClick={() => {
                           if (confirm("Are You Sure,want remove from cart")) {
                             handleRemoveFromCart(item.productId)
                           }
-                        }} className='text-red-600 cursor-pointer' />
+                        }} className='text-white bg-red-600 text-center flex justify-center items-center
+                        px-2 py-2  cursor-pointer' >
+                          Delete
+                        </div>
                       </td>
                     </tr>
                   ))}
