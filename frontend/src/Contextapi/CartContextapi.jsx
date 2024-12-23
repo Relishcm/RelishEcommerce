@@ -5,17 +5,18 @@ const CartContext = createContext();
 
 const CartContextProvider = ({ children }) => {
     const [cartlistCount, setCartlistCount] = useState(0);
-   
+//   const [selectedSize, setSelectedSize] = useState('');
 
-    async function addToCart(product, quantity) {
-        const requiredFields = ['category', 'name', 'description', 'price', 'discountPrice', 'image', 'productId'];
+
+    async function addToCart(product, quantity,selectedSize) {
+        const requiredFields = ['category', 'name', 'description', 'price', 'discountPrice', 'image', 'productId', 'size'];
         const missingFields = requiredFields.filter(field => !product[field]);
 
         if (missingFields.length > 0) {
             alert(`Invalid product data: missing required fields: ${missingFields.join(', ')}`);
             return;
         }
-
+        console.log("size", product.size)
         try {
             const response = await axios.post(
                 import.meta.env.VITE_API_ADD_CART,
@@ -27,7 +28,8 @@ const CartContextProvider = ({ children }) => {
                     discountPrice: product.discountPrice,
                     image: product.image,
                     productId: product.productId,
-                    quantity
+                    quantity,
+                    size:selectedSize
                 },
                 { headers: { Authorization: localStorage.getItem("token") } }
             );
@@ -43,7 +45,7 @@ const CartContextProvider = ({ children }) => {
         }
     }
 
-        const removeFromCart = async (productId) => {
+    const removeFromCart = async (productId) => {
         try {
             const response = await axios.post(
                 import.meta.env.VITE_API_REMOVE_CART,
@@ -63,7 +65,7 @@ const CartContextProvider = ({ children }) => {
 
 
     const fetchCount = async () => {
-      
+
 
         try {
             const response = await axios.get(import.meta.env.VITE_API_CART_COUNT, {
@@ -71,7 +73,7 @@ const CartContextProvider = ({ children }) => {
             });
             if (response.data && typeof response.data.count === 'number') {
                 setCartlistCount(response.data.count);
-            }else {
+            } else {
                 console.error("Unexpected response format:", response.data);
             }
         } catch (error) {
@@ -80,11 +82,11 @@ const CartContextProvider = ({ children }) => {
     };
 
     // const fetchCart = async () => {
-       
+
 
     //     try {
     //         const response = await axios.get(import.meta.env.VITE_API_CART_VIEW
-                
+
     //             , {
     //             headers: { Authorization: localStorage.getItem("token") }
     //         });
@@ -98,7 +100,7 @@ const CartContextProvider = ({ children }) => {
 
         try {
             const response = await axios.get(
-               `${import.meta.env.VITE_API_CART_CHECK_STATUS}/${productId}`,
+                `${import.meta.env.VITE_API_CART_CHECK_STATUS}/${productId}`,
                 { headers: { Authorization: localStorage.getItem("token") } }
             );
             return response.data.isInCart;
@@ -114,7 +116,7 @@ const CartContextProvider = ({ children }) => {
     }, []);
 
     return (
-        <CartContext.Provider value={{ cartlistCount,setCartlistCount, addToCart,checkCartStatus ,removeFromCart }}>
+        <CartContext.Provider value={{ cartlistCount, setCartlistCount, addToCart, checkCartStatus, removeFromCart }}>
             {children}
         </CartContext.Provider>
     );
