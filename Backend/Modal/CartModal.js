@@ -43,10 +43,14 @@ const cartSchema = new mongoose.Schema({
         type: Number,
         required: true,
         min: 1
+    },
+    size: {  
+        type: String,  
+        required: true
     }
 });
 
-const Cart = mongoose.model("mobilecart", cartSchema)
+const Cart = mongoose.model("cart", cartSchema)
 
 
 module.exports = { Cart };
