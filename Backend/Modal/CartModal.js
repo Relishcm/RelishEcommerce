@@ -27,11 +27,14 @@ const cartSchema = new mongoose.Schema({
     discountPrice: {
         type: Number,
         required: true
+
     },
+  
     description: {
         type: String,
         required: true
     },
+   
     image: {
         type: String,
         required: true
@@ -40,12 +43,6 @@ const cartSchema = new mongoose.Schema({
         type: Number,
         required: true,
         min: 1
-    },
-    size: {
-        type: String,
-        enum: ['M', 'L', 'XL', 'XXL'],
-        required: false,
-        default: 'M'
     }
 });
 
