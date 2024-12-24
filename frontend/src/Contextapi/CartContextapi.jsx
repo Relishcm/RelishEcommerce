@@ -6,7 +6,7 @@ const CartContext = createContext();
 const CartContextProvider = ({ children }) => {
     const [cartlistCount, setCartlistCount] = useState(0);
 
-    async function addToCart(product, quantity, selectedSize) {
+    async function addToCart(product, quantity) {
         const requiredFields = ['category', 'name', 'description', 'price', 'discountPrice', 'image', 'productId'];
         const missingFields = requiredFields.filter(field => !product[field]);
 
@@ -15,21 +15,7 @@ const CartContextProvider = ({ children }) => {
             return;
         }
 
-        // If the product is a cosmetic and no size is selected, set a default value (e.g., 'N/A')
-        if (product.category === 'Cosmetics' && !selectedSize) {
-            selectedSize = 'N/A'; // Default size for cosmetics
-        }
-        console.log("Sending data to API:", {
-            category: product.category,
-            name: product.name,
-            description: product.description,
-            price: product.price,
-            discountPrice: product.discountPrice,
-            image: product.image,
-            productId: product.productId,
-            quantity,
-            size: selectedSize
-          });
+    
           
         try {
             const response = await axios.post(
@@ -43,7 +29,6 @@ const CartContextProvider = ({ children }) => {
                     image: product.image,
                     productId: product.productId,
                     quantity,
-                    size: selectedSize || 'N/A',  // Ensure that size is always defined, especially for cosmetics
                 },
                 { headers: { Authorization: localStorage.getItem("token") } }
             );

@@ -44,13 +44,6 @@ const cartSchema = new mongoose.Schema({
         required: true,
         min: 1
     },
-    size: {  
-        type: String,  
-        required: false,
-        enum: ['M', 'L', 'XL', 'XXL'],
- 
-
-    }
 });
 
 const Cart = mongoose.model("cart", cartSchema)

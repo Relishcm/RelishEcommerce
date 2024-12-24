@@ -12,7 +12,7 @@ const cartRouter = express.Router()
 
 
 cartRouter.post("/addcart", Auth, async (req, res) => {
-    const { price, category, image, productId, quantity, discountPrice, description, name,size } = req.body;
+    const { price, category, image, productId, quantity, discountPrice, description, name } = req.body;
     const userId = req.userId;
 
     if (!price || !quantity || !category || !image || !productId || !discountPrice || !description || !name ) {
@@ -48,7 +48,7 @@ cartRouter.post("/addcart", Auth, async (req, res) => {
             userId,
             productId,
             quantity,
-            size
+           
         });
 
 
