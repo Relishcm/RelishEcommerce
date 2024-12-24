@@ -48,7 +48,7 @@ const cartSchema = new mongoose.Schema({
         type: String,  
         required: false,
         enum: ['M', 'L', 'XL', 'XXL'],
-        default:'M'
+ 
 
     }
 });

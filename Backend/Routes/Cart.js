@@ -22,6 +22,7 @@ cartRouter.post("/addcart", Auth, async (req, res) => {
             fields: { price, quantity, category, image, productId, discountPrice, description, name }
         });
     }
+    // console.log("Request Body:", req.body);
 
     if (quantity < 1) {
         return res.status(400).json({ msg: "Quantity must be at least 1" });
