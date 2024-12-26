@@ -200,6 +200,7 @@
 // }
 
 // export default CardView;
+
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useCart } from '../Contextapi/CartContextapi';
@@ -215,7 +216,7 @@ const CardView = () => {
   const [totalPrice, setTotalPrice] = useState(product?.discountPrice || 0);
   const [currentImage, setCurrentImage] = useState(product?.image);
   
-  // Uncomment and define the selectedSize state
+ 
   const [selectedSize, setSelectedSize] = useState('');
   const [selectedproductNumber, setSelectedproductNumber] = useState('');
 
@@ -262,8 +263,8 @@ const CardView = () => {
     setCurrentImage(image);
   };
 
-  const sizes = product?.size || [];
-  const productNumbers = product?.productNumber || [];
+  // const sizes = product?.size || [];
+  // const productNumbers = product?.productNumber || [];
 
   return (
     <>

@@ -38,6 +38,7 @@ GarmentsProductRouter.post("/addGarmentsProduct", multiple, async (req, res) => 
     }
 
     const product = await GarmentsProduct.create({
+      Productcategory:body.Productcategory,
       category: body.category,
       name: body.name,
       description: body.description,
@@ -49,7 +50,7 @@ GarmentsProductRouter.post("/addGarmentsProduct", multiple, async (req, res) => 
       image2: downloadURLs[2],
       image3: downloadURLs[3],
       size: body.size,
-      productNumber:body.productNumber
+ 
     });
 
     return res.json({

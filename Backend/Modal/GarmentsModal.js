@@ -15,6 +15,10 @@ const app = initializeApp(firebaseConfig);
 const garmentsstorage = getStorage(app);
 
 const GarmentsproductSchema = new mongoose.Schema({
+  Productcategory: {
+    type: String,
+    trim: true
+  },
   category: {
     type: String,
     trim: true
@@ -70,12 +74,8 @@ const GarmentsproductSchema = new mongoose.Schema({
   size: {
     type: [String],  
     required: false,  
-    enum: ['M', 'L', 'XL', 'XXL']
+    enum: ['M', 'L', 'XL', 'XXL',"28","30","32","34"]
   },
-  productNumber: {
-    type: [String],   
-    enum: ['28', '30', '32', '34']
-  }
 });
 
 
