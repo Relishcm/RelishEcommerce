@@ -205,6 +205,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useCart } from '../Contextapi/CartContextapi';
 import { RelatedProduct } from '../Components/RelatedProduct';
+import { useDropdown } from '../Contextapi/DropdownContext';
 
 const CardView = () => {
   const { addToCart, checkCartStatus } = useCart();
@@ -218,7 +219,6 @@ const CardView = () => {
   
  
   const [selectedSize, setSelectedSize] = useState('');
-  const [selectedproductNumber, setSelectedproductNumber] = useState('');
 
   useEffect(() => {
     if (product) {
@@ -263,16 +263,16 @@ const CardView = () => {
     setCurrentImage(image);
   };
 
-  // const sizes = product?.size || [];
-  // const productNumbers = product?.productNumber || [];
+  const sizes = product?.size || [];
+    const { openDropdown } = useDropdown();
 
   return (
     <>
       <div className="pt-[5vh] max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Product Images */}
+
         <div className="flex justify-center items-center space-x-4">
           <div className="w-16 md:w-28 h-auto flex flex-col gap-4">
-            {/* Clickable images to change the main image */}
+
             {product.image && ( 
               <img
                 src={product.image}
@@ -317,7 +317,10 @@ const CardView = () => {
           <p className="text-lg">{product.description}</p>
           <div>
            
-            {/* <div className="flex space-x-4 mt-2">
+        
+
+       
+            <div className="flex space-x-4 mt-2">
               {sizes.length > 0 ? (
                 sizes.map((size, index) => (
                   <button
@@ -330,25 +333,16 @@ const CardView = () => {
                   </button>
                 ))
               ) : (
-                productNumbers.map((productNumber, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setSelectedproductNumber(productNumber)}
-                    className={`border-2 px-4 py-2 rounded-md 
-                      ${selectedproductNumber === productNumber ? 'bg-red-700 text-white' : 'bg-white text-gray-700'}`}
-                  >
-                    {productNumber}
-                  </button>
-                ))
+                <p>No Size</p>
               )}
-            </div> */}
+            </div>
+            
           </div>
-
+       
           <p className="text-3xl mt-5">
             ₹{totalPrice.toFixed(0)} <span className="line-through text-gray-500">₹{product.price}</span>
           </p>
 
-          {/* Quantity Controls */}
           <div className="flex items-center mt-5">
             <button
               onClick={decrementQuantity}

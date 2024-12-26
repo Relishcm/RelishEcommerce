@@ -105,12 +105,12 @@ export const DropHoverCart = ({ dropdownName, product }) => {
 
     return (
         <>
-            <div className="relative z-50" onClick={() => setOpenDropdown(openDropdown === dropdownName ? null : dropdownName)}>
+            <div className="relative z-50 " onClick={() => setOpenDropdown(openDropdown === dropdownName ? null : dropdownName)}>
                 <div className="flex items-center cursor-pointer">
                     <h1 className="font-medium text-center"></h1>
                 </div>
                 {openDropdown === dropdownName && (
-                    <ul ref={dropdownRef} className="list-none absolute font-medium bg-white z-50 border border-gray-300 rounded-md shadow-lg flex w-full justify-evenly   ">
+                    <ul ref={dropdownRef} className="list-none mt-6 absolute font-medium bg-white z-50 border border-gray-300 rounded-md shadow-lg flex w-full justify-evenly   ">
                         <li
                             className={`py-1 px-4 hover:bg-red-50 cursor-pointer transition-colors duration-300 ${cartisLike ? 'text-red-800' : ''}`}
                             onClick={handleCartLikeClick}

@@ -4,8 +4,6 @@ import { useGarmentsProducts } from '../Contextapi/ShowGarmentsProducts';
 
 export const ShowGarments = ({ category }) => {
     const { itemShow, loading } = useGarmentsProducts();
-
-
     const filteredItems = category ? itemShow.filter(item => item.category === category) : itemShow;
 
  
@@ -22,6 +20,7 @@ export const ShowGarments = ({ category }) => {
                     filteredItems.map((item) => (
                         <div key={item._id}>
                             <GarmentsCardProducts
+                              Productcategory={item.Productcategory}
                                 category={item.category}
                                 price={item.price}
                                 image={item.image}
