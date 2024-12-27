@@ -5,8 +5,9 @@ const CartContext = createContext();
 
 const CartContextProvider = ({ children }) => {
     const [cartlistCount, setCartlistCount] = useState(0);
+    
 
-    async function addToCart(product, quantity) {
+    async function addToCart(product, quantity,selectedSize) {
         const requiredFields = ['category', 'name', 'description', 'price', 'discountPrice', 'image', 'productId'];
         const missingFields = requiredFields.filter(field => !product[field]);
 
@@ -14,13 +15,12 @@ const CartContextProvider = ({ children }) => {
             alert(`Invalid product data: missing required fields: ${missingFields.join(', ')}`);
             return;
         }
-
-    
           
         try {
             const response = await axios.post(
                 import.meta.env.VITE_API_ADD_CART,
                 {
+                    Productcategory:product.Productcategory,
                     category: product.category,
                     name: product.name,
                     description: product.description,
@@ -29,6 +29,7 @@ const CartContextProvider = ({ children }) => {
                     image: product.image,
                     productId: product.productId,
                     quantity,
+                    size: product.Productcategory === 'garments' ? selectedSize : null
                 },
                 { headers: { Authorization: localStorage.getItem("token") } }
             );

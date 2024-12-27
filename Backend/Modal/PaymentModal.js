@@ -24,6 +24,10 @@ const orderItemSchema = new mongoose.Schema({
       type: Number,
       required: true,
       min: 1 
+    },
+    size: {
+      type: String,  
+      required: false, 
     }
   });
   

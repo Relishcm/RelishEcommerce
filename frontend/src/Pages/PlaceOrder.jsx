@@ -369,6 +369,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useUpdatedCarts } from '../Contextapi/CartTablecontextapi';
+import { useGarmentsProducts } from '../Contextapi/ShowGarmentsProducts';
 
 export const PlaceOrder = () => {
   const navigate = useNavigate();
@@ -544,6 +545,10 @@ export const PlaceOrder = () => {
   };
 
 
+  const { itemShow } = useGarmentsProducts();
+  
+    const filteredItems = itemShow.filter((item) => item.Productcategory === 'garments');
+
   return (
     <div className="p-4">
       {/* <div className="text-center">
@@ -701,7 +706,14 @@ export const PlaceOrder = () => {
                           <td className="border text-center border-gray-300 px-4 py-2">
                             <img src={item.image} className="w-24 h-auto text-center" alt={item.name} />
                           </td>
-                          <td className="border text-center border-gray-300 px-4 py-2">{item.name}</td>
+                          <td className="border text-center border-gray-300 px-4 py-2">{item.name}
+                          {item.Productcategory === 'garments' && filteredItems.length > 0 && (
+
+<p>size:{item.size}</p>
+
+)}
+                          </td>
+
                           <td className="border text-center border-gray-300 px-4 py-2">₹{item.discountPrice}</td>
                           <td className="border text-center border-gray-300 px-4 py-2">{item.quantity}</td>
                         </tr>

@@ -139,6 +139,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useGarmentsProducts } from '../Contextapi/ShowGarmentsProducts';
 
 export const OrderDetails = () => {
     const [orders, setOrders] = useState([]);
@@ -158,7 +159,7 @@ export const OrderDetails = () => {
         }
 
         const userId = localStorage.getItem('userId');
-       
+
         if (!userId) {
             setError('User is not logged in.');
             setLoading(false);
@@ -167,22 +168,22 @@ export const OrderDetails = () => {
 
         const fetchOrders = async () => {
             try {
-               const response = await axios.get(`${import.meta.env.VITE_API_SHOW_ORDER}/?userId=${userId}`, {
-                                    headers: { Authorization: token }
-                                });
-                                console.log('API Response:', response);
-                                const orderData = response.data.orders;
-                                console.log(orderData);  
-                                setOrders(orderData);
-                                // setOrders(response.data.orders || []);
-                
-                
-                            } catch (err) {
-                                // console.error('Error fetching orders:', err);
-                                setError('Failed to fetch orders. Please try again later.');
-                            } finally {
-                                setLoading(false);
-                            }
+                const response = await axios.get(`${import.meta.env.VITE_API_SHOW_ORDER}/?userId=${userId}`, {
+                    headers: { Authorization: token }
+                });
+                console.log('API Response:', response);
+                const orderData = response.data.orders;
+                console.log(orderData);
+                setOrders(orderData);
+                // setOrders(response.data.orders || []);
+
+
+            } catch (err) {
+                // console.error('Error fetching orders:', err);
+                setError('Failed to fetch orders. Please try again later.');
+            } finally {
+                setLoading(false);
+            }
         };
 
         fetchOrders();
@@ -203,15 +204,15 @@ export const OrderDetails = () => {
                 { orderId },
                 {
                     headers: {
-                        Authorization: token 
+                        Authorization: token
                     }
                 }
             );
 
             if (response.data.msg === "Order removed successfully.") {
-                
+
                 setOrders(orders.filter(order => order.orderId !== orderId));
-                alert( "Order removed successfully.")
+                alert("Order removed successfully.")
             } else {
                 setError('Failed to remove the order.');
             }
@@ -223,6 +224,10 @@ export const OrderDetails = () => {
     if (loading) {
         return <div>Loading orders...</div>;
     }
+
+    const { itemShow } = useGarmentsProducts();
+
+    const filteredItems = itemShow.filter((item) => item.Productcategory === 'garments');
 
     return (
         <div className="container mx-auto p-4">
@@ -245,7 +250,7 @@ export const OrderDetails = () => {
                                 {order.paymentMethod ? (
                                     <p><strong>Payment Method:</strong> {order.paymentMethod}</p>
                                 ) : (
-                                    <p><strong>Payment Method:</strong> Not available</p>  
+                                    <p><strong>Payment Method:</strong> Not available</p>
                                 )}
                                 {order.paymentMethod === "online" && (
                                     <>
@@ -256,9 +261,9 @@ export const OrderDetails = () => {
 
                                 <p><strong>Delivery Time:</strong> {new Date(order.deliveryTime).toLocaleString()}</p>
 
-                     
-                                <button 
-                                    onClick={() => handleRemoveOrder(order.orderId)} 
+
+                                <button
+                                    onClick={() => handleRemoveOrder(order.orderId)}
                                     className="bg-red-500 text-white px-4 py-2 rounded mt-4"
                                 >
                                     Remove Order
@@ -279,7 +284,13 @@ export const OrderDetails = () => {
                                     <tbody>
                                         {order.items.map((item, index) => (
                                             <tr key={index} className="border-b hover:bg-gray-50">
-                                                <td className="px-4 py-2">{item.name}</td>
+                                                <td className="px-4 py-2">{item.name}
+                                                    {item.Productcategory === 'garments' && filteredItems.length > 0 && (
+
+                                                        <p>size:{item.size}</p>
+
+                                                    )}
+                                                </td>
                                                 <td className="px-4 py-2">{item.category}</td>
                                                 <td className="px-4 py-2">₹{item.discountPrice}</td>
                                                 <td className="px-4 py-2">{item.quantity}</td>

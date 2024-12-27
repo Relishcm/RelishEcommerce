@@ -205,7 +205,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useCart } from '../Contextapi/CartContextapi';
 import { RelatedProduct } from '../Components/RelatedProduct';
-import { useDropdown } from '../Contextapi/DropdownContext';
+import { useGarmentsProducts } from '../Contextapi/ShowGarmentsProducts';
 
 const CardView = () => {
   const { addToCart, checkCartStatus } = useCart();
@@ -232,11 +232,17 @@ const CardView = () => {
   }
 
   const handleAddToCart = async () => {
-    // if (!selectedSize) {
-    //   alert("Please select a size before adding to cart.");
-    //   return;
+    // if (product?.Productcategory === 'garments' && filteredItems.length > 0) {
+   
+    //   if (!selectedSize) {
+    //     alert("Please select a size before adding to cart.");
+    //     return;
+    //   }
     // }
-
+    if (product?.Productcategory === 'garments' && !selectedSize) {
+      alert("Please select a size before adding to cart.");
+      return;
+  }
     if (!localStorage.getItem('token')) {
       navigate("/auth");
       return;
@@ -247,7 +253,7 @@ const CardView = () => {
     if (isInCart) {
       alert("This item is already in your cart.");
     } else {
-      addToCart(product, quantity);
+      addToCart(product, quantity,selectedSize);
     }
   };
 
@@ -264,7 +270,9 @@ const CardView = () => {
   };
 
   const sizes = product?.size || [];
-    const { openDropdown } = useDropdown();
+    const { itemShow } = useGarmentsProducts();
+  
+    const filteredItems = itemShow.filter((item) => item.Productcategory === 'garments');
 
   return (
     <>
@@ -318,7 +326,7 @@ const CardView = () => {
           <div>
            
         
-
+          {product?.Productcategory === 'garments' && filteredItems.length > 0 && (
        
             <div className="flex space-x-4 mt-2">
               {sizes.length > 0 ? (
@@ -333,12 +341,12 @@ const CardView = () => {
                   </button>
                 ))
               ) : (
-                <p>No Size</p>
+                <p>Free size</p>
               )}
             </div>
-            
+               )}
           </div>
-       
+         
           <p className="text-3xl mt-5">
             ₹{totalPrice.toFixed(0)} <span className="line-through text-gray-500">₹{product.price}</span>
           </p>

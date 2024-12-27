@@ -4,6 +4,7 @@ import { MdDelete } from "react-icons/md";
 import { useNavigate } from 'react-router';
 import { useCart } from '../Contextapi/CartContextapi';
 import { useUpdatedCarts } from '../Contextapi/CartTablecontextapi';
+import { useGarmentsProducts } from '../Contextapi/ShowGarmentsProducts';
 
 const Cart = () => {
   const { removeFromCart } = useCart();
@@ -33,7 +34,7 @@ const Cart = () => {
     } else {
       navigate('/auth');
     }
-  }, []); 
+  }, []);
 
 
   const handleRemoveFromCart = async (productId) => {
@@ -105,6 +106,11 @@ const Cart = () => {
     navigate("/PlaceOrder");
   };
 
+
+  const { itemShow } = useGarmentsProducts();
+
+  const filteredItems = itemShow.filter((item) => item.Productcategory === 'garments');
+
   return (
     <div className=''>
       {!show && (
@@ -133,8 +139,12 @@ const Cart = () => {
                       <td className='text-center flex justify-center items-center px-4 py-2'>
                         <img src={item.image} className='w-24 h-auto' alt={item.name} />
                       </td>
-                      <td className='border text-center border-gray-300 px-4 py-2'>{item.name} 
-                        <p>size:{item.size}</p>
+                      <td className='border text-center border-gray-300 px-4 py-2'>{item.name}
+                        {item.Productcategory === 'garments' && filteredItems.length > 0 && (
+
+                          <p>size:{item.size}</p>
+
+                        )}
                       </td>
                       <td className='border text-center border-gray-300 px-4 py-2'>₹{item.discountPrice}</td>
                       <td className='border text-center border-gray-300 px-4 py-2'>
