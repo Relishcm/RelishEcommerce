@@ -38,7 +38,6 @@ export const WishView = () => {
     }
     }, [navigate]);
 
-    // Remove product from wishlist
     const handleRemoveFromWish = async (productId) => {
         if (localStorage.getItem("token")) {
             try {

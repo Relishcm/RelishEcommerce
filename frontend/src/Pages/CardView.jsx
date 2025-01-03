@@ -212,7 +212,6 @@ const CardView = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const product = location.state?.product;
-
   const [quantity, setQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(product?.discountPrice || 0);
   const [currentImage, setCurrentImage] = useState(product?.image);
@@ -256,7 +255,26 @@ const CardView = () => {
       addToCart(product, quantity,selectedSize);
     }
   };
+  const handleBuyNow = async () => {
+    if (product?.Productcategory === 'garments' && !selectedSize) {
+      alert("Please select a size before proceeding.");
+      return;
+    }
 
+    if (!localStorage.getItem('token')) {
+      navigate("/auth");
+      return;
+    }
+
+    const isInCart = await checkCartStatus(product.productId);
+
+    if (!isInCart) {
+      addToCart(product, quantity, selectedSize); 
+    }
+
+    
+    navigate("/BuyNow");
+  };
   const incrementQuantity = () => {
     setQuantity(prevQuantity => prevQuantity + 1);
   };
@@ -274,6 +292,9 @@ const CardView = () => {
   
     const filteredItems = itemShow.filter((item) => item.Productcategory === 'garments');
 
+    const handleOrder = () => {
+      navigate("/PlaceOrder");
+    };
   return (
     <>
       <div className="pt-[5vh] max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -373,17 +394,24 @@ const CardView = () => {
             </button>
           </div>
 
-          {/* Add to Cart Button */}
+          <div className='md:flex gap-20'>
           <button
             onClick={handleAddToCart}
             className="w-full bg-red-700 text-white text-2xl py-2 rounded-md hover:bg-red-900 transition duration-300"
           >
             Add to Cart
           </button>
+          {/* <button
+            onClick={handleBuyNow}
+            className="w-full bg-red-700 text-white text-2xl py-2 rounded-md hover:bg-red-900 transition duration-300"
+          >
+            Buy Now
+          </button> */}
+          </div>
         </div>
       </div>
 
-      {/* Related Products Section */}
+    
       <RelatedProduct category={product?.category} />
     </>
   );

@@ -5,6 +5,7 @@ const bcrypt = require("bcryptjs")
 const  jwt = require("jsonwebtoken");
 // const { User } = require("../db");
 const { User } = require("../Modal/userModal");
+const SendEmail = require("../nodemailer");
 
 
 
@@ -95,4 +96,43 @@ userRouter.post("/login",async(req,res)=>{
     }
 })
 
+
+userRouter.post("/emailotp",async(req,res)=>{
+    const body = req.body
+    try {
+        const check = await User.findOne({
+            email:body.email
+        })
+        if(!check){
+            return res.status(404).json({msg:"email does not exist"})
+        }
+        else{
+             SendEmail(body)
+            .then((response)=>{return res.send(check.email)})
+            .catch((response)=>{return res.send(response.msg)})
+        }
+        return res.json({msg:"otp send"})
+    } catch (error) {
+        return res.status(404).json({msg:" otp error"})
+        
+    }
+})
+
+//UPDATE
+
+userRouter.put('/update',async(req,res)=>{
+    const body = req.body
+    const salt = await bcrypt.genSalt(10);
+    let securePass = await bcrypt.hash(req.body.password,salt)
+    
+    try {
+    
+    const response = await User.updateOne({email:body.email},{password:securePass})
+    return res.json({msg:"password updated"})
+    } 
+    catch (error) {
+        return res.status(500).json({ msg:'error' });
+        
+    }
+})
 module.exports= userRouter;

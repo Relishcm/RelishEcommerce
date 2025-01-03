@@ -20,6 +20,7 @@ import Child from "./Pages/Garments/Child";
 import Man from "./Pages/Garments/Man";
 import SkinCare from "./Pages/Cosmetices/SkinCare";
 import HandCare from "./Pages/Cosmetices/HandCare";
+import { BuyNow } from "./Pages/BuyNow";
 // import { MobileHome } from "./Pages/Mobile/MobileHome";
 
 
@@ -50,6 +51,7 @@ function App() {
             <Route path="WishView" element={<WishView />} />
 
             <Route path="PlaceOrder" element={<PlaceOrder />} />
+            <Route path="BuyNow" element={<BuyNow />} />
             <Route path="OrderDetails" element={<OrderDetails />} />
             <Route path="SuccessPayment" element={<SuccessPayment />} />
             <Route path="CancelPayment" element={<CancelPayment />} />

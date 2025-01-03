@@ -140,6 +140,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useGarmentsProducts } from '../Contextapi/ShowGarmentsProducts';
+import ContentLoader from 'react-content-loader'; // Import the loader
 
 export const OrderDetails = () => {
     const [orders, setOrders] = useState([]);
@@ -175,11 +176,7 @@ export const OrderDetails = () => {
                 const orderData = response.data.orders;
                 console.log(orderData);
                 setOrders(orderData);
-                // setOrders(response.data.orders || []);
-
-
             } catch (err) {
-                // console.error('Error fetching orders:', err);
                 setError('Failed to fetch orders. Please try again later.');
             } finally {
                 setLoading(false);
@@ -198,7 +195,6 @@ export const OrderDetails = () => {
         }
 
         try {
-
             const response = await axios.post(
                 `${import.meta.env.VITE_API_REMOVE_ORDER}`,
                 { orderId },
@@ -210,9 +206,8 @@ export const OrderDetails = () => {
             );
 
             if (response.data.msg === "Order removed successfully.") {
-
                 setOrders(orders.filter(order => order.orderId !== orderId));
-                alert("Order removed successfully.")
+                alert("Order removed successfully.");
             } else {
                 setError('Failed to remove the order.');
             }
@@ -221,13 +216,29 @@ export const OrderDetails = () => {
         }
     };
 
+    // Skeleton loader for orders
+    const OrderSkeletonLoader = () => (
+        <ContentLoader
+            speed={2}
+            width="100%"
+            height={400}
+            viewBox="0 0 100% 400"
+            backgroundColor="#f3f3f3"
+            foregroundColor="#ecebeb"
+        >
+            <rect x="0" y="40" rx="5" ry="5" width="100%" height="15" />
+            <rect x="0" y="140" rx="5" ry="5" width="100%" height="200" />
+        </ContentLoader>
+    );
+
     if (loading) {
-        return <div>Loading orders...</div>;
+        return <OrderSkeletonLoader />; // Show skeleton loader while loading
     }
 
     const { itemShow } = useGarmentsProducts();
-
-    const filteredItems = itemShow.filter((item) => item.Productcategory === 'garments');
+    const filteredItems = itemShow.filter((item) => 
+        item.category === 'man' || item.category === 'woman' || item.category === 'child'
+    );
 
     return (
         <div className="container mx-auto p-4">
@@ -261,7 +272,6 @@ export const OrderDetails = () => {
 
                                 <p><strong>Delivery Time:</strong> {new Date(order.deliveryTime).toLocaleString()}</p>
 
-
                                 <button
                                     onClick={() => handleRemoveOrder(order.orderId)}
                                     className="bg-red-500 text-white px-4 py-2 rounded mt-4"
@@ -285,10 +295,8 @@ export const OrderDetails = () => {
                                         {order.items.map((item, index) => (
                                             <tr key={index} className="border-b hover:bg-gray-50">
                                                 <td className="px-4 py-2">{item.name}
-                                                    {item.Productcategory === 'garments' && filteredItems.length > 0 && (
-
-                                                        <p>size:{item.size}</p>
-
+                                                    {(item.category === 'man' || item.category === 'woman' || item.category === 'child') && filteredItems.length > 0 && (
+                                                        <p>Size: {item.size}</p>
                                                     )}
                                                 </td>
                                                 <td className="px-4 py-2">{item.category}</td>

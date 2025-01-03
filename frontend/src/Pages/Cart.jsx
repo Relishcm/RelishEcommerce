@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router';
 import { useCart } from '../Contextapi/CartContextapi';
 import { useUpdatedCarts } from '../Contextapi/CartTablecontextapi';
 import { useGarmentsProducts } from '../Contextapi/ShowGarmentsProducts';
+import ContentLoader from 'react-content-loader';
 
 const Cart = () => {
   const { removeFromCart } = useCart();
@@ -36,7 +37,6 @@ const Cart = () => {
     }
   }, []);
 
-
   const handleRemoveFromCart = async (productId) => {
     if (localStorage.getItem("token")) {
       try {
@@ -55,8 +55,8 @@ const Cart = () => {
 
   const updateTotalPrice = (cartItems) => {
     const totalPrice = cartItems.reduce((acc, item) => {
-      const itemPrice = parseFloat(item.discountPrice) || 0;
-      const itemQuantity = parseInt(item.quantity, 10) || 0;
+      const itemPrice = parseFloat(item.discountPrice) || 0 ;
+      const itemQuantity = parseInt(item.quantity, 10) || 0 ;
       return acc + (itemPrice * itemQuantity);
     }, 0);
     setPrice(totalPrice);
@@ -106,19 +106,37 @@ const Cart = () => {
     navigate("/PlaceOrder");
   };
 
-
   const { itemShow } = useGarmentsProducts();
 
   const filteredItems = itemShow.filter((item) => item.Productcategory === 'garments');
 
+  const CartSkeletonLoader = () => (
+    <ContentLoader
+      speed={100}
+      width={800}
+      height={250}
+      viewBox="0 0 800 250"
+      backgroundColor="#f3f3f3"
+      foregroundColor="#ecebeb"
+    >
+      <rect x="0" y="10" rx="5" ry="5" width="150" height="100" />
+      <rect x="160" y="10" rx="5" ry="5" width="150" height="100" />
+      <rect x="320" y="10" rx="5" ry="5" width="150" height="100" />
+      <rect x="480" y="10" rx="5" ry="5" width="150" height="100" />
+      <rect x="640" y="10" rx="5" ry="5" width="150" height="100" />
+      <rect x="800" y="10" rx="5" ry="5" width="150" height="100" />
+    
+    </ContentLoader>
+  );
+
   return (
-    <div className=''>
+    <div className="">
       {!show && (
-        <div className="flex justify-center items-center min-h-[40vh]">
+        <div className="flex justify-center items-center min-h-[20vh]">
           <h2>No items in your cart.</h2>
         </div>
       )}
-      {show && (
+      {show ? (
         <div className='pt-[10vh] min-h-[100%]'>
           <div className='w-full flex flex-col items-center'>
             <h1 className='text-2xl font-bold mb-4'>Items in Cart</h1>
@@ -141,9 +159,7 @@ const Cart = () => {
                       </td>
                       <td className='border text-center border-gray-300 px-4 py-2'>{item.name}
                         {item.Productcategory === 'garments' && filteredItems.length > 0 && (
-
                           <p>size:{item.size}</p>
-
                         )}
                       </td>
                       <td className='border text-center border-gray-300 px-4 py-2'>₹{item.discountPrice}</td>
@@ -159,7 +175,7 @@ const Cart = () => {
                           }
                         }} className='text-white bg-red-600 text-center flex justify-center items-center
                         px-2 py-2  cursor-pointer' >
-                          Delete
+                          <MdDelete />
                         </div>
                       </td>
                     </tr>
@@ -175,10 +191,13 @@ const Cart = () => {
             </button>
           </div>
         </div>
+      ) : (
+        <div className="flex justify-center ">
+          <CartSkeletonLoader />
+        </div>
       )}
     </div>
   );
-
 };
 
 export default Cart;
