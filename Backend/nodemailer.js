@@ -3,6 +3,8 @@ require("dotenv").config();
 
 
 function SendEmail({email,OTP}){
+    // console.log(email)
+    return new Promise((reslove,reject)=>{
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -31,4 +33,4 @@ function SendEmail({email,OTP}){
 }
     )}
 
-    module.exports= SendEmail
+module.exports= SendEmail

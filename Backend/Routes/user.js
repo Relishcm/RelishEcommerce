@@ -135,4 +135,5 @@ userRouter.put('/update',async(req,res)=>{
         
     }
 })
+
 module.exports= userRouter;
